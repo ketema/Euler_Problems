@@ -1,6 +1,6 @@
 <?php
 
-include '/home/ketema/projects/NaturalSum/NaturalSum.php';
+include 'NaturalSum.php';
 
 Class Test_NaturalSum
     extends PHPUnit_Framework_TestCase
