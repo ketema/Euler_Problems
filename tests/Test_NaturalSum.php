@@ -24,7 +24,11 @@ Class Test_NaturalSum
             'Object is missing "findNaturals method"' );
         $this->assertTrue( is_array( $this->fixture->findNaturals() ) ,
             'findnaturals method did not return an array' );
-        $this->assertTrue( $this->fixture->findNaturals(10) == array( 0,3,5,6,9,10 ) ,
+        $this->assertTrue( $this->fixture->findNaturals(10) == array( 0,3,5,6,9 ) ,
             'Uhm those are not the right numbers' ) ;
+        $this->assertTrue( method_exists( $this->fixture, 'sum' ),
+            'method "sum" does not exist' );
+        $this->assertTrue( $this->fixture->sum(10) == 23,
+            'Sorry your addition is wrong' );
     }
 }
