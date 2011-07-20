@@ -18,7 +18,12 @@ class Test_FibSum
             'this is not a FibSum object' );
     }
 
-    public function fibVals()
+    /** 
+     * This data set returns "terms" and "sum"
+     * so for a fib sequence that has 3 terms, i.e.
+     * 1,2,3 then the sum is 6.
+     */
+    public function fibvalsum()
     {
         return array(
             array( 3, 6 ),
@@ -29,12 +34,45 @@ class Test_FibSum
     }
 
     /**
-     * @dataProvider fibVals
+     * This provider returns "terms" and the correct fib array
      */
-    public function test_fib( $terms, $sum )
+    public function fibs()
+    {
+        return array(
+            array( 3, array(1,2,3) ),
+            array( 4, array(1,2,3,5) ),
+            array( 5, array(1,2,3,5,8) ),
+            array( 6, array(1,2,3,5,8,13) ),
+            array( 7, array(1,2,3,5,8,13,21) ),
+            array( 8, array(1,2,3,5,8,13,21,34) ),
+            array( 9, array(1,2,3,5,8,13,21,34,55) ),
+            array(10, array(1,2,3,5,8,13,21,34,55,89) )
+        );
+    }
+
+    /**
+     * @dataProvider fibvalsum
+     * This test verifies that the sumFibs method
+     * returns the correct sum for the number of
+     * terms in the fib sequence
+     */
+    public function test_fibSum( $terms, $sum )
     {
         $this->assertTrue( $this->fixture->sumFibs( $terms ) == $sum ,
             'Sorry your math is wrong' );
+    }
+
+    /**
+     * @dataProvider fibs
+     * This test verifies that the fib method return the correct
+     * terms in the fibonacci sequence.
+     */
+    public function test_fib( $terms, $expected )
+    {
+        $this->assertTrue(
+            $this->fixture->fib( $terms ) == $expected,
+            'Did not get the expected array'
+        );
     }
 }
 ?>

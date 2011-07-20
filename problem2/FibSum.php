@@ -2,7 +2,6 @@
 
 class FibSum
 {
-    public $fibs = array( 1, 2 );
 
     public function sumFibs( $terms )
     {
@@ -11,23 +10,27 @@ class FibSum
 
     public function fib( $terms = 3 )
     {
+        $fibs = array(1,2);
         if ( $terms < 3 ) { $terms = 3; };
         
         for( $i = 2; $i < $terms; $i++ )
         {
-            $this->fibs[$i] = $this->fibs[$i - 1] + $this->fibs[$i - 2] ; 
+            $fibs[$i] = $fibs[$i - 1] + $fibs[$i - 2]; 
         }
 
-        return $this->fibs;
+        return $fibs;
     }
 
     public function sumThreshold( $threshold = 4000000 )
     {
+        return null;
+        /*
         $terms = 3;
         while( $this->fib( $terms )[$terms - 1]  <= $threshold )
         {
-            array_filter( 
+            array_filter( );
         } 
+        */
     }
 }
 
