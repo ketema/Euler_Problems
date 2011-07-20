@@ -2,7 +2,7 @@
 
 include 'FibSum.php';
 
-class Test_FibSum
+class FibSumTest
     extends PHPUnit_Framework_TestCase
 {
     
