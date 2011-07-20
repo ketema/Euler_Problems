@@ -5,7 +5,7 @@ include 'NaturalSum.php';
 Class Test_NaturalSum
     extends PHPUnit_Framework_TestCase
 {
-    public function setup()
+    protected function setUp()
     {
         $this->fixture = new NaturalSum();
     }
