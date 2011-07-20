@@ -6,7 +6,7 @@ class Test_FibSum
     extends PHPUnit_Framework_TestCase
 {
     
-    public function setup()
+    protected function setUp()
     {
         $this->fixture = new FibSum();
     }
@@ -18,8 +18,21 @@ class Test_FibSum
             'this is not a FibSum object' );
     }
 
+    /**
+     * This test verifies that the sumFibs method
+     * returns the correct sum for the number of
+     * terms in the fib sequence
+     *
+     * @dataProvider fibvalsum
+     */
+    public function test_fibSum( $terms, $sum )
+    {
+        $this->assertTrue( $this->fixture->sumFibs( $terms ) == $sum ,
+            'Sorry your math is wrong' );
+    }
+
     /** 
-     * This data set returns "terms" and "sum"
+     * This provider returns "terms" and "sum"
      * so for a fib sequence that has 3 terms, i.e.
      * 1,2,3 then the sum is 6.
      */
@@ -30,6 +43,20 @@ class Test_FibSum
             array( 4, 11),
             array( 5, 19),
             array( 6, 32)
+        );
+    }
+
+    /**
+     * This test verifies that the fib method returns the correct
+     * terms in the fibonacci sequence.
+     *
+     * @dataProvider fibs
+     */
+    public function test_fib( $terms, $expected )
+    {
+        $this->assertTrue(
+            $this->fixture->fib( $terms ) == $expected,
+            'Did not get the expected array'
         );
     }
 
@@ -47,31 +74,6 @@ class Test_FibSum
             array( 8, array(1,2,3,5,8,13,21,34) ),
             array( 9, array(1,2,3,5,8,13,21,34,55) ),
             array(10, array(1,2,3,5,8,13,21,34,55,89) )
-        );
-    }
-
-    /**
-     * @dataProvider fibvalsum
-     * This test verifies that the sumFibs method
-     * returns the correct sum for the number of
-     * terms in the fib sequence
-     */
-    public function test_fibSum( $terms, $sum )
-    {
-        $this->assertTrue( $this->fixture->sumFibs( $terms ) == $sum ,
-            'Sorry your math is wrong' );
-    }
-
-    /**
-     * @dataProvider fibs
-     * This test verifies that the fib method return the correct
-     * terms in the fibonacci sequence.
-     */
-    public function test_fib( $terms, $expected )
-    {
-        $this->assertTrue(
-            $this->fixture->fib( $terms ) == $expected,
-            'Did not get the expected array'
         );
     }
 }
