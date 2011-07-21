@@ -30,4 +30,11 @@ class PrimeFactors
         }
         return $primes;
     }
+
+    public function getLargestPrime( $numeral )
+    {
+        return max(
+            $this->getPrimeFactors( $numeral )
+        );
+    }
 }

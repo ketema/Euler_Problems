@@ -73,4 +73,29 @@ class PrimeFactorsTest
             array( 13195, array( 1, 5, 7, 13, 29 ) ),
         );
     }
+
+    /**
+     * next step is to take the largest prime factor from the list of prime
+     * factors for any given $number
+     *
+     * @dataProvider provideLargestPrimeFactor
+     **/
+    public function test_getLargestPrimeFactor( $numeral, $largest )
+    {
+        $largestPrime = $this->fixture->getLargestPrime( $numeral );
+        $this->assertTrue(
+            $largestPrime == $largest,
+            "That is not the largest Prime Factor of $numeral"
+        );
+    }
+
+    public function provideLargestPrimeFactor()
+    {
+        return array(
+            array( 13195, 29 ),
+            array( 5, 5 ),
+            array( 15000, 5 ),
+        );
+    }
+
 }
