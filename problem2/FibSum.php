@@ -21,16 +21,28 @@ class FibSum
         return $fibs;
     }
 
-    public function sumThreshold( $threshold = 4000000 )
+    public function getEvens( $fibArr )
     {
-        return null;
-        /*
+        return array_filter( $fibArr, function( $element )
+            {
+                return( !($element & 1) );
+            }
+        );
+
+    }
+
+    public function threshSum( $threshold )
+    {
+        //Need to get a fib sequence where the last term is not greater
+        //than the $threshold
         $terms = 3;
-        while( $this->fib( $terms )[$terms - 1]  <= $threshold )
-        {
-            array_filter( );
-        } 
-        */
+        $fibs = array();
+        do{
+            $fibs = $this->fib( $terms );
+            $terms++;
+        }while( array_pop( $fibs ) <= $threshold );
+        
+        return array_sum( $this->getEvens( $fibs ) );
     }
 }
 
