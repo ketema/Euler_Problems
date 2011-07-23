@@ -7,7 +7,7 @@ class PrimeFactorsTest
 {
     public function setUp()
     {
-        $this->fixture = new PrimeFactors();
+        $this->fixture = new PrimeFactors( 10000 );
     }
 
     /**
@@ -48,9 +48,38 @@ class PrimeFactorsTest
     }
 
     /**
+     * This will test the bitset function to ensure it returns
+     * all the prime numbers up to the given limit
+     *
+     * @dataProvider providePrimes
+     */
+    public function test_computePrimes( $limit, $primes )
+    {
+        $this->assertTrue(
+            $this->fixture->computePrimes( 100 ) == $primes,
+            'The returned list of primes does not match'
+        );
+    }
+
+    public function providePrimes()
+    {
+        return array(
+            array( 100, array(2,3,5,7,11,13,17,19,23,29,31,37,41,43,
+                         47,53,59,61,67,71,73,79,83,89,97),
+            )
+        );
+    }
+
+    /**
      * OK, so now we need to get just the prime factors of any number.
      * We can use the factors function and then just filter out the primes
      * which are defined as only being divisible by 1 and itself
+     *
+     * Update. Although my approach worked, it was horribly slow for large
+     * numbers.  I am now using a method called Prime Factorization and 
+     * pre-computing the prime numbers with a bitset object so that 
+     * the factors can simply be looked up rather than tested with
+     * slow modulus operator.
      *
      * @dataProvider providePrimeFactors
      */
