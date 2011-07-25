@@ -4,7 +4,7 @@ class PrimeFactors
 {
     public $primes = array();
 
-    public function __construct( $primeLimit = 1000000 )
+    public function __construct( $primeLimit = 6500 )
     {
         $this->primes = $this->computePrimes( $primeLimit );
     }
@@ -70,30 +70,65 @@ class PrimeFactors
      */
     public function getFactors( $numeral )
     {
-       $factors = array();
-
-       if( ! ($numeral & 1) ) //its even
+       $factors = array(1, $numeral);
+       if( in_array( $numeral, $this->primes ) or $numeral == 1 )
        {
-           //Need to start with 2 then work up the prime array
-           
+           return array_unique( $factors );
        }
 
-       return $factors;
+       $i = 0; 
+           
+       //Need to find the smallest prime integer that will divide 
+       //into $numeral evenly.  If the $numeral is even this is 2.
+       //we want our loop var $i to be the index of this smallest 
+       //prime.
+
+       if ( $numeral % 2 == 0 )
+       {
+           $i = array_search( 2, $this->primes );
+       }else
+       {
+           for( $i = array_search( 3, $this->primes );
+                $i < sizeof( $this->primes ); $i++ )
+           {
+               if( $numeral % $this->primes[$i] == 0 )
+               {
+                  break;
+               }
+           }
+       }
+
+       $divisor = $this->primes[$i];
+
+       do{
+           if( $numeral % $divisor == 0 )
+           {
+               $quotient = $numeral / $divisor;
+               $factors[] = $divisor;
+               $numeral = $quotient;
+               if( in_array( $quotient, $this->primes ) )
+               {
+                   $factors[] = $quotient;
+               }
+           }
+           else
+           {
+               $divisor = $this->primes[++$i];
+           }
+       } while( ! in_array( $quotient, $this->primes ) );
+
+      $factors = array_unique( $factors );
+      $factors = sort($factors); 
+      return $factors;
     }
 
     public function getPrimeFactors( $numeral )
     {
-        $primes = array( 1 );
+        echo "Finding PrimeFactors only of $numeral\n";
         $factors = $this->getFactors( $numeral );
+        var_dump($factors);
 
-        foreach( $factors as $factor )
-        {
-            if ( count( $this->getFactors( $factor ) ) == 2 )
-            {
-                $primes[] = $factor;
-            }
-        }
-        return $primes;
+        return array_intersect( $factors, $this->primes );
     }
 
     public function getLargestPrime( $numeral )

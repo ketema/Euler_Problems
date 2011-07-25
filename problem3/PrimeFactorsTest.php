@@ -7,7 +7,7 @@ class PrimeFactorsTest
 {
     public function setUp()
     {
-        $this->fixture = new PrimeFactors( 10000 );
+        $this->fixture = new PrimeFactors( 6500 );
     }
 
     /**
