@@ -71,7 +71,7 @@ class PrimeFactors
     public function getFactors( $numeral )
     {
        $factors = array(1, $numeral);
-       if( in_array( $numeral, $this->primes ) or $numeral == 1 )
+       if( (in_array( $numeral, $this->primes, true )) || $numeral === 1 )
        {
            return array_unique( $factors );
        }

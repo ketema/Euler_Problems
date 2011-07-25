@@ -30,18 +30,18 @@ class PrimeFactorsTest
         $calculated = $this->fixture->getFactors( $numeral );
         $this->assertTrue(
             $calculated == $factors ,
-            "Those are not the factors of $numeral"
+            implode($calculated, ',') . " Those are not the factors of $numeral"
         );
     }
 
     public function provideFactors()
     {
         return array(
-            array( 9, array( 1, 3, 9 ) ),
-            array( 7, array( 1, 7 ) ),
-            array( 4, array( 1, 2, 4 ) ),
             array( 1, array( 1 ) ),
             array( 2, array( 1, 2 ) ),
+            array( 4, array( 1, 2, 4 ) ),
+            array( 7, array( 1, 7 ) ),
+            array( 9, array( 1, 3, 9 ) ),
             array( 21, array( 1, 3, 7, 21 ) ),
             array( 100, array( 1, 2, 4, 5, 10, 20, 25, 50, 100 ) ),
         );
