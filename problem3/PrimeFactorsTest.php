@@ -7,43 +7,28 @@ class PrimeFactorsTest
 {
     public function setUp()
     {
-        $this->fixture = new PrimeFactors( 6500 );
+        $this->fixture = new PrimeFactors();
     }
 
     /**
-     * First thing I needed to do in order to write tests for this problem
-     * was to refresh myself on the exact definition of composite and 
-     * prime numbers.  A quick google:
-     * A Composite Number can be divided evenly by numbers other than
-     * 1 or itself.  Example: 9 can be divided evenly by 1, 3 and 9,
-     * so 9 is a composite number.  If it is not a Composite Number 
-     * it is called a Prime Number Example: 7 can only be divided evenly by 
-     * 1 and 7, so it is not composite. It must be a prime number.
-     * For the first test I just want to make sure I can get all the 
-     * factors of any arbitrary number. I will use a dataprovider returning
-     * the number and an array of its factors.
-     *
-     * @dataProvider provideFactors
+     * @dataProvider provideSmallestPrimeDivisor
      */
-    public function test_getFactors( $numeral, $factors )
+    public function test_getSmallestPrimeDivisor( $numeral, $primeDivisor )
     {
-        $calculated = $this->fixture->getFactors( $numeral );
-        $this->assertTrue(
-            $calculated == $factors ,
-            implode($calculated, ',') . " Those are not the factors of $numeral"
-        );
+        $calculated = $this->fixture->getSmallestPrimeDivisor( $numeral );
+
+        $this->assertEquals( $primeDivisor, $calculated );
     }
 
-    public function provideFactors()
+    public function provideSmallestPrimeDivisor()
     {
         return array(
-            array( 1, array( 1 ) ),
-            array( 2, array( 1, 2 ) ),
-            array( 4, array( 1, 2, 4 ) ),
-            array( 7, array( 1, 7 ) ),
-            array( 9, array( 1, 3, 9 ) ),
-            array( 21, array( 1, 3, 7, 21 ) ),
-            array( 100, array( 1, 2, 4, 5, 10, 20, 25, 50, 100 ) ),
+            array( 4, 2 ),
+            array( 21, 3),
+            array( 25, 5),
+            array( 301, 7 ),
+            array(13195, 5),
+            array( 52417, 23 ),
         );
     }
 
@@ -55,9 +40,8 @@ class PrimeFactorsTest
      */
     public function test_computePrimes( $limit, $primes )
     {
-        $this->assertTrue(
-            $this->fixture->computePrimes( 100 ) == $primes,
-            'The returned list of primes does not match'
+        $this->assertEquals(
+            $this->fixture->computePrimes( $limit ), $primes
         );
     }
 
@@ -65,9 +49,22 @@ class PrimeFactorsTest
     {
         return array(
             array( 100, array(2,3,5,7,11,13,17,19,23,29,31,37,41,43,
-                         47,53,59,61,67,71,73,79,83,89,97),
-            )
+            47,53,59,61,67,71,73,79,83,89,97)
+        )
         );
+    }
+
+    /**
+     * @dataProvider providePrimes
+     */
+    public function test_isPrime( $limit, $numerals )
+    {
+        foreach( $numerals as $numeral )
+        {
+            $fixture = new PrimeFactors( $limit );
+            $this->assertTrue( $fixture->isPrime($numeral),
+                "$numeral is not prime\n" );
+        }
     }
 
     /**
@@ -86,8 +83,8 @@ class PrimeFactorsTest
     public function test_getPrimeFactors( $numeral, $primeFactors )
     {
         $primes = $this->fixture->getPrimeFactors( $numeral );
-        $this->assertTrue(
-            $primes == $primeFactors,
+        $this->assertEquals(
+            $primes, $primeFactors,
             "Those are not the prime factors of $numeral"
         );
     }
@@ -100,6 +97,7 @@ class PrimeFactorsTest
             array( 3, array( 1, 3 ) ),
             array( 5, array( 1, 5 ) ),
             array( 13195, array( 1, 5, 7, 13, 29 ) ),
+            array( 6008110, array(1,2,5,31,19381 ) ),
         );
     }
 
@@ -112,8 +110,8 @@ class PrimeFactorsTest
     public function test_getLargestPrimeFactor( $numeral, $largest )
     {
         $largestPrime = $this->fixture->getLargestPrime( $numeral );
-        $this->assertTrue(
-            $largestPrime == $largest,
+        $this->assertEquals(
+            $largestPrime, $largest,
             "That is not the largest Prime Factor of $numeral"
         );
     }
@@ -124,6 +122,7 @@ class PrimeFactorsTest
             array( 13195, 29 ),
             array( 5, 5 ),
             array( 15000, 5 ),
+            array( 6008110, 19381 ),
         );
     }
 

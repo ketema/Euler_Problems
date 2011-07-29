@@ -4,9 +4,10 @@ class PrimeFactors
 {
     public $primes = array();
 
-    public function __construct( $primeLimit = 6500 )
+    public function __construct( $primeLimit =  1000000 )
     {
         $this->primes = $this->computePrimes( $primeLimit );
+        $this->primes[] = 1;
     }
 
     /**
@@ -68,67 +69,55 @@ class PrimeFactors
      * To check the answer, multiply these factors and make 
      * sure they equal 168. 
      */
-    public function getFactors( $numeral )
+    public function getPrimeFactors( $numeral )
     {
-       $factors = array(1, $numeral);
-       if( (in_array( $numeral, $this->primes, true )) || $numeral === 1 )
+       $factors = array( 1 );
+
+       if( $this->isPrime($numeral) || $numeral === 1 )
        {
+           $factors[] = $numeral;
            return array_unique( $factors );
        }
-
-       $i = 0; 
            
        //Need to find the smallest prime integer that will divide 
        //into $numeral evenly.  If the $numeral is even this is 2.
-       //we want our loop var $i to be the index of this smallest 
-       //prime.
 
-       if ( $numeral % 2 == 0 )
-       {
-           $i = array_search( 2, $this->primes );
-       }else
-       {
-           for( $i = array_search( 3, $this->primes );
-                $i < sizeof( $this->primes ); $i++ )
-           {
-               if( $numeral % $this->primes[$i] == 0 )
-               {
-                  break;
-               }
-           }
-       }
-
-       $divisor = $this->primes[$i];
+       $divisor = $this->getSmallestPrimeDivisor( $numeral ); 
+       $factors[] = $divisor;
 
        do{
-           if( $numeral % $divisor == 0 )
-           {
-               $quotient = $numeral / $divisor;
-               $factors[] = $divisor;
-               $numeral = $quotient;
-               if( in_array( $quotient, $this->primes ) )
-               {
-                   $factors[] = $quotient;
-               }
-           }
-           else
-           {
-               $divisor = $this->primes[++$i];
-           }
-       } while( ! in_array( $quotient, $this->primes ) );
+           $quotient = $numeral / $divisor;
+           $factors[] = $divisor;
+           $numeral = $quotient;
+           $divisor = $this->getSmallestPrimeDivisor( $numeral );
+       }
+       while( ! $this->isPrime($quotient) );
+       
+       $factors[] = $quotient;
 
-      $factors = array_unique( $factors );
-      $factors = sort($factors); 
+      $factors = array_values(array_unique( $factors ));
+      sort($factors); 
+
       return $factors;
     }
 
-    public function getPrimeFactors( $numeral )
+    public function isPrime( $numeral )
     {
-        echo "Finding PrimeFactors only of $numeral\n";
-        $factors = $this->getFactors( $numeral );
-        var_dump($factors);
+        return in_array( $numeral, $this->primes );
+    }
 
-        return array_intersect( $factors, $this->primes );
+    public function getSmallestPrimeDivisor( $numeral )
+    {
+        if (! $numeral & 1 ) { return 2; }
+
+        foreach( $this->primes as $prime )
+        {
+            if ( $numeral % $prime == 0 )
+            {
+                return $prime;
+            }
+        }
+        return $numeral;
     }
 
     public function getLargestPrime( $numeral )
@@ -138,3 +127,6 @@ class PrimeFactors
         );
     }
 }
+$obj = new PrimeFactors();
+echo "The largest prime factor of 600851475143 is " .
+    $obj->getLargestPrime(600851475143) . "\n";
