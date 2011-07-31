@@ -6,8 +6,8 @@ class PrimeFactors
 
     public function __construct( $primeLimit =  1000000 )
     {
+        echo "Computing Prime numbers up to $primeLimit\n";
         $this->primes = $this->computePrimes( $primeLimit );
-        $this->primes[] = 1;
     }
 
     /**
@@ -73,7 +73,7 @@ class PrimeFactors
     {
        $factors = array( 1 );
 
-       if( $this->isPrime($numeral) || $numeral === 1 )
+       if( $this->isPrime($numeral) or $numeral === 1 )
        {
            $factors[] = $numeral;
            return array_unique( $factors );
@@ -83,11 +83,13 @@ class PrimeFactors
        //into $numeral evenly.  If the $numeral is even this is 2.
 
        $divisor = $this->getSmallestPrimeDivisor( $numeral ); 
+       echo "Initial smallest Prime divisor for $numeral: $divisor\n";
        $factors[] = $divisor;
 
        do{
-           $quotient = $numeral / $divisor;
-           $factors[] = $divisor;
+           $quotient = gmp_strval( gmp_divexact( "$numeral" , "$divisor" ) );
+           echo "Quotient of  $numeral and $divisor : $quotient\n";
+           $factors[] = (int) $divisor;
            $numeral = $quotient;
            $divisor = $this->getSmallestPrimeDivisor( $numeral );
        }
@@ -108,16 +110,23 @@ class PrimeFactors
 
     public function getSmallestPrimeDivisor( $numeral )
     {
+        if ( $numeral == 0 ) { throw new Exception("0 has no factors\n"); }
+
+        if ( $numeral == 1 ) { return 1; }
+
         if (! $numeral & 1 ) { return 2; }
+        
+        if( $this->isPrime($numeral) ) { return $numeral; }
 
         foreach( $this->primes as $prime )
         {
-            if ( $numeral % $prime == 0 )
+            if ( gmp_intval( gmp_mod( "$numeral", "$prime" ) ) == 0 )
             {
                 return $prime;
             }
         }
-        return $numeral;
+
+        throw new Exception("No Prime factor found\n");
     }
 
     public function getLargestPrime( $numeral )
@@ -127,6 +136,7 @@ class PrimeFactors
         );
     }
 }
+
 $obj = new PrimeFactors();
 echo "The largest prime factor of 600851475143 is " .
     $obj->getLargestPrime(600851475143) . "\n";
