@@ -6,7 +6,6 @@ class PrimeFactors
 
     public function __construct( $primeLimit =  1000000 )
     {
-        echo "Computing Prime numbers up to $primeLimit\n";
         $this->primes = $this->computePrimes( $primeLimit );
     }
 
@@ -83,12 +82,10 @@ class PrimeFactors
        //into $numeral evenly.  If the $numeral is even this is 2.
 
        $divisor = $this->getSmallestPrimeDivisor( $numeral ); 
-       echo "Initial smallest Prime divisor for $numeral: $divisor\n";
        $factors[] = $divisor;
 
        do{
            $quotient = gmp_strval( gmp_divexact( "$numeral" , "$divisor" ) );
-           echo "Quotient of  $numeral and $divisor : $quotient\n";
            $factors[] = (int) $divisor;
            $numeral = $quotient;
            $divisor = $this->getSmallestPrimeDivisor( $numeral );
