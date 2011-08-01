@@ -59,6 +59,11 @@ class SmallestNumberDivisibleByRangeTest
         );
     }
 
+    public function test_product_of_primes_in_range()
+    {
+        $this->assertEquals( 9699690, $this->fixture->getDistinctRangeFactorsProduct( range( 1, 20 ) ) );
+    }
+
     public function test_product_of_distinct_prime_factors_of_range_is_smallest_divisible_number_by_each_numeral_in_range()
     {
         $product = $this->fixture->getDistinctRangeFactorsProduct( range( 1, 20 ) );
