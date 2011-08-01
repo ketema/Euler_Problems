@@ -98,6 +98,9 @@ class PrimeFactorsTest
             array( 5, array( 1, 5 ) ),
             array( 13195, array( 1, 5, 7, 13, 29 ) ),
             array( 6008110, array(1,2,5,31,19381 ) ),
+            array( 12, array(1,2,2,3) ),
+            array( 20, array(1,2,2,5) ),
+            array( 100, array(1,2,2,5,5) ),
         );
     }
 

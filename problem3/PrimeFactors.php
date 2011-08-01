@@ -82,7 +82,6 @@ class PrimeFactors
        //into $numeral evenly.  If the $numeral is even this is 2.
 
        $divisor = $this->getSmallestPrimeDivisor( $numeral ); 
-       $factors[] = $divisor;
 
        do{
            $quotient = gmp_strval( gmp_divexact( "$numeral" , "$divisor" ) );
@@ -94,7 +93,6 @@ class PrimeFactors
        
        $factors[] = $quotient;
 
-      $factors = array_values(array_unique( $factors ));
       sort($factors); 
 
       return $factors;
