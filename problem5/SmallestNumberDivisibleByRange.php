@@ -17,19 +17,57 @@ class SmallestNumberDivisibleByRange
         return $rangePrimes;
     }
 
-    public function getDistinctPrimeFactorsForRange( array $range )
+    public function getMaxPrimeOccurenceForRange( array $range )
     {
-        $distinctPrimes = array();
-        foreach( $this->getPrimeFactorsForNumeralsInRange( $range ) as $primes )
+        $primeOccurrences = array();
+        $primeFactors = $this->getPrimeFactorsForNumeralsInRange( $range );
+
+        foreach( $primeFactors as $factors )
         {
-            $distinctPrimes = array_merge( $distinctPrimes, $primes );
+            $localOccurrences = array();
+            foreach( $factors as $factor )
+            {
+                $localOccurrences[$factor] = array_key_exists($factor, $localOccurrences) ?
+                    $localOccurrences[$factor] + 1 : 1;
+                
+            }
+            foreach( $localOccurrences as $factor => $occurrence )
+            {
+                if( ! array_key_exists($factor, $primeOccurrences ) )
+                {
+                    $primeOccurrences[$factor] = $occurrence;
+                }
+                if( $occurrence > $primeOccurrences[$factor] )
+                {
+                    $primeOccurrences[$factor] = $occurrence;
+                }
+            }
         }
-        return array_values( array_unique( $distinctPrimes ) );
+        return $primeOccurrences;
     }
 
-    public function getDistinctRangeFactorsProduct( array $range )
+    public function getPrimeFactorsForRange( array $range )
     {
-        return array_product( $this->getDistinctPrimeFactorsForRange( $range ) );
+        $rangePrimes = array();
+        foreach( $this->getPrimeFactorsForNumeralsInRange( $range ) as $primes )
+        {
+            $rangePrimes = array_merge( $rangePrimes, $primes );
+        }
+        return $rangePrimes;
+    }
+
+    public function getRangeSmallestDivisible( array $range )
+    {
+        $product = 0;
+        $primeOccurrences = $this->getMaxPrimeOccurenceForRange( $range );
+        foreach( $primeOccurrences as $prime => $maxOccurrence )
+        {
+            $prime = gmp_init( $prime );
+            if( $product === 0 ) { $product = gmp_pow($prime, $maxOccurrence); }
+            
+            $product = gmp_mul( $product, gmp_pow($prime, $maxOccurrence) );
+        }
+        return $product;
     }
 
 }
