@@ -94,6 +94,7 @@ class PrimeFactorsTest
         return array(
             array( 21, array( 1, 3, 7 ) ),
             array( 1, array( 1 ) ),
+            array( 2, array( 1,2) ),
             array( 3, array( 1, 3 ) ),
             array( 5, array( 1, 5 ) ),
             array( 13195, array( 1, 5, 7, 13, 29 ) ),
