@@ -6,7 +6,7 @@ class SmallestNumberDivisibleByRange
 {
     public function getPrimeFactorsForNumeralsInRange( array $range )
     {
-        $primes = new PrimeFactors(20);
+        $primes = new PrimeFactors( max($range) );
         $rangePrimes = array();
 
         foreach( $range as $numeral )
