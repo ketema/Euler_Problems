@@ -38,7 +38,8 @@ invalidStr = '1234'
 
 chunkSize = 5
 
-products = fixture.product(fixture.chunk(bigString,chunkSize))
+products = (for chunk in fixture.chunk(bigString,chunkSize)
+    fixture.product(chunk))
 
 describe 'StringChunker', ->
 
@@ -66,4 +67,4 @@ describe 'StringChunker', ->
         expect(fixture.product(fixture.chunk(bigString,chunkSize)[0])).toEqual(882)
 
     it 'Should be able to find the max product of all the chunks', ->
-        expect(fixture.getMaxProd(products)).toEqual(120)
+        expect(fixture.getMaxProd(products)).toEqual(40824)
