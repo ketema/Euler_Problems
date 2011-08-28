@@ -8,7 +8,7 @@ class StringChunker
             chunks = (for index in [0..arr.length - (chunkSize+1)]
                 arr.slice(index, index+chunkSize))
         else
-            chunks = arr.slice(0,chunkSize) 
+            chunks = arr.slice(0,chunkSize)
         
         chunks = (for chunk in chunks
             chunk = (for str in chunk
@@ -24,7 +24,7 @@ class StringChunker
     product:(arr) ->
         arr.reduce((a, b) ->
             a*b
-        ) 
+        )
         
     getMaxProd:(arr) ->
         Math.max.apply(null, arr)

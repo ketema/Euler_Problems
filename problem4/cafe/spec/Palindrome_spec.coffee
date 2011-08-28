@@ -12,7 +12,7 @@ class Palindrome
 
     get3DigitProductPalindromes: () ->
         palindromes = []
-        for product in this.generateProducts() 
+        for product in this.generateProducts()
             palindromes.push(product) if this.isPalindrome(product)
         palindromes
 
