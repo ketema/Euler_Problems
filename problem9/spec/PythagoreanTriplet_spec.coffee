@@ -35,11 +35,27 @@ class PythagoreanTriplet
         return true if Math.ceil(y) == Math.floor(y)
 
         return false
-    
-    findTriplet: () ->
-        #a has to be less than b and a + b = 100, so a has to be 499 or less.
-        #if a equaled 500 then it would EQUAL b and that is not the same
-        
+
+
+    findTriplet: (sum = @sum) ->
+        #had to go to Wikipedia.
+        #Generating Triples using a Square
+        #Start with any square number n. Express that number in the form 
+        #x(x + 2y), then y^2 will produce another square such that n + y^2 = z^2. For instance:
+        #let n = 9, 1(1 + 8) = 9, (8 / 2)^2 = 16, and 9 + 16 = 25.
+        #let n = 36, 2(2 + 16) = 36, (16 / 2)^2 = 64, and 36 + 64 = 100.
+        #This works because x(x + 2y) = x^2 + 2xy. 
+        #If we add y^2, our expression becomes x^2 + 2xy + y^2, which factors into the form (x + y)^2.
+        @a = (n for n in [1..Math.pow(@sum,2)])
+            for m in [Math.pow(@sum,2)..1]
+                break if !@isSquare(n)
+                continue if !@isSquare(m)
+                [@a,@b,@c] = [Math.sqrt(n), Math.sqrt(m), @sum - @a - @b]
+                console.log(@a,@b,@c)
+                break if @verify()
+
+        return [@a,@b,@c]
+
 fixture = new PythagoreanTriplet()
 
 describe 'PythagoreanTriplet', ->
@@ -76,5 +92,7 @@ describe 'Object Actions', ->
 
 describe 'find the pythagorean triplet such that a + b + c = 1000', ->
     it 'should be able to verify itself with 1000', ->
-        fixture = new PythagoreanTriplet(1000);
+        fixture = new PythagoreanTriplet(1000)
+        [a,b,c] = fixture.findTriplet()
         expect(fixture.verify()).toEqual true
+        console.log("\n%d, %d, %d",a,b,c)
