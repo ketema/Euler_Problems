@@ -1,10 +1,13 @@
 class PythagoreanTriplet
     constructor: (@sum = 0) ->
+        @findSquares(@sum)
+        console.log(@squares)
 
     a: 0
     b: 0
     c: 0
-    
+    squares: []
+
     verify: () ->
         #this function will verify that a < b < c
         #that a + b + c = @sum
@@ -36,25 +39,22 @@ class PythagoreanTriplet
 
         return false
 
+    findSquares: (sum = @sum) ->
+        for n in [1..@sum]
+            @squares.push(n) if @isSquare(n)
 
-    findTriplet: (sum = @sum) ->
-        #had to go to Wikipedia.
-        #Generating Triples using a Square
-        #Start with any square number n. Express that number in the form 
-        #x(x + 2y), then y^2 will produce another square such that n + y^2 = z^2. For instance:
-        #let n = 9, 1(1 + 8) = 9, (8 / 2)^2 = 16, and 9 + 16 = 25.
-        #let n = 36, 2(2 + 16) = 36, (16 / 2)^2 = 64, and 36 + 64 = 100.
-        #This works because x(x + 2y) = x^2 + 2xy. 
-        #If we add y^2, our expression becomes x^2 + 2xy + y^2, which factors into the form (x + y)^2.
-        @a = (n for n in [1..Math.pow(@sum,2)])
-            for m in [Math.pow(@sum,2)..1]
-                break if !@isSquare(n)
-                continue if !@isSquare(m)
-                [@a,@b,@c] = [Math.sqrt(n), Math.sqrt(m), @sum - @a - @b]
-                console.log(@a,@b,@c)
-                break if @verify()
+        return @squares
 
-        return [@a,@b,@c]
+    findTriplet: () ->
+        for x in @squares
+            for y in @squares
+                @a = Math.sqrt(x)
+                @b = Math.sqrt(y)
+                @c = Math.sqrt(x + y)
+                console.log("\n%d, %d, %d",a,b,c)
+                return [@a, @b, @c] if @verify()
+
+        return [@a, @b, @c]
 
 fixture = new PythagoreanTriplet()
 
@@ -76,6 +76,10 @@ describe 'Object Actions', ->
         expect(fixture.isSquare(9)).toEqual(true)
         expect(fixture.isSquare(123456)).toEqual(false)
 
+    it 'should be able to find all the perfect squares in a range', ->
+        expect(fixture.findSquares(7)).toEqual [1,4]
+        expect(fixture.findSquares(10)).toEqual [1,4,9]
+
     it 'should be able to verify that a<b<c or that 0=a=b=c', ->
         expect(fixture.a < fixture.b < fixture.c or
             (fixture.a == 0 and fixture.b == 0 and fixture.c == 0)
@@ -88,6 +92,8 @@ describe 'Object Actions', ->
 
     it 'should be able to verify itself', ->
         fixture = new PythagoreanTriplet(0)
+        expect(fixture.verify()).toEqual true
+        fixture = new PythagoreanTriplet(7)
         expect(fixture.verify()).toEqual true
 
 describe 'find the pythagorean triplet such that a + b + c = 1000', ->
