@@ -1,7 +1,6 @@
 class PythagoreanTriplet
     constructor: (@sum = 0) ->
         @findSquares(@sum)
-        console.log(@squares)
 
     a: 0
     b: 0
@@ -40,7 +39,9 @@ class PythagoreanTriplet
         return false
 
     findSquares: (sum = @sum) ->
-        for n in [1..@sum]
+        @sum = sum
+        @squares = []
+        for n in [0..Math.pow(@sum,2)]
             @squares.push(n) if @isSquare(n)
 
         return @squares
@@ -51,7 +52,6 @@ class PythagoreanTriplet
                 @a = Math.sqrt(x)
                 @b = Math.sqrt(y)
                 @c = Math.sqrt(x + y)
-                console.log("\n%d, %d, %d",a,b,c)
                 return [@a, @b, @c] if @verify()
 
         return [@a, @b, @c]
@@ -71,14 +71,18 @@ describe 'PythagoreanTriplet', ->
 describe 'Object Actions', ->
     it 'should be able to verify if a number is a square', ->
         expect(fixture.isSquare(0)).toEqual(true)
+        expect(fixture.isSquare(1)).toEqual(true)
+        expect(fixture.isSquare(2)).toEqual(false)
+        expect(fixture.isSquare(3)).toEqual(false)
+        expect(fixture.isSquare(4)).toEqual(true)
         expect(fixture.isSquare(25)).toEqual(true)
         expect(fixture.isSquare(-5)).toEqual(false)
         expect(fixture.isSquare(9)).toEqual(true)
         expect(fixture.isSquare(123456)).toEqual(false)
 
     it 'should be able to find all the perfect squares in a range', ->
-        expect(fixture.findSquares(7)).toEqual [1,4]
-        expect(fixture.findSquares(10)).toEqual [1,4,9]
+        expect(fixture.findSquares(7)).toEqual [0,1,4]
+        expect(fixture.findSquares(10)).toEqual [0,1,4,9]
 
     it 'should be able to verify that a<b<c or that 0=a=b=c', ->
         expect(fixture.a < fixture.b < fixture.c or
