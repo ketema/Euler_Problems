@@ -1,6 +1,7 @@
 class PythagoreanTriplet
     constructor: (@sum = 0) ->
         @findSquares(@sum)
+        [@a,@b,@c] = @findTriplet()
 
     a: 0
     b: 0
@@ -81,8 +82,8 @@ describe 'Object Actions', ->
         expect(fixture.isSquare(123456)).toEqual(false)
 
     it 'should be able to find all the perfect squares in a range', ->
-        expect(fixture.findSquares(7)).toEqual [0,1,4]
-        expect(fixture.findSquares(10)).toEqual [0,1,4,9]
+        expect(fixture.findSquares(7)).toEqual [0,1,4,9,16,25,36,49]
+        expect(fixture.findSquares(10)).toEqual [0,1,4,9,16,25,36,49,64,81,100]
 
     it 'should be able to verify that a<b<c or that 0=a=b=c', ->
         expect(fixture.a < fixture.b < fixture.c or
@@ -95,9 +96,7 @@ describe 'Object Actions', ->
         ).toEqual true
 
     it 'should be able to verify itself', ->
-        fixture = new PythagoreanTriplet(0)
-        expect(fixture.verify()).toEqual true
-        fixture = new PythagoreanTriplet(7)
+        fixture = new PythagoreanTriplet(12)
         expect(fixture.verify()).toEqual true
 
 describe 'find the pythagorean triplet such that a + b + c = 1000', ->
@@ -105,4 +104,5 @@ describe 'find the pythagorean triplet such that a + b + c = 1000', ->
         fixture = new PythagoreanTriplet(1000)
         [a,b,c] = fixture.findTriplet()
         expect(fixture.verify()).toEqual true
-        console.log("\n%d, %d, %d",a,b,c)
+        console.log("\nThe triplet is: %d, %d, %d",a,b,c)
+        console.log("\nThe product of a,b,c is: %d", a*b*c)
