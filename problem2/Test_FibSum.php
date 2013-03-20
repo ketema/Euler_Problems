@@ -100,7 +100,7 @@ class FibSumTest
 
     /**
      * Now that we have verified that we can filter the fib array
-     * and only get even elements, we need to verifu that we can 
+     * and only get even elements, we need to verify that we can 
      * add those elements up for every even fib number up to an
      * arbitrary sequence length that does not contain a term that
      * exceeds an arbitrary threshold.
