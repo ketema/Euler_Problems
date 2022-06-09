@@ -1,12 +1,14 @@
 <?php
+use PHPUnit\Framework\TestCase;
 
 include 'NaturalSum.php';
 
 Class Test_NaturalSum
-    extends PHPUnit_Framework_TestCase
+    extends TestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
+        parent::setUp();
         $this->fixture = new NaturalSum();
     }
         
