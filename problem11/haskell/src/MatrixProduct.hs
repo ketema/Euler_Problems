@@ -6,8 +6,7 @@ module MatrixProduct (
     maxProductDiagDownLeft,
     maxProductInMatrix,
     findMaxProductSequence,
-    colorMatrixSequence,
-    main
+    colorMatrixSequence
 ) where
 
 import Data.List (transpose, intercalate)
