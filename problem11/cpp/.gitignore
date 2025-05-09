@@ -1,0 +1,18 @@
+# Ignore compiled binaries and object files
+matrix_product
+matrix_product.exe
+test_matrix_product
+test_matrix_product.exe
+*.o
+*.out
+*.obj
+*.exe
+*.dll
+*.so
+*.a
+*.dylib
+
+# Ignore editor and OS files
+*~
+*.swp
+.DS_Store
