@@ -1,5 +1,12 @@
 import unittest
-from matrix_product import read_matrix, greatest_product_in_matrix
+from matrix_product import (
+    read_matrix,
+    greatest_product_in_matrix,
+    max_product_right,
+    max_product_down,
+    max_product_diag_down_right,
+    max_product_diag_down_left,
+)
 
 class TestMatrixProduct(unittest.TestCase):
     def setUp(self):
@@ -20,23 +27,28 @@ class TestMatrixProduct(unittest.TestCase):
             matrix = read_matrix(tmp.name)
             self.assertEqual(matrix, [[1,2,3],[4,5,6],[7,8,9]])
 
-    def test_greatest_product_in_matrix_horizontal(self):
-        # Test horizontal product
+    def test_max_product_right(self):
+        # Only right (horizontal) products
         m = [[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]]
-        self.assertEqual(greatest_product_in_matrix(m, 4), 13*14*15*16)
+        self.assertEqual(max_product_right(m, 4), 13*14*15*16)
 
-    def test_greatest_product_in_matrix_vertical(self):
-        # Test vertical product
+    def test_max_product_down(self):
+        # Only down (vertical) products
         m = [[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]]
-        self.assertEqual(greatest_product_in_matrix(m, 4), 13*14*15*16)
+        self.assertEqual(max_product_down(m, 4), 4*8*12*16)
 
-    def test_greatest_product_in_matrix_diagonal(self):
-        # The greatest product in this matrix is from the last row: 13*14*15*16
-        m = [[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]]
-        self.assertEqual(greatest_product_in_matrix(m, 4), 13*14*15*16)
+    def test_max_product_diag_down_right(self):
+        # Only diagonal down-right product
+        m = [[1,0,0,4],[0,6,7,0],[0,10,11,0],[13,0,0,16]]
+        self.assertEqual(max_product_diag_down_right(m, 4), 1*6*11*16)
 
-    def test_greatest_product_in_matrix_antidiagonal(self):
-        # The greatest product in this matrix is from the last row: 13*14*15*16
+    def test_max_product_diag_down_left(self):
+        # Only diagonal down-left product
+        m = [[0,0,0,4],[0,0,7,0],[0,10,0,0],[13,0,0,0]]
+        self.assertEqual(max_product_diag_down_left(m, 4), 4*7*10*13)
+
+    def test_greatest_product_in_matrix(self):
+        # Should return the max of all four directions
         m = [[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]]
         self.assertEqual(greatest_product_in_matrix(m, 4), 13*14*15*16)
 
