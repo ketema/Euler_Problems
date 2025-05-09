@@ -1,0 +1,36 @@
+# Cabal and Stack build artifacts
+/dist-newstyle/
+/dist/
+/.stack-work/
+
+# Cabal sandbox (legacy)
+/cabal.sandbox.config
+/cabal.sandbox/
+
+# Executables and binaries
+*.hi
+*.o
+*.so
+*.a
+*.dyn_o
+*.dyn_hi
+*.out
+*.exe
+*.dll
+*.dynlib
+
+# Misc
+*.prof
+*.aux
+*.hp
+*.eventlog
+*.test
+*.tix
+*.log
+
+# Editor/IDE
+*.swp
+*~
+.idea/
+.vscode/
+.DS_Store
