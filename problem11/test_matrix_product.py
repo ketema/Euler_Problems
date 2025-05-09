@@ -6,6 +6,8 @@ from matrix_product import (
     max_product_down,
     max_product_diag_down_right,
     max_product_diag_down_left,
+    find_max_product_sequence,
+    color_matrix_sequence,
 )
 
 class TestMatrixProduct(unittest.TestCase):
@@ -51,6 +53,25 @@ class TestMatrixProduct(unittest.TestCase):
         # Should return the max of all four directions
         m = [[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]]
         self.assertEqual(greatest_product_in_matrix(m, 4), 13*14*15*16)
+
+    def test_find_max_product_sequence(self):
+        m = [[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]]
+        product, coords = find_max_product_sequence(m, 4)
+        # Should be the last row, right direction
+        expected_coords = [(3,0),(3,1),(3,2),(3,3)]
+        self.assertEqual(product, 13*14*15*16)
+        self.assertEqual(coords, expected_coords)
+
+    def test_color_matrix_sequence(self):
+        m = [[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]]
+        coords = [(3,0),(3,1),(3,2),(3,3)]
+        output = color_matrix_sequence(m, coords)
+        # Check that the output contains ANSI red codes for the sequence
+        for val in [13,14,15,16]:
+            self.assertIn(f'\033[31m{val:02}\033[0m', output)
+        # Check that non-sequence values are not colored
+        self.assertIn('01', output)
+        self.assertNotIn('\033[31m01\033[0m', output)
 
 if __name__ == "__main__":
     unittest.main()
