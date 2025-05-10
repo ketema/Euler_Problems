@@ -1,0 +1,22 @@
+# Editor swap and backup files
+*~
+*.swp
+*.swo
+.DS_Store
+
+# Gradle and build artifacts
+/.gradle/
+/build/
+/buildSrc/
+.gradle/
+.idea/
+*.iml
+
+# Kotlin/Java build artifacts
+*.class
+*.jar
+matrix_product.jar
+test.jar
+
+# Ignore matrix.txt if generated
+matrix.txt
