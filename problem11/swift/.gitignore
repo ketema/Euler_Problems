@@ -1,0 +1,12 @@
+# Ignore macOS and Xcode files
+.DS_Store
+*.xcodeproj
+*.xcworkspace
+*.xcuserstate
+*.xcuserdata
+# Ignore build artifacts
+*.o
+*.out
+*.dSYM/
+matrix_product
+matrix.txt
