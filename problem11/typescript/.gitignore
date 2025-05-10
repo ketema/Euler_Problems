@@ -1,0 +1,10 @@
+# Ignore build output and dependencies
+dist/
+node_modules/
+*.js
+*.js.map
+
+# OS/editor files
+.DS_Store
+*~
+*.swp
