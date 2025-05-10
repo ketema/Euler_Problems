@@ -1,4 +1,5 @@
-Problem 11
+# Project Euler Problem 11: Greatest Product in a Grid
+
 22 February 2002
 
 In the 2020 grid below, mark four numbers along a diagonal line in red.
@@ -32,12 +33,15 @@ Create a program that will randomly color 4 adjacent numbers in any direction
 (up, down, left, right, or diagonally) then output the greatest product of those four numbers.
 
 Implemented in the following languages:
+
 1. C / C++
 Strengths: Extremely fast, fine-grained memory control.
 Suitability: Great for performance-critical or embedded scenarios. C++ offers more abstraction and easier array handling than C.
+
 2. Java
 Strengths: Strong typing, robust standard library, cross-platform.
 Suitability: Good for educational, enterprise, or cross-platform needs. Verbose compared to Python, but very reliable.
+
 3. C#
 Strengths: Modern syntax, strong typing, good tooling (especially on Windows).
 Suitability: Similar to Java, with some modern conveniences.
@@ -63,7 +67,7 @@ Suitability: Good for both JVM and native applications.
 Strengths: Designed for numerical and scientific computing.
 Suitability: Especially good for matrix-heavy or mathematical problems.
 Other Notable Mentions
-Scala: Functional and object-oriented, runs on the JVM.
-Perl: Good for text processing and scripting.
-MATLAB/Octave: Specialized for matrix computations (overkill for this, but very easy).
-Fortran: Old but extremely fast for numerical work.
+
+- Scala: Functional and object-oriented, runs on the JVM.
+- Perl: Good for text processing and scripting.
+- Fortran: Old but extremely fast for numerical work.

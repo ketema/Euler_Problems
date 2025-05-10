@@ -1,0 +1,15 @@
+# Julia compiled files
+*.ji
+*.jl.cov
+*.jl.*.cov
+
+# VSCode, Jupyter, and editor files
+.vscode/
+.ipynb_checkpoints/
+*~
+*.swp
+*.swo
+.DS_Store
+
+# Output and data
+matrix.txt
