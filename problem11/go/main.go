@@ -9,7 +9,7 @@ import (
 )
 
 // readMatrix reads a matrix from a text file where each line is a row of space-separated integers.
-func readMatrix(filename string) ([][]int, error) {
+// func readMatrix(filename string) ([][]int, error) {
 	file, err := os.Open(filename)
 	if err != nil {
 		return nil, err
@@ -68,7 +68,7 @@ func printMatrixWithHighlight(matrix [][]int, coords [][2]int) {
 }
 
 // Ensure GreatestProduct is available from matrix_product.go
-func main() {
+// func main() {
 	filename := "matrix.txt"
 	if len(os.Args) > 1 {
 		filename = os.Args[1]

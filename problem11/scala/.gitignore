@@ -1,0 +1,40 @@
+# Ignore Scala build and binary output
+*.class
+*.log
+*.out
+*.jar
+*.target
+*.cache
+*.history
+*.bloop
+*.metals
+*.ammonite
+.DS_Store
+
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# SBT
+project/target/
+target/
+
+# Common binaries
+matrix_product
+matrix_product_*
+test_matrix_product
+*.exe
+*.bin
+*.o
+*.so
+*.dll
+*.dylib
+*.a
+*.out
+*.run
+
+# VSCode
+.vscode/
+
+# Mac system files
+.DS_Store

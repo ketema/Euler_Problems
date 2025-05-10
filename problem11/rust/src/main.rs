@@ -38,7 +38,7 @@ fn print_matrix_with_highlight(matrix: &Vec<Vec<i32>>, coords: &Vec<(usize, usiz
 
 fn main() {
     let args: Vec<String> = env::args().collect();
-    let filename = if args.len() > 1 { &args[1] } else { "matrix.txt" };
+    let filename = if args.len() > 1 { &args[1] } else { "../matrix.txt" };
     let matrix = match read_matrix(filename) {
         Ok(m) => m,
         Err(e) => {
