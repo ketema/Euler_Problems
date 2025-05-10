@@ -1,0 +1,7 @@
+# Ignore editor swap and backup files
+*~
+*.swp
+*.swo
+.DS_Store
+# Ignore matrix.txt if generated
+matrix.txt
