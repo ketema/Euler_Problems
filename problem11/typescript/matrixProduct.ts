@@ -69,32 +69,35 @@ export function greatestProduct(matrix: Matrix, coords: Coord[], ADJ: number = 4
 }
 
 export function printMatrixWithHighlight(matrix: Matrix, coords: Coord[]): void {
-    const numRows = matrix.length;
-    const numCols = matrix[0]?.length || 0;
-    for (let i = 0; i < numRows; ++i) {
-        let row = '';
-        for (let j = 0; j < numCols; ++j) {
-            let highlight = coords.some(([x, y]) => x === i && y === j);
-            if (highlight)
-                row += `\x1b[31m${matrix[i][j].toString().padStart(2, '0')}\x1b[0m `;
-            else
-                row += `${matrix[i][j].toString().padStart(2, '0')} `;
+    const coordSet = new Set(coords.map(([i, j]) => `${i},${j}`));
+    for (let i = 0; i < matrix.length; ++i) {
+        let rowStr = '';
+        for (let j = 0; j < matrix[i].length; ++j) {
+            let valStr = matrix[i][j].toString().padStart(2, '0') + ' ';
+            if (coordSet.has(`${i},${j}`)) {
+                rowStr += `\x1b[31m${valStr}\x1b[0m`;
+            } else {
+                rowStr += valStr;
+            }
         }
-        console.log(row.trimEnd());
+        console.log(rowStr);
     }
 }
 
+/**
+ * The main function.
+ */
 export function main() {
-    const filename = process.argv[2] || 'matrix.txt';
-    const matrix = readMatrix(filename);
+    const matrix = readMatrix('../matrix.txt');
     if (!matrix) {
-        console.error(`Failed to read matrix from ${filename}`);
+        console.error('Failed to read matrix');
         process.exit(1);
     }
     const coords: Coord[] = [];
-    const max = greatestProduct(matrix, coords, 4);
+    const maxProd = greatestProduct(matrix, coords, 4);
     printMatrixWithHighlight(matrix, coords);
-    console.log(`Greatest product of four adjacent numbers: ${max}`);
+    console.log(`\nGreatest product of four adjacent numbers: ${maxProd}`);
 }
 
 main();
+// If ts-node is not available, use 'npx ts-node matrixProduct.ts' or compile with tsc and run with node.
