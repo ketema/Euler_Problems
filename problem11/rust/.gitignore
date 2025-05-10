@@ -1,0 +1,12 @@
+# Rust build artifacts and dependencies
+target/
+**/*.rs.bk
+Cargo.lock
+# IDE/editor settings
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+# Matrix file (optional, if generated)
+matrix.txt
