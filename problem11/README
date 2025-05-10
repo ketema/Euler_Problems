@@ -30,3 +30,40 @@ What is the greatest product of four adjacent numbers in any direction
 
 Create a program that will randomly color 4 adjacent numbers in any direction
 (up, down, left, right, or diagonally) then output the greatest product of those four numbers.
+
+Implemented in the following languages:
+1. C / C++
+Strengths: Extremely fast, fine-grained memory control.
+Suitability: Great for performance-critical or embedded scenarios. C++ offers more abstraction and easier array handling than C.
+2. Java
+Strengths: Strong typing, robust standard library, cross-platform.
+Suitability: Good for educational, enterprise, or cross-platform needs. Verbose compared to Python, but very reliable.
+3. C#
+Strengths: Modern syntax, strong typing, good tooling (especially on Windows).
+Suitability: Similar to Java, with some modern conveniences.
+4. JavaScript / TypeScript
+Strengths: Ubiquitous, runs in browsers and on servers (Node.js).
+Suitability: Good for quick prototyping, web-based demos, or teaching.
+5. Go
+Strengths: Simple syntax, fast compilation, good concurrency support.
+Suitability: Easy to write and deploy, good for CLI tools and servers.
+6. Rust
+Strengths: Memory safety without garbage collection, high performance.
+Suitability: Excellent for high-performance computing with safety, but has a steeper learning curve.
+7. Ruby
+Strengths: Concise, expressive, easy to read.
+Suitability: Good for scripting and rapid prototyping, similar to Python in developer experience.
+8. Swift
+Strengths: Modern, safe, fast; great for Apple ecosystems.
+Suitability: Can be used for CLI tools and learning, not just iOS/macOS apps.
+9. Kotlin
+Strengths: Modern, concise, interoperable with Java.
+Suitability: Good for both JVM and native applications.
+10. Julia
+Strengths: Designed for numerical and scientific computing.
+Suitability: Especially good for matrix-heavy or mathematical problems.
+Other Notable Mentions
+Scala: Functional and object-oriented, runs on the JVM.
+Perl: Good for text processing and scripting.
+MATLAB/Octave: Specialized for matrix computations (overkill for this, but very easy).
+Fortran: Old but extremely fast for numerical work.
