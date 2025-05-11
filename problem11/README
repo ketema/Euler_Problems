@@ -38,6 +38,11 @@ Implemented in the following languages:
 Strengths: Extremely fast, fine-grained memory control.
 Suitability: Great for performance-critical or embedded scenarios. C++ offers more abstraction and easier array handling than C.
 
+**C Usage:**
+- `./matrix_product` — reads the matrix from `matrix.txt` in the current directory
+- `./matrix_product data.txt` — reads the matrix from `data.txt`
+- `cat data.txt | ./matrix_product -` — reads the matrix from standard input (stdin) if `-` is given as the argument
+
 2. Java
 Strengths: Strong typing, robust standard library, cross-platform.
 Suitability: Good for educational, enterprise, or cross-platform needs. Verbose compared to Python, but very reliable.
