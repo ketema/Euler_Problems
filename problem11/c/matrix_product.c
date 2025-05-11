@@ -7,19 +7,15 @@
 
 int matrix[N][N];
 
-// Reads the matrix from a file
-int read_matrix(const char *filename) {
-    FILE *file = fopen(filename, "r");
-    if (!file) return 0;
+// Reads the matrix from a FILE*
+int read_matrix(FILE *file) {
     for (int i = 0; i < N; ++i) {
         for (int j = 0; j < N; ++j) {
             if (fscanf(file, "%d", &matrix[i][j]) != 1) {
-                fclose(file);
                 return 0;
             }
         }
     }
-    fclose(file);
     return 1;
 }
 
@@ -85,11 +81,33 @@ void print_matrix_with_highlight(int coords[ADJ][2]) {
 }
 
 int main(int argc, char *argv[]) {
-    const char *filename = argc > 1 ? argv[1] : "../matrix";
-    if (!read_matrix(filename)) {
+    FILE *file = NULL;
+    const char *filename = NULL;
+    if (argc > 1) {
+        filename = argv[1];
+        if (strcmp(filename, "-") == 0) {
+            file = stdin;
+        } else {
+            file = fopen(filename, "r");
+            if (!file) {
+                fprintf(stderr, "Failed to open file: %s\n", filename);
+                return 1;
+            }
+        }
+    } else {
+        filename = "matrix.txt";
+        file = fopen(filename, "r");
+        if (!file) {
+            fprintf(stderr, "Failed to open file: %s\n", filename);
+            return 1;
+        }
+    }
+    if (!read_matrix(file)) {
         fprintf(stderr, "Failed to read matrix from %s\n", filename);
+        if (file != stdin) fclose(file);
         return 1;
     }
+    if (file != stdin) fclose(file);
     int coords[ADJ][2];
     int max = greatest_product(coords);
     print_matrix_with_highlight(coords);
