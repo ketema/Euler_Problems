@@ -2,30 +2,52 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define N 20
 #define ADJ 4
 
-int matrix[N][N];
-
-// Reads the matrix from a FILE*
-int read_matrix(FILE *file) {
-    for (int i = 0; i < N; ++i) {
-        for (int j = 0; j < N; ++j) {
-            if (fscanf(file, "%d", &matrix[i][j]) != 1) {
-                return 0;
-            }
+// Reads a dynamic matrix from a FILE*, returns pointer and sets n (size). Returns NULL on error.
+int **read_matrix(FILE *file, int *n_out) {
+    int capacity = 32, n = 0;
+    int **matrix = malloc(capacity * sizeof(int*));
+    char line[4096];
+    int width = -1;
+    while (fgets(line, sizeof(line), file)) {
+        int *row = malloc(1024 * sizeof(int));
+        int count = 0;
+        char *tok = strtok(line, " \t\n");
+        while (tok) {
+            row[count++] = atoi(tok);
+            tok = strtok(NULL, " \t\n");
+        }
+        if (width == -1) width = count;
+        if (count != width) { // Not square
+            for (int i = 0; i < n; ++i) free(matrix[i]);
+            free(matrix); free(row);
+            *n_out = 0;
+            return NULL;
+        }
+        matrix[n++] = row;
+        if (n >= capacity) {
+            capacity *= 2;
+            matrix = realloc(matrix, capacity * sizeof(int*));
         }
     }
-    return 1;
+    if (n != width || n < ADJ) { // Must be square and at least ADJ
+        for (int i = 0; i < n; ++i) free(matrix[i]);
+        free(matrix);
+        *n_out = 0;
+        return NULL;
+    }
+    *n_out = n;
+    return matrix;
 }
 
 // Returns the greatest product of four adjacent numbers in any direction
-int greatest_product(int coords[ADJ][2]) {
+int greatest_product(int **matrix, int n, int coords[ADJ][2]) {
     int max = 0;
-    for (int i = 0; i < N; ++i) {
-        for (int j = 0; j < N; ++j) {
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
             // right
-            if (j + ADJ <= N) {
+            if (j + ADJ <= n) {
                 int prod = 1;
                 for (int k = 0; k < ADJ; ++k) prod *= matrix[i][j+k];
                 if (prod > max) {
@@ -34,7 +56,7 @@ int greatest_product(int coords[ADJ][2]) {
                 }
             }
             // down
-            if (i + ADJ <= N) {
+            if (i + ADJ <= n) {
                 int prod = 1;
                 for (int k = 0; k < ADJ; ++k) prod *= matrix[i+k][j];
                 if (prod > max) {
@@ -43,7 +65,7 @@ int greatest_product(int coords[ADJ][2]) {
                 }
             }
             // diag down-right
-            if (i + ADJ <= N && j + ADJ <= N) {
+            if (i + ADJ <= n && j + ADJ <= n) {
                 int prod = 1;
                 for (int k = 0; k < ADJ; ++k) prod *= matrix[i+k][j+k];
                 if (prod > max) {
@@ -52,7 +74,7 @@ int greatest_product(int coords[ADJ][2]) {
                 }
             }
             // diag down-left
-            if (i + ADJ <= N && j - ADJ + 1 >= 0) {
+            if (i + ADJ <= n && j - ADJ + 1 >= 0) {
                 int prod = 1;
                 for (int k = 0; k < ADJ; ++k) prod *= matrix[i+k][j-k];
                 if (prod > max) {
@@ -65,9 +87,9 @@ int greatest_product(int coords[ADJ][2]) {
     return max;
 }
 
-void print_matrix_with_highlight(int coords[ADJ][2]) {
-    for (int i = 0; i < N; ++i) {
-        for (int j = 0; j < N; ++j) {
+void print_matrix_with_highlight(int **matrix, int n, int coords[ADJ][2]) {
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
             int highlight = 0;
             for (int k = 0; k < ADJ; ++k)
                 if (coords[k][0] == i && coords[k][1] == j) highlight = 1;
@@ -79,6 +101,8 @@ void print_matrix_with_highlight(int coords[ADJ][2]) {
         printf("\n");
     }
 }
+
+
 
 int main(int argc, char *argv[]) {
     FILE *file = NULL;
@@ -102,15 +126,18 @@ int main(int argc, char *argv[]) {
             return 1;
         }
     }
-    if (!read_matrix(file)) {
-        fprintf(stderr, "Failed to read matrix from %s\n", filename);
-        if (file != stdin) fclose(file);
+    int n = 0;
+    int **matrix = read_matrix(file, &n);
+    if (file != stdin) fclose(file);
+    if (!matrix) {
+        fprintf(stderr, "Error: Matrix must be square and at least %dx%d in size.\n", ADJ, ADJ);
         return 1;
     }
-    if (file != stdin) fclose(file);
     int coords[ADJ][2];
-    int max = greatest_product(coords);
-    print_matrix_with_highlight(coords);
+    int max = greatest_product(matrix, n, coords);
+    print_matrix_with_highlight(matrix, n, coords);
     printf("Greatest product of four adjacent numbers: %d\n", max);
+    for (int i = 0; i < n; ++i) free(matrix[i]);
+    free(matrix);
     return 0;
 }
