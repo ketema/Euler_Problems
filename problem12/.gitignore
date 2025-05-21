@@ -1,0 +1,13 @@
+# Ignore Rust build artifacts
+/target/
+**/*.rs.bk
+Cargo.lock
+# Ignore byproducts of tests and debugging
+*.log
+*.tmp
+# Ignore IDE/editor files
+.idea/
+.vscode/
+.DS_Store
+*.swp
+*.swo
