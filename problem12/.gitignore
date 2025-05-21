@@ -1,13 +1,39 @@
 # Ignore Rust build artifacts
 /target/
+/target/debug/
 **/*.rs.bk
 Cargo.lock
 # Ignore byproducts of tests and debugging
 *.log
 *.tmp
+*.dSYM/
+*.profraw
+*.profdata
+*.gcda
+*.gcno
+*.gcov
+*.ll
+*.bc
+*.o
+*.obj
+*.exe
+*.pdb
+*.dll
+*.so
+*.dylib
+*.rlib
+*.rmeta
+*.crate
+*.lock
+*.out
+*.run
+*.s
+*.a
+*.d
+*.t
+*.swp
+*.swo
 # Ignore IDE/editor files
 .idea/
 .vscode/
 .DS_Store
-*.swp
-*.swo
