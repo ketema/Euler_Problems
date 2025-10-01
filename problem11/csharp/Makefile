@@ -1,21 +1,20 @@
 # Makefile for C# Matrix Product Solution
 
 CSHARP=dotnet
-SRC=.
+TEST_PROJECT=MatrixProductTestProject
+APP_PROJECT=MatrixProductApp
 
-all: MatrixProduct.dll
+all: build
 
-test: MatrixProductTest.dll
-	$(CSHARP) run --project MatrixProductTest.csproj
+build:
+	cd $(APP_PROJECT) && $(CSHARP) build
 
-MatrixProduct.dll: MatrixProduct.cs
-	$(CSHARP) build -o ./bin -c Release /property:GenerateFullPaths=true /property:OutputType=Exe MatrixProduct.cs
+test:
+	cd $(TEST_PROJECT) && $(CSHARP) run
 
-MatrixProductTest.dll: MatrixProductTest.cs
-	$(CSHARP) build -o ./bin -c Release /property:GenerateFullPaths=true /property:OutputType=Exe MatrixProductTest.cs
-
-run: MatrixProduct.dll
-	$(CSHARP) run --project MatrixProduct.csproj matrix.txt
+run:
+	cd $(APP_PROJECT) && $(CSHARP) run matrix.txt
 
 clean:
-	rm -rf bin obj *.dll *.exe
+	rm -rf $(TEST_PROJECT)/bin $(TEST_PROJECT)/obj
+	rm -rf $(APP_PROJECT)/bin $(APP_PROJECT)/obj

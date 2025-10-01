@@ -2,14 +2,48 @@
 
 This folder contains the C# implementation for finding the greatest product of four adjacent numbers in any direction (up, down, left, right, or diagonally) in a matrix.
 
-- `MatrixProduct.cs`: Main solution code.
-- `MatrixProductTest.cs`: Unit tests for the core logic.
-- `matrix.txt`: Input matrix (copied from the root/problem11 folder).
+## Project Structure
+
+- `MatrixProduct.cs`: Core implementation (standalone)
+- `MatrixProductTest.cs`: Test implementation (standalone)
+- `MatrixProductTestProject/`: .NET project for running tests
+- `MatrixProductApp/`: .NET project for running the solution
+- `matrix.txt`: Input matrix (20x20 grid)
+
+## Requirements
+
+- .NET 9.0 SDK or later
+- macOS, Linux, or Windows
 
 ## Build & Run
 
-To build and run:
+### Using Make (recommended)
+
 ```sh
-make test   # Build and run tests
-make run    # Run the main solution (requires matrix.txt)
+make test   # Run tests
+make run    # Run the solution with matrix.txt
+make clean  # Clean build artifacts
+```
+
+### Using dotnet directly
+
+```sh
+# Run tests
+cd MatrixProductTestProject && dotnet run
+
+# Run solution
+cd MatrixProductApp && dotnet run matrix.txt
+```
+
+## Expected Output
+
+Tests should show:
+```
+TestGreatestProduct passed!
+All tests passed!
+```
+
+Solution should show the matrix with the winning sequence highlighted and:
+```
+Greatest product of four adjacent numbers: 70600674
 ```
