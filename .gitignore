@@ -1,2 +1,18 @@
 **.swp
 **coverage
+
+# macOS
+.DS_Store
+
+# Haskell
+dist-newstyle/
+*.hi
+*.o
+.stack-work/
+cabal.project.local
+cabal.project.local~
+.HTF/
+.ghc.environment.*
+
+# Build artifacts
+**/bin/
