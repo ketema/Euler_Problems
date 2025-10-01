@@ -2,19 +2,32 @@
 
 This folder contains the Haskell implementation for finding the greatest product of four adjacent numbers in any direction (up, down, left, right, or diagonally) in a matrix.
 
+## Quick Start
+
+**Simple commands - no cabal knowledge required:**
+
+```sh
+make test   # Run tests
+make run    # Run solution
+```
+
+That's it! The Makefile handles all cabal configuration automatically.
+
 ## Project Structure
 
 - `src/MatrixProduct.hs`: Core library module with matrix product functions
 - `src/MatrixProductTest.hs`: HSpec test suite
 - `app/Main.hs`: Executable entry point
 - `MatrixProduct.cabal`: Cabal package configuration
+- `Makefile`: Simple build automation
 - `matrix.txt`: Input matrix (20x20 grid)
 
 ## Requirements
 
 - GHC 9.12.2 or compatible (tested with system GHC via Homebrew)
 - Cabal 3.16.0 or later
-- Dependencies: base, hspec, ansi-terminal
+- Make (standard on macOS/Linux)
+- Dependencies: base, hspec, ansi-terminal (auto-installed)
 
 ## Installation
 
@@ -23,18 +36,33 @@ If you don't have GHC and Cabal installed:
 ```sh
 # macOS (Homebrew)
 brew install ghc cabal-install
-
-# Update package list
-cabal update
 ```
+
+No need to run `cabal update` - the Makefile handles setup automatically.
 
 ## Build & Run
 
-### Run Tests
+### Using Make (Recommended - Simple!)
 
 ```sh
-cabal test
+# Run tests
+make test
+
+# Run solution
+make run
+
+# Build only
+make build
+
+# Clean build artifacts
+make clean
 ```
+
+### Using Cabal Directly (Advanced)
+
+```sh
+# Run tests
+cabal test
 
 Expected output:
 ```
