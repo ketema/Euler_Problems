@@ -1,0 +1,166 @@
+=== Problem 11: Benchmarking All Solutions ===
+Configuration: 2 warmup runs + 5 timed runs per language
+
+[1;33m=== C ===[0m
+[1;33mBenchmarking C...[0m
+[0;34m  Running 5 timed iterations...[0m
+[0;32m    Run 1: 119.571ms ✓[0m
+[0;32m    Run 2: 3.809ms ✓[0m
+[0;32m    Run 3: 4.384ms ✓[0m
+[0;32m    Run 4: 4.366ms ✓[0m
+[0;32m    Run 5: 3.741ms ✓[0m
+[0;32m✓ C: Mean=27.174ms, Median=4.366ms, StdDev=46.199ms[0m
+[1;33m=== C++ ===[0m
+[1;33mBenchmarking C++...[0m
+[0;34m  Running 5 timed iterations...[0m
+[0;32m    Run 1: 112.358ms ✓[0m
+[0;32m    Run 2: 3.583ms ✓[0m
+[0;32m    Run 3: 3.808ms ✓[0m
+[0;32m    Run 4: 5.058ms ✓[0m
+[0;32m    Run 5: 4.007ms ✓[0m
+[0;32m✓ C++: Mean=25.762ms, Median=4.007ms, StdDev=43.300ms[0m
+[1;33m=== C# ===[0m
+[1;33mBenchmarking C#...[0m
+[0;34m  Running 2 warmup iterations...[0m
+[0;34m  Running 5 timed iterations...[0m
+[0;32m    Run 1: 246.813ms ✓[0m
+[0;32m    Run 2: 253.036ms ✓[0m
+[0;32m    Run 3: 251.730ms ✓[0m
+[0;32m    Run 4: 252.693ms ✓[0m
+[0;32m    Run 5: 249.145ms ✓[0m
+[0;32m✓ C#: Mean=250.683ms, Median=251.730ms, StdDev=2.367ms[0m
+[1;33m=== Fortran ===[0m
+[1;33mBenchmarking Fortran...[0m
+[0;34m  Running 5 timed iterations...[0m
+[0;32m    Run 1: 114.885ms ✓[0m
+[0;32m    Run 2: 4.802ms ✓[0m
+[0;32m    Run 3: 5.439ms ✓[0m
+[0;32m    Run 4: 5.365ms ✓[0m
+[0;32m    Run 5: 4.977ms ✓[0m
+[0;32m✓ Fortran: Mean=27.093ms, Median=5.365ms, StdDev=43.896ms[0m
+[1;33m=== Go ===[0m
+[1;33mBenchmarking Go...[0m
+[0;34m  Running 5 timed iterations...[0m
+[0;32m    Run 1: 138.866ms ✓[0m
+[0;32m    Run 2: 6.611ms ✓[0m
+[0;32m    Run 3: 5.048ms ✓[0m
+[0;32m    Run 4: 4.728ms ✓[0m
+[0;32m    Run 5: 6.053ms ✓[0m
+[0;32m✓ Go: Mean=32.261ms, Median=6.053ms, StdDev=53.306ms[0m
+[1;33m=== Haskell ===[0m
+[1;33mBenchmarking Haskell...[0m
+[0;34m  Running 5 timed iterations...[0m
+[0;32m    Run 1: 217.722ms ✓[0m
+[0;32m    Run 2: 61.027ms ✓[0m
+[0;32m    Run 3: 60.607ms ✓[0m
+[0;32m    Run 4: 59.192ms ✓[0m
+[0;32m    Run 5: 60.384ms ✓[0m
+[0;32m✓ Haskell: Mean=91.786ms, Median=60.607ms, StdDev=62.970ms[0m
+[1;33m=== Java ===[0m
+[1;33mBenchmarking Java...[0m
+[0;34m  Running 2 warmup iterations...[0m
+[0;34m  Running 5 timed iterations...[0m
+[0;32m    Run 1: 55.727ms ✓[0m
+[0;32m    Run 2: 54.509ms ✓[0m
+[0;32m    Run 3: 54.480ms ✓[0m
+[0;32m    Run 4: 52.822ms ✓[0m
+[0;32m    Run 5: 54.604ms ✓[0m
+[0;32m✓ Java: Mean=54.428ms, Median=54.509ms, StdDev=.928ms[0m
+[1;33m=== Julia ===[0m
+[1;33mBenchmarking Julia...[0m
+[0;34m  Running 2 warmup iterations...[0m
+[0;34m  Running 5 timed iterations...[0m
+[0;32m    Run 1: 389.780ms ✓[0m
+[0;32m    Run 2: 379.652ms ✓[0m
+[0;32m    Run 3: 391.056ms ✓[0m
+[0;32m    Run 4: 384.770ms ✓[0m
+[0;32m    Run 5: 379.223ms ✓[0m
+[0;32m✓ Julia: Mean=384.896ms, Median=384.770ms, StdDev=4.929ms[0m
+[1;33m=== Kotlin ===[0m
+[1;33mBenchmarking Kotlin...[0m
+[0;34m  Running 2 warmup iterations...[0m
+[0;34m  Running 5 timed iterations...[0m
+[0;32m    Run 1: 791.284ms ✓[0m
+[0;32m    Run 2: 394.948ms ✓[0m
+[0;32m    Run 3: 397.795ms ✓[0m
+[0;32m    Run 4: 775.940ms ✓[0m
+[0;32m    Run 5: 822.185ms ✓[0m
+[0;32m✓ Kotlin: Mean=636.430ms, Median=775.940ms, StdDev=196.574ms[0m
+[1;33m=== Perl ===[0m
+[1;33mBenchmarking Perl...[0m
+[0;34m  Running 5 timed iterations...[0m
+[0;32m    Run 1: 19.798ms ✓[0m
+[0;32m    Run 2: 17.517ms ✓[0m
+[0;32m    Run 3: 15.986ms ✓[0m
+[0;32m    Run 4: 16.196ms ✓[0m
+[0;32m    Run 5: 15.249ms ✓[0m
+[0;32m✓ Perl: Mean=16.949ms, Median=16.196ms, StdDev=1.601ms[0m
+[1;33m=== PHP ===[0m
+[1;33mBenchmarking PHP...[0m
+[0;34m  Running 5 timed iterations...[0m
+[0;32m    Run 1: 41.260ms ✓[0m
+[0;32m    Run 2: 39.578ms ✓[0m
+[0;32m    Run 3: 38.123ms ✓[0m
+[0;32m    Run 4: 39.114ms ✓[0m
+[0;32m    Run 5: 38.725ms ✓[0m
+[0;32m✓ PHP: Mean=39.360ms, Median=39.114ms, StdDev=1.063ms[0m
+[1;33m=== Python ===[0m
+[1;33mBenchmarking Python...[0m
+[0;34m  Running 5 timed iterations...[0m
+[0;32m    Run 1: 760.440ms ✓[0m
+[0;32m    Run 2: 666.887ms ✓[0m
+[0;32m    Run 3: 668.879ms ✓[0m
+[0;32m    Run 4: 668.177ms ✓[0m
+[0;32m    Run 5: 668.200ms ✓[0m
+[0;32m✓ Python: Mean=686.516ms, Median=668.200ms, StdDev=36.967ms[0m
+[1;33m=== Ruby ===[0m
+[1;33mBenchmarking Ruby...[0m
+[0;34m  Running 5 timed iterations...[0m
+[0;32m    Run 1: 45.651ms ✓[0m
+[0;32m    Run 2: 44.790ms ✓[0m
+[0;32m    Run 3: 44.821ms ✓[0m
+[0;32m    Run 4: 44.634ms ✓[0m
+[0;32m    Run 5: 43.444ms ✓[0m
+[0;32m✓ Ruby: Mean=44.668ms, Median=44.790ms, StdDev=.707ms[0m
+[1;33m=== Rust ===[0m
+[1;33mBenchmarking Rust...[0m
+[0;34m  Running 5 timed iterations...[0m
+[0;32m    Run 1: 137.674ms ✓[0m
+[0;32m    Run 2: 4.603ms ✓[0m
+[0;32m    Run 3: 4.891ms ✓[0m
+[0;32m    Run 4: 3.910ms ✓[0m
+[0;32m    Run 5: 4.212ms ✓[0m
+[0;32m✓ Rust: Mean=31.058ms, Median=4.603ms, StdDev=53.309ms[0m
+[1;33m=== Scala ===[0m
+[1;33mBenchmarking Scala...[0m
+[0;34m  Running 2 warmup iterations...[0m
+[0;34m  Running 5 timed iterations...[0m
+[0;32m    Run 1: 1683.370ms ✓[0m
+[0;32m    Run 2: 1717.481ms ✓[0m
+[0;32m    Run 3: 1731.583ms ✓[0m
+[0;32m    Run 4: 1720.228ms ✓[0m
+[0;32m    Run 5: 1716.237ms ✓[0m
+[0;32m✓ Scala: Mean=1713.779ms, Median=1717.481ms, StdDev=16.143ms[0m
+[1;33m=== Swift ===[0m
+[1;33mBenchmarking Swift...[0m
+[0;34m  Running 5 timed iterations...[0m
+[0;32m    Run 1: 124.899ms ✓[0m
+[0;32m    Run 2: 7.002ms ✓[0m
+[0;32m    Run 3: 7.058ms ✓[0m
+[0;32m    Run 4: 7.056ms ✓[0m
+[0;32m    Run 5: 6.205ms ✓[0m
+[0;32m✓ Swift: Mean=30.444ms, Median=7.056ms, StdDev=47.228ms[0m
+[1;33m=== TypeScript ===[0m
+[1;33mBenchmarking TypeScript...[0m
+[0;34m  Running 2 warmup iterations...[0m
+[0;34m  Running 5 timed iterations...[0m
+[0;32m    Run 1: 28.200ms ✓[0m
+[0;32m    Run 2: 27.934ms ✓[0m
+[0;32m    Run 3: 28.769ms ✓[0m
+[0;32m    Run 4: 27.979ms ✓[0m
+[0;32m    Run 5: 28.006ms ✓[0m
+[0;32m✓ TypeScript: Mean=28.177ms, Median=28.006ms, StdDev=.309ms[0m
+
+[0;32m=== Benchmarking Complete ===[0m
+Results saved to: timings.md
+
