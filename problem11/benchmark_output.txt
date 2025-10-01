@@ -1,0 +1,142 @@
+=== Problem 11: Benchmarking All Solutions ===
+Configuration: 2 warmup runs + 5 timed runs per language
+
+[1;33m=== C ===[0m
+[1;33mBenchmarking C...[0m
+[0;34m  Running 5 timed iterations...[0m
+[0;32m    Run 1: 141.188ms ✓[0m
+[0;32m    Run 2: 4.410ms ✓[0m
+[0;32m    Run 3: 4.547ms ✓[0m
+[0;32m    Run 4: 3.783ms ✓[0m
+[0;32m    Run 5: 4.554ms ✓[0m
+[0;32m✓ C: Mean=31.696ms, Median=4.547ms, StdDev=54.746ms[0m
+[1;33m=== C++ ===[0m
+[1;33mBenchmarking C++...[0m
+[0;34m  Running 5 timed iterations...[0m
+[0;32m    Run 1: 111.192ms ✓[0m
+[0;32m    Run 2: 3.638ms ✓[0m
+[0;32m    Run 3: 4.593ms ✓[0m
+[0;32m    Run 4: 4.481ms ✓[0m
+[0;32m    Run 5: 3.681ms ✓[0m
+[0;32m✓ C++: Mean=25.517ms, Median=4.481ms, StdDev=42.839ms[0m
+[1;33m=== C# ===[0m
+[1;33mBenchmarking C#...[0m
+[0;34m  Running 2 warmup iterations...[0m
+[0;34m  Running 5 timed iterations...[0m
+[0;32m    Run 1: 251.486ms ✓[0m
+[0;32m    Run 2: 250.581ms ✓[0m
+[0;32m    Run 3: 256.408ms ✓[0m
+[0;32m    Run 4: 239.870ms ✓[0m
+[0;32m    Run 5: 243.765ms ✓[0m
+[0;32m✓ C#: Mean=248.422ms, Median=250.581ms, StdDev=5.876ms[0m
+[1;33m=== Fortran ===[0m
+[0;31m✗ Fortran: Compilation failed[0m
+[1;33m=== Go ===[0m
+[1;33mBenchmarking Go...[0m
+[0;34m  Running 5 timed iterations...[0m
+[0;32m    Run 1: 52.634ms ✓[0m
+[0;32m    Run 2: 4.775ms ✓[0m
+[0;32m    Run 3: 4.848ms ✓[0m
+[0;32m    Run 4: 4.531ms ✓[0m
+[0;32m    Run 5: 4.364ms ✓[0m
+[0;32m✓ Go: Mean=14.230ms, Median=4.775ms, StdDev=19.202ms[0m
+[1;33m=== Haskell ===[0m
+[1;33mBenchmarking Haskell...[0m
+[0;34m  Running 5 timed iterations...[0m
+[0;32m    Run 1: 231.054ms ✓[0m
+[0;32m    Run 2: 60.589ms ✓[0m
+[0;32m    Run 3: 60.497ms ✓[0m
+[0;32m    Run 4: 60.596ms ✓[0m
+[0;32m    Run 5: 56.588ms ✓[0m
+[0;32m✓ Haskell: Mean=93.864ms, Median=60.589ms, StdDev=68.611ms[0m
+[1;33m=== Java ===[0m
+[1;33mBenchmarking Java...[0m
+[0;34m  Running 2 warmup iterations...[0m
+[0;34m  Running 5 timed iterations...[0m
+[0;32m    Run 1: 53.489ms ✓[0m
+[0;32m    Run 2: 54.490ms ✓[0m
+[0;32m    Run 3: 55.796ms ✓[0m
+[0;32m    Run 4: 52.613ms ✓[0m
+[0;32m    Run 5: 53.459ms ✓[0m
+[0;32m✓ Java: Mean=53.969ms, Median=53.489ms, StdDev=1.089ms[0m
+[1;33m=== Julia ===[0m
+[1;33mBenchmarking Julia...[0m
+[0;34m  Running 2 warmup iterations...[0m
+[0;34m  Running 5 timed iterations...[0m
+[0;31m    Run 1: Output validation failed (expected 70600674)[0m
+    Output: 
+[0;31m✗ Julia: Failed[0m
+[1;33m=== Kotlin ===[0m
+[1;33mBenchmarking Kotlin...[0m
+[0;34m  Running 2 warmup iterations...[0m
+[0;34m  Running 5 timed iterations...[0m
+[0;32m    Run 1: 820.049ms ✓[0m
+[0;32m    Run 2: 802.096ms ✓[0m
+[0;32m    Run 3: 802.501ms ✓[0m
+[0;32m    Run 4: 795.676ms ✓[0m
+[0;32m    Run 5: 789.040ms ✓[0m
+[0;32m✓ Kotlin: Mean=801.872ms, Median=802.096ms, StdDev=10.333ms[0m
+[1;33m=== Perl ===[0m
+[1;33mBenchmarking Perl...[0m
+[0;34m  Running 5 timed iterations...[0m
+[0;31m    Run 1: Output validation failed (expected 70600674)[0m
+    Output: 
+[0;31m✗ Perl: Failed[0m
+[1;33m=== PHP ===[0m
+[1;33mBenchmarking PHP...[0m
+[0;34m  Running 5 timed iterations...[0m
+[0;32m    Run 1: 44.961ms ✓[0m
+[0;32m    Run 2: 39.246ms ✓[0m
+[0;32m    Run 3: 38.044ms ✓[0m
+[0;32m    Run 4: 39.691ms ✓[0m
+[0;32m    Run 5: 38.996ms ✓[0m
+[0;32m✓ PHP: Mean=40.187ms, Median=39.246ms, StdDev=2.446ms[0m
+[1;33m=== Python ===[0m
+[1;33mBenchmarking Python...[0m
+[0;34m  Running 5 timed iterations...[0m
+[0;32m    Run 1: 683.457ms ✓[0m
+[0;32m    Run 2: 671.400ms ✓[0m
+[0;32m    Run 3: 669.162ms ✓[0m
+[0;32m    Run 4: 668.529ms ✓[0m
+[0;32m    Run 5: 669.478ms ✓[0m
+[0;32m✓ Python: Mean=672.405ms, Median=669.478ms, StdDev=5.608ms[0m
+[1;33m=== Ruby ===[0m
+[1;33mBenchmarking Ruby...[0m
+[0;34m  Running 5 timed iterations...[0m
+[0;31m    Run 1: Output validation failed (expected 70600674)[0m
+    Output: 
+[0;31m✗ Ruby: Failed[0m
+[1;33m=== Rust ===[0m
+[1;33mBenchmarking Rust...[0m
+[0;34m  Running 5 timed iterations...[0m
+[0;32m    Run 1: 134.770ms ✓[0m
+[0;32m    Run 2: 4.767ms ✓[0m
+[0;32m    Run 3: 4.406ms ✓[0m
+[0;32m    Run 4: 4.405ms ✓[0m
+[0;32m    Run 5: 4.198ms ✓[0m
+[0;32m✓ Rust: Mean=30.509ms, Median=4.406ms, StdDev=52.130ms[0m
+[1;33m=== Scala ===[0m
+[1;33mBenchmarking Scala...[0m
+[0;34m  Running 2 warmup iterations...[0m
+[0;34m  Running 5 timed iterations...[0m
+[0;32m    Run 1: 1728.366ms ✓[0m
+[0;32m    Run 2: 1700.001ms ✓[0m
+[0;32m    Run 3: 1679.580ms ✓[0m
+[0;32m    Run 4: 1679.517ms ✓[0m
+[0;32m    Run 5: 1702.192ms ✓[0m
+[0;32m✓ Scala: Mean=1697.931ms, Median=1700.001ms, StdDev=18.025ms[0m
+[1;33m=== Swift ===[0m
+[1;33mBenchmarking Swift...[0m
+[0;34m  Running 5 timed iterations...[0m
+[0;32m    Run 1: 125.319ms ✓[0m
+[0;32m    Run 2: 6.731ms ✓[0m
+[0;32m    Run 3: 6.320ms ✓[0m
+[0;32m    Run 4: 6.320ms ✓[0m
+[0;32m    Run 5: 5.548ms ✓[0m
+[0;32m✓ Swift: Mean=30.047ms, Median=6.320ms, StdDev=47.637ms[0m
+[1;33m=== TypeScript ===[0m
+[0;31m✗ TypeScript: Compilation failed[0m
+
+[0;32m=== Benchmarking Complete ===[0m
+Results saved to: timings.md
+
