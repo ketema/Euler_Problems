@@ -172,10 +172,19 @@ Refs: #issue-number
 
 # PATHS
 
-- github=https://github.com/ketema/ketema_chess
-- haskell/=haskell/
-- rust/=rust/
-- python/=python/
+- github=https://github.com/ketema/Euler_Problems
+- problem1/=problem1/
+- problem2/=problem2/
+- problem3/=problem3/
+- problem4/=problem4/
+- problem5/=problem5/
+- problem6/=problem6/
+- problem7/=problem7/
+- problem8/=problem8/
+- problem9/=problem9/
+- problem10/=problem10/
+- problem11/=problem11/
+- problem12/=problem12/
 
 # SEQUENTIAL THINKING
 
