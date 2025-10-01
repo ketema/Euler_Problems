@@ -225,7 +225,7 @@ fi
 
 # Benchmark Julia (JIT compiled)
 echo -e "${YELLOW}=== Julia ===${NC}"
-time_command "Julia" "julia matrix_product.jl matrix.txt" "julia" "true"
+time_command "Julia" "julia matrix_product_cli.jl matrix.txt" "julia" "true"
 
 # Compile and benchmark Kotlin
 echo -e "${YELLOW}=== Kotlin ===${NC}"
@@ -240,7 +240,7 @@ fi
 
 # Benchmark Perl (interpreted)
 echo -e "${YELLOW}=== Perl ===${NC}"
-time_command "Perl" "perl matrix_product.pl matrix.txt" "perl" "false"
+time_command "Perl" "perl matrix_product_cli.pl matrix.txt" "perl" "false"
 
 # Benchmark PHP (interpreted)
 echo -e "${YELLOW}=== PHP ===${NC}"
@@ -253,7 +253,7 @@ time_command "Python" "poetry run python matrix_product.py matrix.txt" "python" 
 
 # Benchmark Ruby (interpreted)
 echo -e "${YELLOW}=== Ruby ===${NC}"
-time_command "Ruby" "ruby matrix_product.rb matrix.txt" "ruby" "false"
+time_command "Ruby" "ruby matrix_product_cli.rb matrix.txt" "ruby" "false"
 
 # Compile and benchmark Rust
 echo -e "${YELLOW}=== Rust ===${NC}"
@@ -289,7 +289,7 @@ fi
 echo -e "${YELLOW}=== TypeScript ===${NC}"
 cd "$PROBLEM_DIR/typescript"
 if npm run build > /dev/null 2>&1; then
-    time_command "TypeScript" "node dist/matrix_product.js matrix.txt" "typescript" "true"
+    time_command "TypeScript" "node dist/matrixProduct.js matrix.txt" "typescript" "true"
 else
     echo -e "${RED}✗ TypeScript: Compilation failed${NC}"
     echo "| TypeScript | - | - | - | - | - | ❌ Compile Fail |" >> "$PROBLEM_DIR/$RESULTS_FILE"
