@@ -1,0 +1,143 @@
+client:
+  name: basic
+  file-system: device-agnostic
+tools: {}
+targets:
+  "MatrixProduct-arm64-apple-macosx15.0-debug.exe": ["<MatrixProduct-arm64-apple-macosx15.0-debug.exe>"]
+  "MatrixProduct-arm64-apple-macosx15.0-debug.module": ["<MatrixProduct-arm64-apple-macosx15.0-debug.module>"]
+  "MatrixProductPackageTests-arm64-apple-macosx15.0-debug.module": ["<MatrixProductPackageTests-arm64-apple-macosx15.0-debug.module>"]
+  "MatrixProductPackageTests-arm64-apple-macosx15.0-debug.test": ["<MatrixProductPackageTests-arm64-apple-macosx15.0-debug.test>"]
+  "MatrixProductTests-arm64-apple-macosx15.0-debug.module": ["<MatrixProductTests-arm64-apple-macosx15.0-debug.module>"]
+  "PackageStructure": ["<PackageStructure>"]
+  "main": ["<MatrixProduct-arm64-apple-macosx15.0-debug.exe>","<MatrixProduct-arm64-apple-macosx15.0-debug.module>"]
+  "test": ["<MatrixProduct-arm64-apple-macosx15.0-debug.exe>","<MatrixProduct-arm64-apple-macosx15.0-debug.module>","<MatrixProductPackageTests-arm64-apple-macosx15.0-debug.test>","<MatrixProductTests-arm64-apple-macosx15.0-debug.module>"]
+default: "main"
+nodes:
+  "/Users/ketema/projects/Euler_Problems/problem11/swift/":
+    is-directory-structure: true
+    content-exclusion-patterns: [".git",".build"]
+  "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct":
+    is-mutated: true
+commands:
+  "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct-entitlement.plist":
+    tool: write-auxiliary-file
+    inputs: ["<entitlement-plist>","<com.apple.security.get-task-allow>"]
+    outputs: ["/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct-entitlement.plist"]
+    description: "Write auxiliary file /Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct-entitlement.plist"
+
+  "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/Users/ketema/projects/Euler_Problems/problem11/swift/MatrixProduct.swift","/Users/ketema/projects/Euler_Problems/problem11/swift/main.swift"]
+    outputs: ["/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct.build/sources"]
+    description: "Write auxiliary file /Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct.build/sources"
+
+  "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct.product/Objects.LinkFileList":
+    tool: write-auxiliary-file
+    inputs: ["<link-file-list>","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct.build/MatrixProduct.swift.o","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct.build/main.swift.o"]
+    outputs: ["/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct.product/Objects.LinkFileList"]
+    description: "Write auxiliary file /Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct.product/Objects.LinkFileList"
+
+  "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductPackageTests.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductPackageTests.derived/runner.swift"]
+    outputs: ["/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductPackageTests.build/sources"]
+    description: "Write auxiliary file /Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductPackageTests.build/sources"
+
+  "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductPackageTests.derived/runner.swift":
+    tool: test-entry-point-tool
+    inputs: []
+    outputs: ["/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductPackageTests.derived/runner.swift"]
+
+  "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductPackageTests.product/Objects.LinkFileList":
+    tool: write-auxiliary-file
+    inputs: ["<link-file-list>","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct.build/MatrixProduct.swift.o","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct.build/main.swift.o","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductPackageTests.build/runner.swift.o","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductTests.build/MatrixProductTests.swift.o"]
+    outputs: ["/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductPackageTests.product/Objects.LinkFileList"]
+    description: "Write auxiliary file /Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductPackageTests.product/Objects.LinkFileList"
+
+  "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductTests.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/Users/ketema/projects/Euler_Problems/problem11/swift/MatrixProductTests.swift"]
+    outputs: ["/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductTests.build/sources"]
+    description: "Write auxiliary file /Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductTests.build/sources"
+
+  "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt":
+    tool: write-auxiliary-file
+    inputs: ["<swift-get-version>","/Library/Developer/CommandLineTools/usr/bin/swiftc"]
+    outputs: ["/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt"]
+    always-out-of-date: "true"
+    description: "Write auxiliary file /Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt"
+
+  "<MatrixProduct-arm64-apple-macosx15.0-debug.exe>":
+    tool: phony
+    inputs: ["<MatrixProduct-arm64-apple-macosx15.0-debug.exe-CodeSigning>"]
+    outputs: ["<MatrixProduct-arm64-apple-macosx15.0-debug.exe>"]
+
+  "<MatrixProduct-arm64-apple-macosx15.0-debug.module>":
+    tool: phony
+    inputs: ["/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct.build/MatrixProduct.swift.o","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct.build/main.swift.o","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/Modules/MatrixProduct.swiftmodule"]
+    outputs: ["<MatrixProduct-arm64-apple-macosx15.0-debug.module>"]
+
+  "<MatrixProductPackageTests-arm64-apple-macosx15.0-debug.module>":
+    tool: phony
+    inputs: ["/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductPackageTests.build/runner.swift.o","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/Modules/MatrixProductPackageTests.swiftmodule"]
+    outputs: ["<MatrixProductPackageTests-arm64-apple-macosx15.0-debug.module>"]
+
+  "<MatrixProductPackageTests-arm64-apple-macosx15.0-debug.test>":
+    tool: phony
+    inputs: ["/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductPackageTests.xctest/Contents/MacOS/MatrixProductPackageTests"]
+    outputs: ["<MatrixProductPackageTests-arm64-apple-macosx15.0-debug.test>"]
+
+  "<MatrixProductTests-arm64-apple-macosx15.0-debug.module>":
+    tool: phony
+    inputs: ["/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductTests.build/MatrixProductTests.swift.o","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/Modules/MatrixProductTests.swiftmodule"]
+    outputs: ["<MatrixProductTests-arm64-apple-macosx15.0-debug.module>"]
+
+  "C.MatrixProduct-arm64-apple-macosx15.0-debug.exe":
+    tool: shell
+    inputs: ["/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct.build/MatrixProduct.swift.o","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct.build/main.swift.o","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct.product/Objects.LinkFileList"]
+    outputs: ["/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct"]
+    description: "Linking ./.build/arm64-apple-macosx/debug/MatrixProduct"
+    args: ["/Library/Developer/CommandLineTools/usr/bin/swiftc","-L","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug","-o","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct","-module-name","MatrixProduct","-Xlinker","-no_warn_duplicate_libraries","-emit-executable","-Xlinker","-alias","-Xlinker","_MatrixProduct_main","-Xlinker","_main","-Xlinker","-rpath","-Xlinker","@loader_path","@/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct.product/Objects.LinkFileList","-Xlinker","-rpath","-Xlinker","/Library/Developer/CommandLineTools/usr/lib/swift-5.5/macosx","-target","arm64-apple-macosx10.13","-Xlinker","-add_ast_path","-Xlinker","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/Modules/MatrixProduct.swiftmodule","-F","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-sdk","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-g","-Xlinker","-rpath","-Xlinker","/Library/Developer/CommandLineTools/Library/Developer/Frameworks"]
+
+  "C.MatrixProduct-arm64-apple-macosx15.0-debug.exe-entitlements":
+    tool: shell
+    inputs: ["/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct-entitlement.plist"]
+    outputs: ["<MatrixProduct-arm64-apple-macosx15.0-debug.exe-CodeSigning>"]
+    description: "Applying debug entitlements to ./.build/arm64-apple-macosx/debug/MatrixProduct"
+    args: ["codesign","--force","--sign","-","--entitlements","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct-entitlement.plist","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct"]
+
+  "C.MatrixProduct-arm64-apple-macosx15.0-debug.module":
+    tool: shell
+    inputs: ["/Users/ketema/projects/Euler_Problems/problem11/swift/MatrixProduct.swift","/Users/ketema/projects/Euler_Problems/problem11/swift/main.swift","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct.build/sources"]
+    outputs: ["/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct.build/MatrixProduct.swift.o","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct.build/main.swift.o","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/Modules/MatrixProduct.swiftmodule"]
+    description: "Compiling Swift Module 'MatrixProduct' (2 sources)"
+    args: ["/Library/Developer/CommandLineTools/usr/bin/swiftc","-module-name","MatrixProduct","-emit-dependencies","-emit-module","-emit-module-path","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/Modules/MatrixProduct.swiftmodule","-output-file-map","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct.build/output-file-map.json","-incremental","-c","@/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct.build/sources","-I","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/Modules","-target","arm64-apple-macosx10.13","-enable-batch-mode","-index-store-path","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/index/store","-Onone","-enable-testing","-j14","-DSWIFT_PACKAGE","-DDEBUG","-module-cache-path","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/ModuleCache","-parseable-output","-Xfrontend","-entry-point-function-name","-Xfrontend","MatrixProduct_main","-swift-version","5","-F","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-sdk","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-g","-Xcc","-isysroot","-Xcc","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-Xcc","-fPIC","-Xcc","-g","-package-name","swift"]
+
+  "C.MatrixProductPackageTests-arm64-apple-macosx15.0-debug.module":
+    tool: shell
+    inputs: ["/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductPackageTests.derived/runner.swift","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/Modules/MatrixProductTests.swiftmodule","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductPackageTests.build/sources"]
+    outputs: ["/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductPackageTests.build/runner.swift.o","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/Modules/MatrixProductPackageTests.swiftmodule"]
+    description: "Compiling Swift Module 'MatrixProductPackageTests' (1 sources)"
+    args: ["/Library/Developer/CommandLineTools/usr/bin/swiftc","-module-name","MatrixProductPackageTests","-emit-dependencies","-emit-module","-emit-module-path","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/Modules/MatrixProductPackageTests.swiftmodule","-output-file-map","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductPackageTests.build/output-file-map.json","-parse-as-library","-incremental","-c","@/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductPackageTests.build/sources","-I","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/Modules","-target","arm64-apple-macosx10.13","-enable-batch-mode","-index-store-path","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/index/store","-Onone","-enable-testing","-Xfrontend","-enable-cross-import-overlays","-j14","-DSWIFT_PACKAGE","-DDEBUG","-module-cache-path","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/ModuleCache","-parseable-output","-parse-as-library","-emit-objc-header","-emit-objc-header-path","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductPackageTests.build/MatrixProductPackageTests-Swift.h","-F","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-sdk","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-g","-Xcc","-isysroot","-Xcc","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-Xcc","-fPIC","-Xcc","-g","-package-name","swift"]
+
+  "C.MatrixProductPackageTests-arm64-apple-macosx15.0-debug.test":
+    tool: shell
+    inputs: ["/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct.build/MatrixProduct.swift.o","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct.build/main.swift.o","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductPackageTests.build/runner.swift.o","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductTests.build/MatrixProductTests.swift.o","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductPackageTests.product/Objects.LinkFileList"]
+    outputs: ["/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductPackageTests.xctest/Contents/MacOS/MatrixProductPackageTests"]
+    description: "Linking ./.build/arm64-apple-macosx/debug/MatrixProductPackageTests.xctest/Contents/MacOS/MatrixProductPackageTests"
+    args: ["/Library/Developer/CommandLineTools/usr/bin/swiftc","-L","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug","-o","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductPackageTests.xctest/Contents/MacOS/MatrixProductPackageTests","-module-name","MatrixProductPackageTests","-Xlinker","-no_warn_duplicate_libraries","-Xlinker","-bundle","-Xlinker","-rpath","-Xlinker","@loader_path/../../../","@/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductPackageTests.product/Objects.LinkFileList","-Xlinker","-rpath","-Xlinker","/Library/Developer/CommandLineTools/usr/lib/swift-5.5/macosx","-target","arm64-apple-macosx10.13","-Xlinker","-add_ast_path","-Xlinker","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/Modules/MatrixProduct.swiftmodule","-Xlinker","-add_ast_path","-Xlinker","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/Modules/MatrixProductPackageTests.swiftmodule","-Xlinker","-add_ast_path","-Xlinker","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/Modules/MatrixProductTests.swiftmodule","-F","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-sdk","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-g","-Xlinker","-rpath","-Xlinker","/Library/Developer/CommandLineTools/Library/Developer/Frameworks"]
+
+  "C.MatrixProductTests-arm64-apple-macosx15.0-debug.module":
+    tool: shell
+    inputs: ["/Users/ketema/projects/Euler_Problems/problem11/swift/MatrixProductTests.swift","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductTests.build/sources"]
+    outputs: ["/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductTests.build/MatrixProductTests.swift.o","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/Modules/MatrixProductTests.swiftmodule"]
+    description: "Compiling Swift Module 'MatrixProductTests' (1 sources)"
+    args: ["/Library/Developer/CommandLineTools/usr/bin/swiftc","-module-name","MatrixProductTests","-emit-dependencies","-emit-module","-emit-module-path","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/Modules/MatrixProductTests.swiftmodule","-output-file-map","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductTests.build/output-file-map.json","-parse-as-library","-incremental","-c","@/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductTests.build/sources","-I","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/Modules","-target","arm64-apple-macosx10.13","-enable-batch-mode","-index-store-path","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/index/store","-Onone","-enable-testing","-Xfrontend","-enable-cross-import-overlays","-j14","-DSWIFT_PACKAGE","-DDEBUG","-module-cache-path","/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/ModuleCache","-parseable-output","-parse-as-library","-swift-version","5","-F","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-sdk","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-g","-Xcc","-isysroot","-Xcc","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-Xcc","-fPIC","-Xcc","-g","-package-name","swift"]
+
+  "PackageStructure":
+    tool: package-structure-tool
+    inputs: ["/Users/ketema/projects/Euler_Problems/problem11/swift/","/Users/ketema/projects/Euler_Problems/problem11/swift/","/Users/ketema/projects/Euler_Problems/problem11/swift/Package.swift","/Users/ketema/projects/Euler_Problems/problem11/swift/Package.resolved"]
+    outputs: ["<PackageStructure>"]
+    description: "Planning build"
+    allow-missing-inputs: true
+

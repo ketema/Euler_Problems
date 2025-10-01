@@ -1,0 +1,17 @@
+{
+  "": {
+    "swift-dependencies": "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct.build/master.swiftdeps"
+  },
+  "/Users/ketema/projects/Euler_Problems/problem11/swift/MatrixProduct.swift": {
+    "dependencies": "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct.build/MatrixProduct.d",
+    "object": "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct.build/MatrixProduct.swift.o",
+    "swiftmodule": "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct.build/MatrixProduct~partial.swiftmodule",
+    "swift-dependencies": "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct.build/MatrixProduct.swiftdeps"
+  },
+  "/Users/ketema/projects/Euler_Problems/problem11/swift/main.swift": {
+    "dependencies": "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct.build/main.d",
+    "object": "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct.build/main.swift.o",
+    "swiftmodule": "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct.build/main~partial.swiftmodule",
+    "swift-dependencies": "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct.build/main.swiftdeps"
+  }
+}
