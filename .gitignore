@@ -16,3 +16,56 @@ cabal.project.local~
 
 # Build artifacts
 **/bin/
+
+# Rust build artifacts
+**/target/
+Cargo.lock
+
+# Python build artifacts
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Poetry
+poetry.lock
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Perl build artifacts
+blib/
+.build/
+_build/
+cover_db/
+inc/
+Build
+!Build/
+Build.bat
+.last_cover_stats
+Makefile.old
+nytprof.out
+pm_to_blib
