@@ -8,3 +8,9 @@ edition = "2024"
 [dev-dependencies]
 rstest = "*"
 speculate = "*"
+proptest = "1.0"
+criterion = "0.5"
+
+[[bench]]
+name = "performance_baseline"
+harness = false
