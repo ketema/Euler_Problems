@@ -24,8 +24,8 @@ speculate! {
         }
         // The following test is slow, so it's commented out by default.
         // Uncomment to run the real Project Euler test.
-        // it "returns the correct triangle number for over 500 divisors" {
-        //     assert_eq!(find_triangle_with_divisors(500), 76576500);
-        // }
+        it "returns the correct triangle number for over 500 divisors" {
+            assert_eq!(find_triangle_with_divisors(500), 76576500);
+        }
     }
 }
