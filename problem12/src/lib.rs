@@ -34,6 +34,20 @@ pub fn triangle_number(n: u64) -> u64 {
     n * (n + 1) / 2
 }
 
+/// Returns the nth triangle number with overflow protection.
+/// Uses checked arithmetic to detect overflow conditions.
+pub fn triangle_number_safe(n: u64) -> Result<u64, Problem12Error> {
+    // Check for potential overflow before calculation
+    // For n*(n+1)/2, overflow occurs when n*(n+1) > 2*u64::MAX
+    // This happens approximately when n > sqrt(2*u64::MAX) ≈ 6.07 * 10^9
+
+    // Use checked multiplication to detect overflow
+    match n.checked_mul(n + 1) {
+        Some(product) => Ok(product / 2),
+        None => Err(Problem12Error::Overflow(n)),
+    }
+}
+
 /// Returns the number of divisors of n.
 pub fn count_divisors(n: u64) -> u32 {
     if n == 1 {
