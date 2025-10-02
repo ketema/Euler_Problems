@@ -1,5 +1,34 @@
 // Core logic for Project Euler Problem 12
 
+use std::fmt;
+use std::time::Duration;
+
+/// Custom error types for Problem 12
+#[derive(Debug, PartialEq)]
+pub enum Problem12Error {
+    InvalidInput(String),
+    Overflow(u64),
+    Timeout(Duration),
+}
+
+impl fmt::Display for Problem12Error {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            Problem12Error::InvalidInput(input) => write!(f, "Invalid input: {}", input),
+            Problem12Error::Overflow(value) => write!(f, "Overflow detected with value: {}", value),
+            Problem12Error::Timeout(duration) => write!(f, "Operation timed out after {}s", duration.as_secs()),
+        }
+    }
+}
+
+impl std::error::Error for Problem12Error {}
+
+/// Parses input string to u32, returning custom error on failure
+pub fn parse_input(input: &str) -> Result<u32, Problem12Error> {
+    let trimmed = input.trim();
+    trimmed.parse::<u32>().map_err(|_| Problem12Error::InvalidInput(trimmed.to_string()))
+}
+
 /// Returns the nth triangle number.
 pub fn triangle_number(n: u64) -> u64 {
     n * (n + 1) / 2

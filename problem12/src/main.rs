@@ -1,8 +1,5 @@
 use std::io;
-
-fn parse_input(input: &str) -> Result<u32, String> {
-    input.trim().parse::<u32>().map_err(|_| "Please enter a valid numeric value.".to_string())
-}
+use problem12::parse_input;
 
 fn main() {
     println!("Enter the minimum number of divisors:");
