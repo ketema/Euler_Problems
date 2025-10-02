@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "problem13-python"
+version = "0.1.0"
+description = "Project Euler Problem 13 - Python implementation"
+authors = ["Ketema Harris <ketema@ketema.net>"]
+readme = "README.md"
+packages = [{include = "large_sum.py"}]
+
+[tool.poetry.dependencies]
+python = ">=3.9"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.4.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
