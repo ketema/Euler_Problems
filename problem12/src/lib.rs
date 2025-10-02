@@ -119,3 +119,33 @@ pub fn find_triangle_with_divisors(min_divisors: u32) -> u64 {
         n += 1;
     }
 }
+
+/// Finds the first triangle number with more than min_divisors divisors, with timeout.
+/// Returns Timeout error if the operation takes longer than the specified duration.
+pub fn find_triangle_with_divisors_timeout(min_divisors: u32, timeout: Duration) -> Result<u64, Problem12Error> {
+    use std::time::Instant;
+
+    let start_time = Instant::now();
+
+    // Check for zero timeout immediately
+    if timeout.is_zero() {
+        return Err(Problem12Error::Timeout(timeout));
+    }
+
+    let mut n = 1;
+    loop {
+        // Check timeout periodically (every 1000 iterations for efficiency)
+        if n % 1000 == 0 {
+            let elapsed = start_time.elapsed();
+            if elapsed >= timeout {
+                return Err(Problem12Error::Timeout(elapsed));
+            }
+        }
+
+        let tri = triangle_number(n);
+        if count_divisors_optimized(tri) > min_divisors {
+            return Ok(tri);
+        }
+        n += 1;
+    }
+}
