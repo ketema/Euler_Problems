@@ -52,6 +52,48 @@ pub fn count_divisors(n: u64) -> u32 {
     count
 }
 
+/// Returns the number of divisors of n using prime factorization (optimized).
+/// Uses the formula: if n = p1^a1 * p2^a2 * ... * pk^ak, then divisors = (a1+1)(a2+1)...(ak+1)
+pub fn count_divisors_optimized(n: u64) -> u32 {
+    if n == 1 {
+        return 1;
+    }
+
+    let mut num = n;
+    let mut divisor_count = 1;
+
+    // Handle factor 2 separately for efficiency
+    if num % 2 == 0 {
+        let mut power = 0;
+        while num % 2 == 0 {
+            num /= 2;
+            power += 1;
+        }
+        divisor_count *= power + 1;
+    }
+
+    // Check odd factors from 3 onwards
+    let mut factor = 3;
+    while factor * factor <= num {
+        if num % factor == 0 {
+            let mut power = 0;
+            while num % factor == 0 {
+                num /= factor;
+                power += 1;
+            }
+            divisor_count *= power + 1;
+        }
+        factor += 2; // Only check odd numbers
+    }
+
+    // If num > 1, then it's a prime factor
+    if num > 1 {
+        divisor_count *= 2; // Prime has power 1, so divisors = 1 + 1 = 2
+    }
+
+    divisor_count
+}
+
 /// Finds the first triangle number with more than min_divisors divisors.
 pub fn find_triangle_with_divisors(min_divisors: u32) -> u64 {
     let mut n = 1;

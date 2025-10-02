@@ -1,5 +1,5 @@
 use criterion::{black_box, criterion_group, criterion_main, Criterion};
-use problem12::{count_divisors, triangle_number};
+use problem12::{count_divisors, count_divisors_optimized, triangle_number};
 
 fn benchmark_count_divisors(c: &mut Criterion) {
     let mut group = c.benchmark_group("count_divisors");
@@ -18,7 +18,20 @@ fn benchmark_count_divisors(c: &mut Criterion) {
     group.bench_function("count_divisors_large", |b| {
         b.iter(|| count_divisors(black_box(76576500)))
     });
-    
+
+    // Optimized versions
+    group.bench_function("count_divisors_optimized_small", |b| {
+        b.iter(|| count_divisors_optimized(black_box(28)))
+    });
+
+    group.bench_function("count_divisors_optimized_medium", |b| {
+        b.iter(|| count_divisors_optimized(black_box(1000)))
+    });
+
+    group.bench_function("count_divisors_optimized_large", |b| {
+        b.iter(|| count_divisors_optimized(black_box(76576500)))
+    });
+
     group.finish();
 }
 
