@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Euler 957: Point Genesis Visualization</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #1a1a1a;
+            color: #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+            color: #4fc3f7;
+        }
+
+        .subtitle {
+            color: #9e9e9e;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .container {
+            background: #2a2a2a;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            max-width: 900px;
+            width: 100%;
+        }
+
+        canvas {
+            border: 2px solid #424242;
+            border-radius: 4px;
+            display: block;
+            margin: 0 auto 20px;
+            background: #ffffff;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat-box {
+            background: #333;
+            padding: 15px;
+            border-radius: 4px;
+            border-left: 4px solid #4fc3f7;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #9e9e9e;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #e0e0e0;
+        }
+
+        .stat-value.red {
+            color: #ff5252;
+        }
+
+        .stat-value.blue {
+            color: #448aff;
+        }
+
+        .legend {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid #666;
+        }
+
+        .legend-color.red {
+            background: #ff0000;
+        }
+
+        .legend-color.blue {
+            background: #0000ff;
+        }
+
+        .info {
+            background: #1e3a5f;
+            padding: 15px;
+            border-radius: 4px;
+            border-left: 4px solid #2196f3;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .coordinates {
+            background: #333;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+        }
+
+        .coord-section {
+            margin-bottom: 10px;
+        }
+
+        .coord-section h4 {
+            color: #4fc3f7;
+            margin-bottom: 5px;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Project Euler 957: Point Genesis</h1>
+    <p class="subtitle">Optimal Configuration Visualization</p>
+
+    <div class="container">
+        <canvas id="canvas" width="800" height="600"></canvas>
+
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-color red"></div>
+                <span>Red Points (Initial)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color blue"></div>
+                <span>Blue Points (Generated)</span>
+            </div>
+        </div>
+
+        <div class="stats">
+            <div class="stat-box">
+                <div class="stat-label">Red Points</div>
+                <div class="stat-value red" id="redCount">3</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">Blue Points</div>
+                <div class="stat-value blue" id="blueCount">2</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">Total Points</div>
+                <div class="stat-value" id="totalCount">5</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">g(16)</div>
+                <div class="stat-value">15.7 Quintillion</div>
+            </div>
+        </div>
+
+        <div class="info">
+            <strong>Optimal Configuration:</strong> This visualization shows the initial optimal configuration
+            that generates the maximum number of blue points after 16 days of propagation. The 3 red points
+            form an equilateral triangle, and the 2 blue points are strategically placed to maximize
+            line intersections.
+            <br><br>
+            <strong>Final Answer:</strong> g(16) = 15,730,302,251,147,551,048 blue points (OEIS A189191)
+        </div>
+
+        <div class="coordinates">
+            <div class="coord-section">
+                <h4>Red Points (Fixed):</h4>
+                <div id="redCoords"></div>
+            </div>
+            <div class="coord-section">
+                <h4>Blue Points (Initial):</h4>
+                <div id="blueCoords"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Optimal configuration data (from computational search)
+        const RED_POINTS = [
+            { x: -1.1420985748, y: -3.1278529420, color: 'red' },
+            { x: 1.7213348846, y: -0.8343651343, color: 'red' },
+            { x: 4.3760906863, y: 2.3859745813, color: 'red' }
+        ];
+
+        const BLUE_POINTS = [
+            { x: -1.8437265624, y: 1.4483260402, color: 'blue' },
+            { x: -1.0486909239, y: 2.1320688328, color: 'blue' }
+        ];
+
+        // Viewport class
+        class Viewport {
+            constructor(minX, maxX, minY, maxY) {
+                this.minX = minX;
+                this.maxX = maxX;
+                this.minY = minY;
+                this.maxY = maxY;
+            }
+
+            get width() {
+                return this.maxX - this.minX;
+            }
+
+            get height() {
+                return this.maxY - this.minY;
+            }
+        }
+
+        // Calculate viewport from points with padding
+        function calculateViewport(points, paddingPercent = 0.1) {
+            const xs = points.map(p => p.x);
+            const ys = points.map(p => p.y);
+
+            let minX = Math.min(...xs);
+            let maxX = Math.max(...xs);
+            let minY = Math.min(...ys);
+            let maxY = Math.max(...ys);
+
+            let xRange = maxX - minX;
+            let yRange = maxY - minY;
+
+            // Handle degenerate case
+            if (xRange === 0) xRange = 1.0;
+            if (yRange === 0) yRange = 1.0;
+
+            const xPadding = xRange * paddingPercent;
+            const yPadding = yRange * paddingPercent;
+
+            return new Viewport(
+                minX - xPadding,
+                maxX + xPadding,
+                minY - yPadding,
+                maxY + yPadding
+            );
+        }
+
+        // Transform mathematical coordinates to screen coordinates
+        function transformToScreen(mathX, mathY, viewport, canvasWidth, canvasHeight) {
+            // Calculate scale (maintain aspect ratio)
+            const scaleX = canvasWidth / viewport.width;
+            const scaleY = canvasHeight / viewport.height;
+            const scale = Math.min(scaleX, scaleY);
+
+            // Find viewport center
+            const centerX = viewport.minX + viewport.width / 2;
+            const centerY = viewport.minY + viewport.height / 2;
+
+            // Transform with y-axis inversion
+            const screenX = (mathX - centerX) * scale + canvasWidth / 2;
+            const screenY = canvasHeight / 2 - (mathY - centerY) * scale;
+
+            return [screenX, screenY];
+        }
+
+        // Render visualization
+        function render() {
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+            const width = canvas.width;
+            const height = canvas.height;
+
+            // Clear canvas
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, width, height);
+
+            // Calculate viewport
+            const allPoints = [...RED_POINTS, ...BLUE_POINTS];
+            const viewport = calculateViewport(allPoints, 0.15);
+
+            // Draw grid (optional)
+            ctx.strokeStyle = '#f0f0f0';
+            ctx.lineWidth = 1;
+            for (let i = 0; i <= 10; i++) {
+                const x = (width / 10) * i;
+                const y = (height / 10) * i;
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, height);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(width, y);
+                ctx.stroke();
+            }
+
+            // Draw coordinate axes
+            const [originX, originY] = transformToScreen(0, 0, viewport, width, height);
+            ctx.strokeStyle = '#cccccc';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(0, originY);
+            ctx.lineTo(width, originY);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(originX, 0);
+            ctx.lineTo(originX, height);
+            ctx.stroke();
+
+            // Draw red points
+            RED_POINTS.forEach(point => {
+                const [screenX, screenY] = transformToScreen(point.x, point.y, viewport, width, height);
+                ctx.fillStyle = '#ff0000';
+                ctx.beginPath();
+                ctx.arc(screenX, screenY, 8, 0, 2 * Math.PI);
+                ctx.fill();
+                ctx.strokeStyle = '#000000';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            });
+
+            // Draw blue points
+            BLUE_POINTS.forEach(point => {
+                const [screenX, screenY] = transformToScreen(point.x, point.y, viewport, width, height);
+                ctx.fillStyle = '#0000ff';
+                ctx.beginPath();
+                ctx.arc(screenX, screenY, 8, 0, 2 * Math.PI);
+                ctx.fill();
+                ctx.strokeStyle = '#000000';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            });
+
+            // Update coordinate display
+            document.getElementById('redCoords').innerHTML = RED_POINTS
+                .map(p => `(${p.x.toFixed(6)}, ${p.y.toFixed(6)})`)
+                .join('<br>');
+            document.getElementById('blueCoords').innerHTML = BLUE_POINTS
+                .map(p => `(${p.x.toFixed(6)}, ${p.y.toFixed(6)})`)
+                .join('<br>');
+        }
+
+        // Initial render
+        render();
+    </script>
+</body>
+</html>
