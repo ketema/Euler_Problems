@@ -69,3 +69,29 @@ Build.bat
 Makefile.old
 nytprof.out
 pm_to_blib
+
+# Swift Package Manager
+.swiftpm/
+*.xcodeproj
+*.xcworkspace
+
+# Compiled executables (by name)
+matrix_product
+MatrixProduct
+test_runner
+problem*_test
+
+# C/C++ compiled
+*.out
+a.out
+
+# Fortran compiled
+*.mod
+
+# .NET compiled
+[Bb]in/
+[Oo]bj/
+*.dll
+
+# Go compiled
+go.sum

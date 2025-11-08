@@ -1,0 +1,12 @@
+[package]
+name = "euler-problem-15"
+version = "1.0.0"
+edition = "2021"
+
+[dependencies]
+
+[dev-dependencies]
+
+[[bin]]
+name = "lattice_paths"
+path = "src/main.rs"
