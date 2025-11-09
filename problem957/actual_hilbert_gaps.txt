@@ -1,0 +1,60 @@
+======================================================================
+ACTUAL HILBERT GAPS (No Extrapolation)
+======================================================================
+
+Day 1:
+  Points: 2
+  Average gap: 2,791,728,736.0
+  Median gap: 2,791,728,736.0
+  Std gap: 0.0
+  Min gap: 2,791,728,736
+  Max gap: 2,791,728,736
+
+Day 2:
+  Points: 5
+  Average gap: 748,177,799.2
+  Median gap: 724,770,275.0
+  Std gap: 679,562,373.3
+  Min gap: 17,895,697
+  Max gap: 1,525,274,950
+
+Day 3:
+  Points: 13
+  Average gap: 270,156,196.1
+  Median gap: 8,947,848.5
+  Std gap: 449,277,606.8
+  Min gap: 0
+  Max gap: 1,413,760,068
+
+Day 4:
+  Points: 38
+  Average gap: 85,457,711.0
+  Median gap: 0.0
+  Std gap: 274,366,811.8
+  Min gap: 0
+  Max gap: 1,413,760,068
+
+Day 5:
+  Points: 81
+  Average gap: 40,520,463.6
+  Median gap: 0.0
+  Std gap: 192,596,732.9
+  Min gap: 0
+  Max gap: 1,413,760,068
+
+Day 6:
+  Points: 170
+  Average gap: 19,173,266.0
+  Median gap: 0.0
+  Std gap: 132,085,295.6
+  Min gap: 0
+  Max gap: 1,413,760,068
+
+Day 7:
+  Points: 321
+  Average gap: 10,126,859.3
+  Median gap: 0.0
+  Std gap: 96,469,265.6
+  Min gap: 0
+  Max gap: 1,413,760,068
+
