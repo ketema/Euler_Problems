@@ -1,0 +1,576 @@
+{
+  "builtTestProducts" : [
+    {
+      "binaryPath" : "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductPackageTests.xctest/Contents/MacOS/MatrixProductPackageTests",
+      "packagePath" : "/Users/ketema/projects/Euler_Problems/problem11/swift",
+      "productName" : "MatrixProductPackageTests"
+    }
+  ],
+  "copyCommands" : {
+
+  },
+  "explicitTargetDependencyImportCheckingMode" : {
+    "none" : {
+
+    }
+  },
+  "generatedSourceTargetSet" : [
+
+  ],
+  "pluginDescriptions" : [
+
+  ],
+  "swiftCommands" : {
+    "C.MatrixProduct-arm64-apple-macosx15.0-debug.module" : {
+      "executable" : "/Library/Developer/CommandLineTools/usr/bin/swiftc",
+      "fileList" : "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct.build/sources",
+      "importPath" : "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/ketema/projects/Euler_Problems/problem11/swift/MatrixProduct.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/ketema/projects/Euler_Problems/problem11/swift/main.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct.build/sources"
+        }
+      ],
+      "isLibrary" : false,
+      "moduleName" : "MatrixProduct",
+      "moduleOutputPath" : "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/Modules/MatrixProduct.swiftmodule",
+      "objects" : [
+        "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct.build/MatrixProduct.swift.o",
+        "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct.build/main.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx10.13",
+        "-enable-batch-mode",
+        "-index-store-path",
+        "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-j14",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-module-cache-path",
+        "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-Xfrontend",
+        "-entry-point-function-name",
+        "-Xfrontend",
+        "MatrixProduct_main",
+        "-swift-version",
+        "5",
+        "-F",
+        "/Library/Developer/CommandLineTools/Library/Developer/Frameworks",
+        "-sdk",
+        "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "swift"
+      ],
+      "outputFileMapPath" : "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct.build/MatrixProduct.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct.build/main.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/Modules/MatrixProduct.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/ketema/projects/Euler_Problems/problem11/swift/MatrixProduct.swift",
+        "/Users/ketema/projects/Euler_Problems/problem11/swift/main.swift"
+      ],
+      "tempsPath" : "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct.build",
+      "wholeModuleOptimization" : false
+    },
+    "C.MatrixProductPackageTests-arm64-apple-macosx15.0-debug.module" : {
+      "executable" : "/Library/Developer/CommandLineTools/usr/bin/swiftc",
+      "fileList" : "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductPackageTests.build/sources",
+      "importPath" : "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductPackageTests.derived/runner.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/Modules/MatrixProductTests.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductPackageTests.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "MatrixProductPackageTests",
+      "moduleOutputPath" : "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/Modules/MatrixProductPackageTests.swiftmodule",
+      "objects" : [
+        "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductPackageTests.build/runner.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx10.13",
+        "-enable-batch-mode",
+        "-index-store-path",
+        "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-Xfrontend",
+        "-enable-cross-import-overlays",
+        "-j14",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-module-cache-path",
+        "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductPackageTests.build/MatrixProductPackageTests-Swift.h",
+        "-F",
+        "/Library/Developer/CommandLineTools/Library/Developer/Frameworks",
+        "-sdk",
+        "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "swift"
+      ],
+      "outputFileMapPath" : "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductPackageTests.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductPackageTests.build/runner.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/Modules/MatrixProductPackageTests.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductPackageTests.derived/runner.swift"
+      ],
+      "tempsPath" : "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductPackageTests.build",
+      "wholeModuleOptimization" : false
+    },
+    "C.MatrixProductTests-arm64-apple-macosx15.0-debug.module" : {
+      "executable" : "/Library/Developer/CommandLineTools/usr/bin/swiftc",
+      "fileList" : "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductTests.build/sources",
+      "importPath" : "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/ketema/projects/Euler_Problems/problem11/swift/MatrixProductTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductTests.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "MatrixProductTests",
+      "moduleOutputPath" : "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/Modules/MatrixProductTests.swiftmodule",
+      "objects" : [
+        "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductTests.build/MatrixProductTests.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx10.13",
+        "-enable-batch-mode",
+        "-index-store-path",
+        "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-Xfrontend",
+        "-enable-cross-import-overlays",
+        "-j14",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-module-cache-path",
+        "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-swift-version",
+        "5",
+        "-F",
+        "/Library/Developer/CommandLineTools/Library/Developer/Frameworks",
+        "-sdk",
+        "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "swift"
+      ],
+      "outputFileMapPath" : "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductTests.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductTests.build/MatrixProductTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/Modules/MatrixProductTests.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/ketema/projects/Euler_Problems/problem11/swift/MatrixProductTests.swift"
+      ],
+      "tempsPath" : "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductTests.build",
+      "wholeModuleOptimization" : false
+    }
+  },
+  "swiftFrontendCommands" : {
+
+  },
+  "swiftTargetScanArgs" : {
+    "MatrixProduct" : [
+      "/Library/Developer/CommandLineTools/usr/bin/swiftc",
+      "-module-name",
+      "MatrixProduct",
+      "-package-name",
+      "swift",
+      "-incremental",
+      "-c",
+      "/Users/ketema/projects/Euler_Problems/problem11/swift/MatrixProduct.swift",
+      "/Users/ketema/projects/Euler_Problems/problem11/swift/main.swift",
+      "-I",
+      "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx10.13",
+      "-enable-batch-mode",
+      "-index-store-path",
+      "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-j14",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-module-cache-path",
+      "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-Xfrontend",
+      "-entry-point-function-name",
+      "-Xfrontend",
+      "MatrixProduct_main",
+      "-swift-version",
+      "5",
+      "-F",
+      "/Library/Developer/CommandLineTools/Library/Developer/Frameworks",
+      "-sdk",
+      "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "swift",
+      "-driver-use-frontend-path",
+      "/Library/Developer/CommandLineTools/usr/bin/swiftc"
+    ],
+    "MatrixProductPackageTests" : [
+      "/Library/Developer/CommandLineTools/usr/bin/swiftc",
+      "-module-name",
+      "MatrixProductPackageTests",
+      "-package-name",
+      "swift",
+      "-incremental",
+      "-c",
+      "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductPackageTests.derived/runner.swift",
+      "-I",
+      "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx10.13",
+      "-enable-batch-mode",
+      "-index-store-path",
+      "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-Xfrontend",
+      "-enable-cross-import-overlays",
+      "-j14",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-module-cache-path",
+      "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-emit-objc-header",
+      "-emit-objc-header-path",
+      "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductPackageTests.build/MatrixProductPackageTests-Swift.h",
+      "-F",
+      "/Library/Developer/CommandLineTools/Library/Developer/Frameworks",
+      "-sdk",
+      "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "swift",
+      "-driver-use-frontend-path",
+      "/Library/Developer/CommandLineTools/usr/bin/swiftc"
+    ],
+    "MatrixProductTests" : [
+      "/Library/Developer/CommandLineTools/usr/bin/swiftc",
+      "-module-name",
+      "MatrixProductTests",
+      "-package-name",
+      "swift",
+      "-incremental",
+      "-c",
+      "/Users/ketema/projects/Euler_Problems/problem11/swift/MatrixProductTests.swift",
+      "-I",
+      "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx10.13",
+      "-enable-batch-mode",
+      "-index-store-path",
+      "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-Xfrontend",
+      "-enable-cross-import-overlays",
+      "-j14",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-module-cache-path",
+      "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-swift-version",
+      "5",
+      "-F",
+      "/Library/Developer/CommandLineTools/Library/Developer/Frameworks",
+      "-sdk",
+      "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "swift",
+      "-driver-use-frontend-path",
+      "/Library/Developer/CommandLineTools/usr/bin/swiftc"
+    ]
+  },
+  "targetDependencyMap" : {
+    "MatrixProduct" : [
+
+    ],
+    "MatrixProductPackageTests" : [
+      "MatrixProductTests",
+      "MatrixProduct"
+    ],
+    "MatrixProductTests" : [
+      "MatrixProduct"
+    ]
+  },
+  "testDiscoveryCommands" : {
+
+  },
+  "testEntryPointCommands" : {
+    "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductPackageTests.derived/runner.swift" : {
+      "inputs" : [
+
+      ],
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductPackageTests.derived/runner.swift"
+        }
+      ]
+    }
+  },
+  "traitConfiguration" : {
+    "enableAllTraits" : false
+  },
+  "writeCommands" : {
+    "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct-entitlement.plist" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<entitlement-plist>"
+        },
+        {
+          "kind" : "virtual",
+          "name" : "<com.apple.security.get-task-allow>"
+        }
+      ],
+      "outputFilePath" : "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct-entitlement.plist"
+    },
+    "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/ketema/projects/Euler_Problems/problem11/swift/MatrixProduct.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/ketema/projects/Euler_Problems/problem11/swift/main.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct.build/sources"
+    },
+    "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct.product/Objects.LinkFileList" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<link-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct.build/MatrixProduct.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct.build/main.swift.o"
+        }
+      ],
+      "outputFilePath" : "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct.product/Objects.LinkFileList"
+    },
+    "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductPackageTests.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductPackageTests.derived/runner.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductPackageTests.build/sources"
+    },
+    "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductPackageTests.product/Objects.LinkFileList" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<link-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct.build/MatrixProduct.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProduct.build/main.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductPackageTests.build/runner.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductTests.build/MatrixProductTests.swift.o"
+        }
+      ],
+      "outputFilePath" : "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductPackageTests.product/Objects.LinkFileList"
+    },
+    "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductTests.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/ketema/projects/Euler_Problems/problem11/swift/MatrixProductTests.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductTests.build/sources"
+    },
+    "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt" : {
+      "alwaysOutOfDate" : true,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<swift-get-version>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Library/Developer/CommandLineTools/usr/bin/swiftc"
+        }
+      ],
+      "outputFilePath" : "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt"
+    }
+  }
+}

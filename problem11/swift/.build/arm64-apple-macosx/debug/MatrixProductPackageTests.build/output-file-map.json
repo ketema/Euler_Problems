@@ -1,0 +1,11 @@
+{
+  "": {
+    "swift-dependencies": "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductPackageTests.build/master.swiftdeps"
+  },
+  "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductPackageTests.derived/runner.swift": {
+    "dependencies": "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductPackageTests.build/runner.d",
+    "object": "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductPackageTests.build/runner.swift.o",
+    "swiftmodule": "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductPackageTests.build/runner~partial.swiftmodule",
+    "swift-dependencies": "/Users/ketema/projects/Euler_Problems/problem11/swift/.build/arm64-apple-macosx/debug/MatrixProductPackageTests.build/runner.swiftdeps"
+  }
+}
