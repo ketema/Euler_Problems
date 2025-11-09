@@ -17,7 +17,7 @@ Key insights:
 - Golden ratio φ = (1+√5)/2 ≈ 1.618 gives CF = [1,1,1,...]
 - φ² ≈ 2.618 is the target ratio for n/f(n)
 
-Answer: f(10^12 + 39) = 381,965,993,270
+Answer: f(10^12 + 39) = 381,964,548,597
 """
 
 
@@ -71,7 +71,7 @@ def find_f(n):
     Returns: (m, steps) where m = f(n) and steps = d(n,m)
     """
     phi = (1 + (5 ** 0.5)) / 2
-    search_radius = 100000  # Search radius around φ-based targets
+    search_radius = 2000000  # Search radius around φ-based targets (must be large enough)
 
     min_steps = float('inf')
     best_m = None
