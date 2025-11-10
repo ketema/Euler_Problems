@@ -1,0 +1,216 @@
+================================================================================
+DAY 0: g(0) = 2
+5 Red vertices (fan centers), 2 Blue vertices
+================================================================================
+
+
+                          r1
+                          ●
+                         /|\
+                        / | \
+                       /  |  \
+                      /   |   \
+                     /   b1    \
+                    /     ●     \
+                   /      |      \
+                  /       |       \
+            r2   /        |        \   r5
+            ●---/---------+---------\---●
+             \ /          |          \ /
+              X          b2           X
+             / \          ●          / \
+            /   \         |         /   \
+           /     \        |        /     \
+          /       \       |       /       \
+         ●---------\------+------/---------●
+        r3          \     |     /         r4
+                     \    |    /
+                      \   |   /
+                       \  |  /
+                        \ | /
+                         \|/
+
+    
+
+Cyclic Orders (viewing from each red outward):
+------------------------------------------------------------
+  r1: [b1, b2]  → sees b1 then b2 going clockwise
+  r2: [b2, b1]  → sees b2 then b1 (REVERSED!)  ←
+  r3: [b2, b1]  → sees b2 then b1 (REVERSED!)  ←
+  r4: [b2, b1]  → sees b2 then b1 (REVERSED!)  ←
+  r5: [b1, b2]  → sees b1 then b2
+
+Segment Pairs:
+------------------------------------------------------------
+  Each red connects to both blues → 5 × 2 = 10 segments
+  Segments: (r1,b1), (r1,b2), (r2,b1), (r2,b2), ...
+
+Crossing Analysis:
+------------------------------------------------------------
+  Red pairs with DIFFERENT orders → segments cross
+
+  Disagreeing pairs:
+    r1 vs r2: [1,2] vs [2,1] → (r1,b1)×(r2,b2) CROSSES ✓
+    r1 vs r3: [1,2] vs [2,1] → (r1,b1)×(r3,b2) CROSSES ✓
+    r1 vs r4: [1,2] vs [2,1] → (r1,b1)×(r4,b2) CROSSES ✓
+    r5 vs r2: [1,2] vs [2,1] → (r5,b1)×(r2,b2) CROSSES ✓
+    r5 vs r3: [1,2] vs [2,1] → (r5,b1)×(r3,b2) CROSSES ✓
+    r5 vs r4: [1,2] vs [2,1] → (r5,b1)×(r4,b2) CROSSES ✓
+
+  Agreeing pairs:
+    r1 vs r5: [1,2] vs [1,2] → no crossings
+    r2 vs r3: [2,1] vs [2,1] → no crossings
+    r2 vs r4: [2,1] vs [2,1] → no crossings
+    r3 vs r4: [2,1] vs [2,1] → no crossings
+
+  TOTAL CROSSINGS: 6
+
+
+
+
+================================================================================
+HOW TWO SEGMENTS CROSS (Interleaving Orders)
+================================================================================
+
+Example: Do (r1, b1) and (r2, b2) cross?
+
+Step 1: Check order around r1
+------------------------------------------------------------
+
+         Cyclic order around r1: [b1, b2]
+
+                    r1
+                    ●
+                   /|\
+                  / | \
+            [1]→ /  |  \ ←[2]
+               b1   |   b2
+                ●   |    ●
+
+         At r1: b1 comes BEFORE b2
+
+
+Step 2: Check order around r2
+------------------------------------------------------------
+
+         Cyclic order around r2: [b2, b1]
+
+                    r2
+                    ●
+                   /|\
+                  / | \
+            [1]→ /  |  \ ←[2]
+               b2   |   b1
+                ●   |    ●
+
+         At r2: b2 comes BEFORE b1 (REVERSED!)
+
+
+Step 3: Interleaving Test
+------------------------------------------------------------
+
+  Order at r1: b1 < b2  (b1 first)
+  Order at r2: b2 < b1  (b2 first)
+
+  Orders DISAGREE → Segments INTERLEAVE → CROSSING!
+
+
+Visualization of Crossing:
+------------------------------------------------------------
+
+       r1                    r2
+        ●                     ●
+        |\                   /|
+        | \                 / |
+        |  \     NEW      /  |
+        |   \    BLUE    /   |
+    b1  |    \    ●!    /    |  b1
+     ●--|-----\   ↑   /-----|--●
+        |      \ / \ /      |
+        |       X   X       |  ← segments cross here!
+        |      / \ / \      |
+     ●--|-----/   ↓   \-----|--●
+    b2  |    /    ●!    \    |  b2
+        |   /            \   |
+        |  /              \  |
+        | /                \ |
+        |/                  \|
+
+  Segment (r1→b1) crosses segment (r2→b2)
+  Segment (r1→b2) crosses segment (r2→b1)
+
+  For 1 pair of blues + 1 pair of disagreeing reds:
+    → 1 crossing (new blue created)
+
+
+
+
+
+================================================================================
+DAY 1: g(1) = 8
+5 Red vertices, 8 Blue vertices (2 original + 6 new)
+================================================================================
+
+Original blues: b1, b2
+New blues from crossings: b3, b4, b5, b6, b7, b8
+
+
+                          r1
+                          ●
+                         /|\
+                        / | \
+                   b3● /  |  \ ●b5
+                      /  b1   \
+                     /    ●    \
+                    /     |     \
+                   /      |      \
+              b7● /       |       \ ●b8
+            r2   /        |        \   r5
+            ●---/---------+---------\---●
+             \ /          |          \ /
+              X          b2           X
+             / \          ●          / \
+            /   \         |         /   \
+           /  b4●\        |        /●b6  \
+          /       \       |       /       \
+         ●---------\------+------/---------●
+        r3          \     |     /         r4
+                     \    |    /
+                      \   |   /
+                       \  |  /
+                        \ | /
+                         \|/
+
+    
+Total segments: 5 reds × 8 blues = 40 segments
+
+Next step (Day 1→2):
+  Check all pairs of reds for crossings among 8 blues
+  Using cyclic orders updated with new blues
+  Result: 20 new crossings → g(2) = 28
+
+
+
+
+
+================================================================================
+FORMULA AND SEQUENCE
+================================================================================
+
+Formula: g(t) = 7t² - t + 2
+
+Day | g(t) | New blues | Formula check
+----|------|-----------|---------------
+ 0  |   2  |    -      |   2
+ 1  |   8  |    6      |   8   ✓
+ 2  |  28  |   20      |  28   ✓
+ 3  |  62  |   34      |  62
+ 4  | 110  |   48      | 110
+ 5  | 172  |   62      | 172
+... | ...  |   ...     | ...
+ 16 | 1778 |  168      | 1778  ← ANSWER
+
+Key insight: Quadratic growth!
+  New crossings ≈ O(t) per day
+  Total blues ≈ O(t²)
+
