@@ -1,0 +1,71 @@
+======================================================================
+Problem 957: CORRECT Deterministic Solver
+======================================================================
+
+Key Insight: ONLY draw lines from reds to blues!
+(Not all lines between all points)
+
+Configuration:
+  Reds:  [Point2D(0, 0), Point2D(4, 0), Point2D(2, 3)]
+  Blues: [Point2D(1, 1), Point2D(3, 2)]
+
+======================================================================
+SIMULATING DAYS 0 THROUGH 6
+======================================================================
+
+======================================================================
+Day 0 → Day 1
+======================================================================
+Current state: g(0) = 2
+  Reds: 3 (fixed)
+  Blues: 2
+Lines constructed: 6 (3 reds × 2 blues)
+Checking 15 line pairs for intersections...
+  Completed in 0.065 seconds
+New blues created: 6
+g(1) = 8
+
+======================================================================
+Day 1 → Day 2
+======================================================================
+Current state: g(1) = 8
+  Reds: 3 (fixed)
+  Blues: 8
+Lines constructed: 24 (3 reds × 8 blues)
+Checking 276 line pairs for intersections...
+  Completed in 0.258 seconds
+New blues created: 20
+g(2) = 28
+
+======================================================================
+Day 2 → Day 3
+======================================================================
+Current state: g(2) = 28
+  Reds: 3 (fixed)
+  Blues: 28
+Lines constructed: 84 (3 reds × 28 blues)
+Checking 3486 line pairs for intersections...
+  Completed in 3.365 seconds
+New blues created: 156
+g(3) = 184
+
+======================================================================
+Day 3 → Day 4
+======================================================================
+Current state: g(3) = 184
+  Reds: 3 (fixed)
+  Blues: 184
+Lines constructed: 552 (3 reds × 184 blues)
+Checking 152076 line pairs for intersections...
+  Completed in 156.853 seconds
+New blues created: 1460
+g(4) = 1644
+
+======================================================================
+Day 4 → Day 5
+======================================================================
+Current state: g(4) = 1644
+  Reds: 3 (fixed)
+  Blues: 1644
+Lines constructed: 4932 (3 reds × 1644 blues)
+Checking 12159846 line pairs for intersections...
