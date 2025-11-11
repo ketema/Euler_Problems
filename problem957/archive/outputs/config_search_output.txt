@@ -1,0 +1,34 @@
+================================================================================
+Problem 957: Configuration Search Strategy
+================================================================================
+
+Red points (fixed): [Point2D(0, 0), Point2D(4, 0), Point2D(2, 3)]
+
+Searching for optimal initial blue configuration...
+Requirement: g(1)=8, g(2)=28 (given)
+Goal: Find config that allows tractable computation to g(16)
+
+================================================================================
+CONFIGURATION SEARCH
+================================================================================
+
+Generating candidate configurations...
+Generated 7445 candidates
+Testing top 1000 configurations...
+
+
+Progress: 0/1000
+
+================================================================================
+VALID CONFIG FOUND (#1)
+================================================================================
+Blues: [Point2D(-5, 5), Point2D(-4, -5)]
+Score: 409.60
+g(1)=8 ✓, g(2)=28 ✓
+Times: day 0→1: 0.013s, day 1→2: 0.273s
+
+Attempting to compute g(16)...
+  Day 2→3... g(3)=184 (time: 3.5s)
+  Day 3→4... g(4)=1644 (time: 163.0s)
+  ⚠️  Day 3→4 took 163.0s, trajectory becoming intractable
+  Day 4→5... 

@@ -26,63 +26,53 @@ class Problem957Solver:
         """
         Initialize with 3 red points (fixed) and 2 blue points (initial).
         Reds never change, blues accumulate.
+
+        IMPORTANT: blues_by_day stores CUMULATIVE sets, not incremental!
         """
         assert len(reds) == 3, "Must have exactly 3 red points"
         assert len(initial_blues) == 2, "Must have exactly 2 initial blue points"
 
         self.reds = reds
-        self.blues_by_day = {0: initial_blues}
+        # Store cumulative blue point sets (AI Panel recommendation)
+        self.blues_by_day = {0: set(initial_blues)}
 
-    def get_all_blues(self, day: int) -> List[Point]:
-        """Get all blue points accumulated through given day"""
-        all_blues = []
-        for d in range(day + 1):
-            if d in self.blues_by_day:
-                all_blues.extend(self.blues_by_day[d])
-        return all_blues
-
-    def point_to_tuple(self, p: Point) -> Tuple[Rational, Rational]:
-        """Convert to hashable tuple for deduplication"""
-        return (Rational(p.x), Rational(p.y))
+    def get_all_blues(self, day: int) -> Set[Point]:
+        """Get cumulative set of blue points at given day"""
+        return self.blues_by_day.get(day, set())
 
     def simulate_day(self, from_day: int, verbose=True) -> int:
         """
         Simulate transition: day from_day → day (from_day + 1)
-        Returns number of NEW blue points created
+        Returns TOTAL number of blue points after transition (g(from_day + 1))
         """
         if verbose:
             print(f"\n{'='*70}")
             print(f"Day {from_day} → Day {from_day + 1}")
             print(f"{'='*70}")
 
-        # Get all current blues
-        current_blues = self.get_all_blues(from_day)
+        # Get cumulative blues up to current day
+        current_cumulative_blues = self.get_all_blues(from_day)
 
         if verbose:
-            print(f"Current state: g({from_day}) = {len(current_blues)}")
+            print(f"Current state: g({from_day}) = {len(current_cumulative_blues)}")
             print(f"  Reds: {len(self.reds)} (fixed)")
-            print(f"  Blues: {len(current_blues)}")
+            print(f"  Blues: {len(current_cumulative_blues)} (cumulative)")
 
         # CORRECT RULE: Draw lines ONLY from reds to blues
         lines = []
         for red in self.reds:
-            for blue in current_blues:
+            for blue in current_cumulative_blues:
                 line = Line(red, blue)
                 lines.append((red, blue, line))
 
         if verbose:
-            print(f"Lines constructed: {len(lines)} (3 reds × {len(current_blues)} blues)")
+            print(f"Lines constructed: {len(lines)} (3 reds × {len(current_cumulative_blues)} blues)")
 
-        # Build set of existing points
-        existing = set()
-        for r in self.reds:
-            existing.add(self.point_to_tuple(r))
-        for b in current_blues:
-            existing.add(self.point_to_tuple(b))
+        # Build set of existing points - reds + all current blues
+        existing: Set[Point] = set(self.reds).union(current_cumulative_blues)
 
         # Find all intersections of pairs of lines
-        new_points = []
-        new_points_set = set()
+        new_points_this_day: Set[Point] = set()
 
         total_pairs = len(lines) * (len(lines) - 1) // 2
 
@@ -105,24 +95,23 @@ class Problem957Solver:
                 if not hasattr(p, 'x'):
                     continue
 
-                p_tuple = self.point_to_tuple(p)
-
-                # Check if it's a new point
-                if p_tuple not in existing and p_tuple not in new_points_set:
-                    new_points.append(p)
-                    new_points_set.add(p_tuple)
+                # Check if it's a new point - Point.__eq__ handles normalization
+                if p not in existing and p not in new_points_this_day:
+                    new_points_this_day.add(p)
 
         elapsed = time.time() - start
 
+        # CUMULATIVE: next day blues = current blues UNION new points
+        next_day_cumulative_blues = current_cumulative_blues.union(new_points_this_day)
+        self.blues_by_day[from_day + 1] = next_day_cumulative_blues
+
         if verbose:
             print(f"  Completed in {elapsed:.3f} seconds")
-            print(f"New blues created: {len(new_points)}")
-            print(f"g({from_day + 1}) = {len(current_blues) + len(new_points)}")
+            print(f"New blues created: {len(new_points_this_day)}")
+            print(f"g({from_day + 1}) = {len(next_day_cumulative_blues)} (cumulative total)")
 
-        # Store new blues for next day
-        self.blues_by_day[from_day + 1] = new_points
-
-        return len(new_points)
+        # Return TOTAL cumulative blues, not just new
+        return len(next_day_cumulative_blues)
 
     def simulate_to_day(self, target_day: int) -> List[int]:
         """
@@ -136,8 +125,8 @@ class Problem957Solver:
         sequence = [len(self.blues_by_day[0])]  # g(0) = 2
 
         for day in range(target_day):
-            new_count = self.simulate_day(day, verbose=True)
-            g_next = len(self.get_all_blues(day + 1))
+            # simulate_day now returns total cumulative count
+            g_next = self.simulate_day(day, verbose=True)
             sequence.append(g_next)
 
             # Safety check

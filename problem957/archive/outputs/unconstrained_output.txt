@@ -1,0 +1,18 @@
+================================================================================
+Problem 957: Unconstrained Search
+================================================================================
+
+Red points (fixed): [Point2D(0, 0), Point2D(4, 0), Point2D(2, 3)]
+
+================================================================================
+UNCONSTRAINED CONFIGURATION SEARCH
+================================================================================
+
+HYPOTHESIS: g(1)=8, g(2)=28 are EXAMPLES, not constraints
+
+Generating 2000 diverse configurations...
+Generated 1611 unique configurations
+
+Testing each config for tractability to g(16)...
+(No validation of g(1) or g(2) values)
+
