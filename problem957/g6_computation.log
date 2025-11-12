@@ -11,3 +11,8 @@ Day 2: g(2) = 28 (computed in 0.0s, 20 new points)
 Day 3: g(3) = 184 (computed in 0.0s, 156 new points)
 Day 4: g(4) = 1644 (computed in 1.0s, 1460 new points)
 Day 5: g(5) = 19068 (computed in 82.5s, 17424 new points)
+Day 6: g(6) = 256388 (computed in 7572.2s, 237320 new points)
+sage: 
+sage: FINAL: g(6) = 256388
+sage: ======================================================================
+sage: 
