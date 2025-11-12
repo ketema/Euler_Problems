@@ -22,22 +22,36 @@ class PrimeFactors
      */
     public function computePrimes($limit)
     {
-        $primes = bitset_fill($limit);
-        bitset_excl($primes, 0);
-        bitset_excl($primes, 1);
+        // Create BitSet with all bits set to 1 initially
+        $primes = new BitSet($limit);
+        for ($i = 0; $i < $limit; $i++) {
+            $primes->set($i);
+        }
 
-        for ( $i = 0; $i*$i < $limit; $i++ )
+        // 0 and 1 are not prime
+        $primes->clear(0);
+        $primes->clear(1);
+
+        // Sieve of Eratosthenes
+        for ( $i = 2; $i*$i < $limit; $i++ )
         {
-            if (bitset_in($primes, $i))
+            if ($primes->get($i))
             {
                 for ( $j = $i*$i; $j < $limit; $j += $i )
                 {
-                    bitset_excl($primes, $j);
+                    $primes->clear($j);
                 }
             }
         }
 
-        return bitset_to_array( $primes );
+        // Convert BitSet to array of prime numbers
+        $result = array();
+        for ($i = 2; $i < $limit; $i++) {
+            if ($primes->get($i)) {
+                $result[] = $i;
+            }
+        }
+        return $result;
     }
 
     /**
@@ -59,11 +73,11 @@ class PrimeFactors
      * 21 divided by 3 equals 7, and 7 is a prime number. We know 168 is now 
      * fully factored. We simply list the divisors to write the factors of 168.
      *
-     * 168 ÷ 2 = 84
-     * 84 ÷ 2 = 42
-     * 42 ÷ 2 = 21
-     * 21 ÷ 3 = 7 Prime number
-     * prime factors = 2 × 2 × 2 × 3 × 7
+     * 168 ï¿½ 2 = 84
+     * 84 ï¿½ 2 = 42
+     * 42 ï¿½ 2 = 21
+     * 21 ï¿½ 3 = 7 Prime number
+     * prime factors = 2 ï¿½ 2 ï¿½ 2 ï¿½ 3 ï¿½ 7
      *
      * To check the answer, multiply these factors and make 
      * sure they equal 168. 
