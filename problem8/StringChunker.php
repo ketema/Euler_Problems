@@ -14,9 +14,9 @@ class StringChunker
 
         if( sizeof($arr) > $chunkSize)
         { 
-            foreach( range(0, (sizeof($arr) - ($chunkSize + 1)) ) as $index )
+            foreach( range(0, (sizeof($arr) - $chunkSize) ) as $index )
             {
-               array_push($chunks, array_slice($arr, $index, $index + $chunkSize)); 
+               array_push($chunks, array_slice($arr, $index, $chunkSize)); 
             }
         }
         else{

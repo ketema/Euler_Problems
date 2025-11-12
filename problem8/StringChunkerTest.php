@@ -18,10 +18,21 @@ class StringChunkerTest
         $this->assertInternalType( 'array', $this->fixture->chunk($this->bigString, $this->chunkSize));
     }
 
-    public function testChunkReturnedArrayLengthIsChunkSize()
+    public function testChunkReturnedArrayLengthIsCorrect()
     {
-        $this->assertEquals($this->chunkSize, 
+        // For sliding window: number of chunks = strlen(string) - chunkSize + 1
+        // For 1000-digit string with chunkSize 5: 1000 - 5 + 1 = 996 chunks
+        $expectedChunks = strlen($this->bigString) - $this->chunkSize + 1;
+        $this->assertEquals($expectedChunks,
             sizeof($this->fixture->chunk($this->bigString,$this->chunkSize)));
+    }
+
+    public function testEachChunkHasCorrectLength()
+    {
+        $chunks = $this->fixture->chunk($this->bigString, $this->chunkSize);
+        foreach($chunks as $chunk) {
+            $this->assertEquals($this->chunkSize, sizeof($chunk));
+        }
     }
 
 }
