@@ -1,0 +1,25 @@
+fmod GENESIS is
+  sorts Point .
+
+  --- Red points (fixed)
+  ops R1 R2 R3 : -> Point [ctor] .
+
+  --- Blue points (use valid Maude identifiers without underscores in position)
+  ops B01 B02 : -> Point [ctor] .
+
+  --- Pair operator (commutative)
+  op pair : Point Point -> Point [comm] .
+
+  --- Idempotency
+  vars A B C D : Point .
+  eq pair(A, A) = A .
+
+  --- Simple Pappus (unguarded for now - just to test syntax)
+  ---  eq pair(pair(A, B), pair(C, D)) = pair(pair(A, D), pair(C, B)) .
+
+endfm
+
+--- Test reduction
+red pair(B01, B02) .
+red pair(R1, B01) .
+red pair(pair(B01, B02), pair(R1, R2)) .
