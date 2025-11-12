@@ -1,0 +1,41 @@
+==========================================
+reduce in GENESIS : B01 * B02 .
+rewrites: 0 in 0ms cpu (0ms real) (~ rewrites/second)
+result Point: B01 * B02
+==========================================
+reduce in GENESIS : R1 * B01 .
+rewrites: 0 in 0ms cpu (0ms real) (~ rewrites/second)
+result Point: R1 * B01
+==========================================
+reduce in GENESIS : R2 * B01 .
+rewrites: 0 in 0ms cpu (0ms real) (~ rewrites/second)
+result Point: R2 * B01
+==========================================
+reduce in GENESIS : R3 * B01 .
+rewrites: 0 in 0ms cpu (0ms real) (~ rewrites/second)
+result Point: R3 * B01
+==========================================
+reduce in GENESIS : R1 * B02 .
+rewrites: 0 in 0ms cpu (0ms real) (~ rewrites/second)
+result Point: R1 * B02
+==========================================
+reduce in GENESIS : R2 * B02 .
+rewrites: 0 in 0ms cpu (0ms real) (~ rewrites/second)
+result Point: R2 * B02
+==========================================
+reduce in GENESIS : R3 * B02 .
+rewrites: 0 in 0ms cpu (0ms real) (~ rewrites/second)
+result Point: R3 * B02
+==========================================
+reduce in GENESIS : R1 * R2 .
+rewrites: 0 in 0ms cpu (0ms real) (~ rewrites/second)
+result Point: R1 * R2
+==========================================
+reduce in GENESIS : R1 * R3 .
+rewrites: 0 in 0ms cpu (0ms real) (~ rewrites/second)
+result Point: R1 * R3
+==========================================
+reduce in GENESIS : R2 * R3 .
+rewrites: 0 in 0ms cpu (0ms real) (~ rewrites/second)
+result Point: R2 * R3
+Bye.

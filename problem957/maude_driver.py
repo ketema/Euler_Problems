@@ -85,11 +85,18 @@ fmod GENESIS is
 
         script += "\n"
 
+        # REMOVED: Canonical form equations cause infinite rewriting loops
+        # Blues are treated as atomic constructors; Pappus creates equalities between
+        # complex expressions and existing blues, not automatic expansions
+
+        script += "\n"
+
         # Add provenance facts (on_same_range) from ProvenanceFSM
+        # CRITICAL: Check ALL point pairs (blues+reds), not just blues
         script += "  --- Provenance: on_same_range\n"
-        blues_list = sorted(current_blues)
-        for i, a in enumerate(blues_list):
-            for b in blues_list[i+1:]:
+        all_points = sorted(current_blues | self.reds)
+        for i, a in enumerate(all_points):
+            for b in all_points[i+1:]:
                 if self.provenance.is_on_same_range(a, b):
                     script += f"  eq onSameRange({a}, {b}) = true .\n"
                     script += f"  eq onSameRange({b}, {a}) = true .\n"
@@ -98,12 +105,13 @@ fmod GENESIS is
         script += "  eq onSameRange(A, B) = false [owise] .\n\n"
 
         # Add triangle edges from ProvenanceFSM
+        # Check triangles among all points (blues+reds)
         script += "  --- Provenance: triangleEdge\n"
-        for i, a in enumerate(blues_list):
-            for j in range(i+1, len(blues_list)):
-                b = blues_list[j]
-                for k in range(j+1, len(blues_list)):
-                    c = blues_list[k]
+        for i, a in enumerate(all_points):
+            for j in range(i+1, len(all_points)):
+                b = all_points[j]
+                for k in range(j+1, len(all_points)):
+                    c = all_points[k]
                     if self.provenance.has_triangle(a, b, c):
                         script += f"  eq triangleEdge({a}, {b}, {c}) = true .\n"
         script += "  eq triangleEdge(A, B, C) = false [owise] .\n\n"
@@ -133,16 +141,10 @@ endfm
                 terms.append(f"{a} * {b}")
 
         # Create reductions for each term
-        if len(terms) <= 10:
-            # For small sets, reduce individually
-            for term in terms:
-                script += f"reduce in GENESIS : {term} .\n"
-        else:
-            # For larger sets, reduce first few
-            script += f"--- Computing {len(terms)} pair terms\n"
-            for term in terms[:10]:
-                script += f"reduce in GENESIS : {term} .\n"
-            script += f"--- ... ({len(terms)-10} more terms)\n"
+        # CRITICAL FIX: Reduce ALL terms, not just first 10
+        script += f"--- Computing {len(terms)} pair terms\n"
+        for term in terms:
+            script += f"reduce in GENESIS : {term} .\n"
 
         return script
 
@@ -202,14 +204,29 @@ endfm
                 continue
 
             a, b = pair_match.groups()
+            pair = frozenset({a, b})
 
-            # CRITICAL FIX: Require exactly one red AND one blue (red-blue pair)
-            # Use exact set membership, not substring matching
+            # AI Panel Fix: Check if this pair already created an existing blue
+            # Iterate through all existing blues and check if this pair is registered as its base
+            if any(pair in self.provenance.base_pairs.get(blue_label, set()) for blue_label in current_blues):
+                continue  # Skip - this pair already used to create an existing blue
+
+            # CRITICAL FIX: Use exact set membership, not substring matching
             has_red = (a in self.reds or b in self.reds)
             has_blue = (a in current_blues or b in current_blues)
 
-            if has_red and has_blue:
-                new_forms.append(f)
+            # Day-dependent filtering:
+            # - Day 0 (no provenance): Only red-blue pairs create new blues
+            # - Day 1+ (provenance exists): Blue-blue pairs can collapse via Pappus
+            if len(self.provenance.range_pairs) == 0:
+                # Day 0→1: Only accept red-blue pairs
+                if has_red and has_blue:
+                    new_forms.append(f)
+            else:
+                # Day 1+: Accept any form with at least one blue
+                # (rejects pure red-red pairs)
+                if has_blue:
+                    new_forms.append(f)
 
         # Debug: print what forms we're accepting
         print(f"  Accepted {len(new_forms)} new red-blue forms: {sorted(new_forms)}")
@@ -314,11 +331,11 @@ endfm
 if __name__ == "__main__":
     solver = MaudeSolver()
 
-    # Start with day 0→1 to test
+    # Test to day 2 to verify g(2)=28
     print("Testing Maude solver with provenance tracking...")
     print()
 
-    sequence = solver.solve(target_day=1)
+    sequence = solver.solve(target_day=2)
 
     print()
     print("="*80)

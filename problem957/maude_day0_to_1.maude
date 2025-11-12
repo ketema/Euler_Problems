@@ -1,0 +1,50 @@
+
+fmod GENESIS is
+  sorts Point .
+
+  --- Red points (fixed)
+  ops R1 R2 R3 : -> Point [ctor] .
+
+  --- Pair operator (commutative, idempotent on leaves)
+  op _*_ : Point Point -> Point [comm] .
+
+  --- Idempotency on leaves
+  vars A B C D : Point .
+  eq A * A = A .
+
+  --- Provenance predicates
+  op onSameRange : Point Point -> Bool .
+  op triangleEdge : Point Point Point -> Bool .
+
+  --- Current blues
+  op B01 : -> Point [ctor] .
+  op B02 : -> Point [ctor] .
+
+
+  --- Provenance: on_same_range
+  eq onSameRange(A, B) = false [owise] .
+
+  --- Provenance: triangleEdge
+  eq triangleEdge(A, B, C) = false [owise] .
+
+  --- Guarded Pappus: (A*B)*(C*D) = (A*D)*(C*B) if A,C and B,D share ranges
+  ceq (A * B) * (C * D) = (A * D) * (C * B)
+    if onSameRange(A, C) == true /\ onSameRange(B, D) == true .
+
+  --- Guarded Desargues: additional collapses when perspective triangles exist
+  --- (Simplified for now - can add full Desargues with triangleEdge checks)
+
+endfm
+
+--- Generate all pair(a,b) terms
+--- Computing 10 pair terms
+reduce in GENESIS : B01 * B02 .
+reduce in GENESIS : B01 * R1 .
+reduce in GENESIS : B01 * R2 .
+reduce in GENESIS : B01 * R3 .
+reduce in GENESIS : B02 * R1 .
+reduce in GENESIS : B02 * R2 .
+reduce in GENESIS : B02 * R3 .
+reduce in GENESIS : R1 * R2 .
+reduce in GENESIS : R1 * R3 .
+reduce in GENESIS : R2 * R3 .

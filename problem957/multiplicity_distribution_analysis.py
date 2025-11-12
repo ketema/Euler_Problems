@@ -50,11 +50,13 @@ def compute_day_with_multiplicity(reds: List[Point], blues: Set[Point]) -> tuple
                 if result:
                     p = result[0]
 
-                    # Track lines through this point
-                    if p not in point_to_lines:
-                        point_to_lines[p] = set()
-                    point_to_lines[p].add(i)
-                    point_to_lines[p].add(j)
+                    # Ensure intersection is a Point, not a Line (collinear case)
+                    if isinstance(p, Point):
+                        # Track lines through this point
+                        if p not in point_to_lines:
+                            point_to_lines[p] = set()
+                        point_to_lines[p].add(i)
+                        point_to_lines[p].add(j)
 
     # Extract NEW blues with their multiplicities
     new_blues = set()

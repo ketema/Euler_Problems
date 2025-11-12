@@ -1,0 +1,86 @@
+================================================================================
+MULTIPLICITY DISTRIBUTION ANALYSIS
+================================================================================
+
+Configuration:
+  Reds:  3 points
+  Blues (day 0): 2 points
+
+================================================================================
+DAY-BY-DAY ANALYSIS
+================================================================================
+
+Day 0 → Day 1
+--------------------------------------------------------------------------------
+  Current blues: g(0) = 2
+  Lines drawn: 6
+  Possible intersections: C(6,2) = 15
+  New blues: 6
+  New blues multiplicity distribution:
+    Multiplicity 2:    6 points (100.0%)
+  Average multiplicity: 2.00
+  Time: 0.06s
+  Result: g(1) = 8
+
+Day 1 → Day 2
+--------------------------------------------------------------------------------
+  Current blues: g(1) = 8
+  Lines drawn: 24
+  Possible intersections: C(24,2) = 276
+  New blues: 20
+  New blues multiplicity distribution:
+    Multiplicity 2:    6 points ( 30.0%)
+    Multiplicity 3:    2 points ( 10.0%)
+    Multiplicity 4:   12 points ( 60.0%)
+  Average multiplicity: 3.30
+  Time: 0.25s
+  Result: g(2) = 28
+
+Day 2 → Day 3
+--------------------------------------------------------------------------------
+  Current blues: g(2) = 28
+  Lines drawn: 84
+  Possible intersections: C(84,2) = 3486
+  New blues: 156
+  New blues multiplicity distribution:
+    Multiplicity 2:   66 points ( 42.3%)
+    Multiplicity 3:    6 points (  3.8%)
+    Multiplicity 6:   24 points ( 15.4%)
+    Multiplicity 7:   54 points ( 34.6%)
+    Multiplicity 8:    6 points (  3.8%)
+  Average multiplicity: 4.62
+  Time: 3.39s
+  Result: g(3) = 184
+
+Day 3 → Day 4
+--------------------------------------------------------------------------------
+  Current blues: g(3) = 184
+  Lines drawn: 552
+  Possible intersections: C(552,2) = 152076
+  New blues: 1460
+  New blues multiplicity distribution:
+    Multiplicity 2:   60 points (  4.1%)
+    Multiplicity 3:  234 points ( 16.0%)
+    Multiplicity 4:  186 points ( 12.7%)
+    Multiplicity 5:   84 points (  5.8%)
+    Multiplicity 6:  136 points (  9.3%)
+    Multiplicity 7:   24 points (  1.6%)
+    Multiplicity 8:   30 points (  2.1%)
+    Multiplicity 9:    6 points (  0.4%)
+    Multiplicity 10:    6 points (  0.4%)
+    Multiplicity 12:    4 points (  0.3%)
+    Multiplicity 13:   24 points (  1.6%)
+    Multiplicity 14:   60 points (  4.1%)
+    Multiplicity 15:   66 points (  4.5%)
+    Multiplicity 16:  126 points (  8.6%)
+    Multiplicity 17:  162 points ( 11.1%)
+    Multiplicity 18:  108 points (  7.4%)
+    Multiplicity 19:   72 points (  4.9%)
+    Multiplicity 20:   42 points (  2.9%)
+    Multiplicity 21:   30 points (  2.1%)
+  Average multiplicity: 10.32
+  Time: 157.89s
+  Result: g(4) = 1644
+
+Day 4 → Day 5
+--------------------------------------------------------------------------------

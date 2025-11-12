@@ -1,0 +1,69 @@
+================================================================================
+TEST 1: LINEAR RECURRENCES
+================================================================================
+
+Order-3 Linear Recurrence: g(n) = A*g(n-1) + B*g(n-2) + C*g(n-3)
+
+Assuming C=0:
+  Solution: A=500/43, B=-761/43, C=0
+
+Testing: g(n) = 500/43*g(n-1) + -761/43*g(n-2)
+  ✓ g(0) = 2 (correct)
+  ✓ g(1) = 8 (correct)
+  ✓ g(2) = 28 (correct)
+  ✓ g(3) = 184 (correct)
+  ✓ g(4) = 1644 (correct)
+  ✅ PERFECT MATCH - All values correct!
+
+⭐ RECURRENCE FOUND!
+   g(n) = 500/43*g(n-1) + -761/43*g(n-2)
+   with g(0)=2, g(1)=8, g(2)=28
+
+General order-3 (need more constraints):
+
+================================================================================
+TEST 2: POLYNOMIAL CLOSED FORM
+================================================================================
+Already tested: degree-4 polynomial fits g(0)-g(4) exactly
+BUT: g(16) = 1,973,818 was REJECTED by Project Euler
+Conclusion: Polynomial doesn't hold beyond fitted points
+
+================================================================================
+TEST 3: COMBINATORIAL PATTERNS
+================================================================================
+
+Pattern: g(n) = A * C(k*n + m, 2) + D
+  Solving system for A, k, m, D...
+  No solution found
+
+================================================================================
+TEST 4: SEQUENCE ANALYSIS
+================================================================================
+
+Sequence: [2, 8, 28, 184, 1644]
+1st differences: [6, 20, 156, 1460]
+2nd differences: [14, 136, 1304]
+3rd differences: [122, 1168]
+
+Ratios g(n+1)/g(n): ['4.0000', '3.5000', '6.5714', '8.9348']
+Ratio changes: ['-0.5000', '3.0714', '2.3634']
+
+================================================================================
+TEST 5: FACTORIZATIONS
+================================================================================
+g(0) = 2 = {2: 1}
+g(1) = 8 = {2: 3}
+g(2) = 28 = {2: 2, 7: 1}
+g(3) = 184 = {2: 3, 23: 1}
+g(4) = 1644 = {2: 2, 3: 1, 137: 1}
+
+================================================================================
+SUMMARY
+================================================================================
+
+If no formula found:
+  → Sequence requires deeper geometric/combinatorial insight
+  → May need to analyze the STRUCTURE of line intersections
+  → Consider: degeneracy patterns, multiplicity distributions
+  → Review Project Euler 957 problem statement for hidden constraints
+

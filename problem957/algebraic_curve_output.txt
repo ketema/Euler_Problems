@@ -1,0 +1,89 @@
+================================================================================
+ALGEBRAIC CURVE HYPOTHESIS TEST
+================================================================================
+
+g(1) = 8 computed
+g(2) = 28 computed
+g(3) = 184 computed
+
+================================================================================
+TESTING COMMON ALGEBRAIC CURVES
+================================================================================
+
+Day 0: 2 blues
+Sample coords: [(1.0, 1.0), (3.0, 2.0)]
+  ⚠️  Circle: x² + y² = r²: Only 2 distinct values
+  ⚠️  Parabola: y = ax²: Only 2 distinct values
+  ⚠️  Hyperbola: xy = k: Only 2 distinct values
+  ⚠️  Ellipse: x²/a² + y²/b² = 1: Only 2 distinct values
+  ⚠️  Line: y = mx + b: Only 2 distinct values
+
+Day 1: 8 blues
+Sample coords: [(0.75, 0.5), (1.0, 1.0), (1.3333333333333333, 0.8888888888888888), (2.25, 3.5), (2.5, 2.5)]
+
+Day 2: 28 blues
+Sample coords: [(0.36, 0.56), (0.4782608695652174, -0.043478260869565216), (0.5333333333333333, 0.5333333333333333), (0.7058823529411765, 1.0980392156862746), (0.75, 0.5)]
+
+================================================================================
+POLYNOMIAL CURVE FITTING
+================================================================================
+
+
+Day 0: Attempting polynomial fit (degree 2-4)
+/Users/ketema/projects/Euler_Problems/problem957/algebraic_curve_test.py:122: RankWarning: Polyfit may be poorly conditioned
+  coeffs = np.polyfit(xs, ys, degree)
+  ✓ Degree 2: max_error = 0.000000
+    Coefficients: [0.06538462 0.23846154 0.69615385]
+/Users/ketema/projects/Euler_Problems/problem957/algebraic_curve_test.py:122: RankWarning: Polyfit may be poorly conditioned
+  coeffs = np.polyfit(xs, ys, degree)
+  ✓ Degree 3: max_error = 0.000000
+    Coefficients: [0.01050857 0.0414574  0.19755893 0.75047509]
+/Users/ketema/projects/Euler_Problems/problem957/algebraic_curve_test.py:122: RankWarning: Polyfit may be poorly conditioned
+  coeffs = np.polyfit(xs, ys, degree)
+  ✓ Degree 4: max_error = 0.000000
+    Coefficients: [0.00208147 0.00750875 0.03360537 0.1847058  0.7720986 ]
+
+Day 1: Attempting polynomial fit (degree 2-4)
+  ✗ Degree 2: max_error = 1.053364 (too large)
+  ✗ Degree 3: max_error = 0.895074 (too large)
+  ✗ Degree 4: max_error = 0.528711 (too large)
+
+Day 2: Attempting polynomial fit (degree 2-4)
+  ✗ Degree 2: max_error = 2.067439 (too large)
+  ✗ Degree 3: max_error = 2.070595 (too large)
+  ✗ Degree 4: max_error = 1.525831 (too large)
+
+================================================================================
+GEOMETRIC STRUCTURE ANALYSIS
+================================================================================
+
+Day 2: 28 points
+All coordinates are rational: True
+
+Checking if points form integer lattice...
+Sample exact coords:
+  (44/37, 16/37)
+  (57/11, -2/11)
+  (11/2, -1/2)
+  (24/7, 16/7)
+  (8/3, 8/3)
+  (55/13, -5/13)
+  (44/43, -4/43)
+  (20/13, 20/13)
+  (5/2, 5/2)
+  (4/3, 8/9)
+
+================================================================================
+CONCLUSION
+================================================================================
+
+If no simple algebraic curve found:
+  → Points NOT on standard curve (circle, parabola, hyperbola, line)
+  → May lie on higher-degree algebraic variety
+  → OR: Configuration is projectively special but not curve-based
+
+Next steps:
+  1. If curve found: Use Bezout's theorem for intersection counting
+  2. If no curve: Return to combinatorial approach or search for
+     alternative geometric structure (incidence geometry, design theory)
+
