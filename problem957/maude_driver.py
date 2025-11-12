@@ -123,13 +123,13 @@ endfm
 
 """
 
-        # Generate all pair terms
+        # Generate all pair terms (blues and reds)
         script += "--- Generate all pair(a,b) terms\n"
 
-        blues_list = sorted(current_blues)
+        all_points = sorted(current_blues | self.reds)
         terms = []
-        for i, a in enumerate(blues_list):
-            for b in blues_list[i+1:]:
+        for i, a in enumerate(all_points):
+            for b in all_points[i+1:]:
                 terms.append(f"{a} * {b}")
 
         # Create reductions for each term
@@ -174,6 +174,9 @@ endfm
         Parse Maude output to extract canonical forms.
 
         Returns: {new_blue_label: (a, b)} for new blues generated
+
+        AI Panel Finding: Accept form IFF it contains one red AND one blue
+        (exact set membership, not substring matching)
         """
         # Parse lines like: "result Point: B01 * B02"
         result_pattern = re.compile(r'^result Point\s*:\s*(.+)$', re.MULTILINE)
@@ -183,9 +186,33 @@ endfm
             form = match.group(1).strip()
             canonical_forms.add(form)
 
-        # Filter out existing blues and reds
+        # Filter: accept only red-blue pairs
         all_existing = current_blues | self.reds
-        new_forms = [f for f in canonical_forms if f not in all_existing]
+        new_forms = []
+
+        for f in canonical_forms:
+            # Skip if form is an existing point
+            if f in all_existing:
+                continue
+
+            # Parse the form to extract point labels
+            pair_match = re.match(r'^(\w+)\s*\*\s*(\w+)$', f)
+            if not pair_match:
+                # Complex nested form - skip for now (will handle later days)
+                continue
+
+            a, b = pair_match.groups()
+
+            # CRITICAL FIX: Require exactly one red AND one blue (red-blue pair)
+            # Use exact set membership, not substring matching
+            has_red = (a in self.reds or b in self.reds)
+            has_blue = (a in current_blues or b in current_blues)
+
+            if has_red and has_blue:
+                new_forms.append(f)
+
+        # Debug: print what forms we're accepting
+        print(f"  Accepted {len(new_forms)} new red-blue forms: {sorted(new_forms)}")
 
         # Assign labels to new forms
         new_blues = {}
