@@ -36,7 +36,7 @@ bigString = '7316717653133062491922511967442657474235534919493496983520312774506
 testStrings = ['12345','123456', bigString]
 invalidStr = '1234'
 
-chunkSize = 5
+chunkSize = 13
 
 products = (for chunk in fixture.chunk(bigString,chunkSize)
     fixture.product(chunk))
@@ -57,14 +57,14 @@ describe 'StringChunker', ->
     it 'Should verify the length of each chunk is chunkSize', ->
         expect(chunk.length).toEqual(chunkSize) for chunk in  fixture.chunk(bigString,chunkSize)
 
-    it 'Should verify the first chunk is [7,3,1,6,7]', ->
-        expect(fixture.chunk(bigString,chunkSize)[0]).toEqual([7,3,1,6,7])
+    it 'Should verify the first chunk is [7,3,1,6,7,1,7,6,5,3,1,3,3]', ->
+        expect(fixture.chunk(bigString,chunkSize)[0]).toEqual([7,3,1,6,7,1,7,6,5,3,1,3,3])
 
     it 'Should be able to calc sum of a chunk', ->
-        expect(fixture.sum(fixture.chunk(bigString,chunkSize)[0])).toEqual(24)
+        expect(fixture.sum(fixture.chunk(bigString,chunkSize)[0])).toEqual(53)
 
     it 'Should be able to calc product of a chunk', ->
-        expect(fixture.product(fixture.chunk(bigString,chunkSize)[0])).toEqual(882)
+        expect(fixture.product(fixture.chunk(bigString,chunkSize)[0])).toEqual(5000940)
 
     it 'Should be able to find the max product of all the chunks', ->
-        expect(fixture.getMaxProd(products)).toEqual(40824)
+        expect(fixture.getMaxProd(products)).toEqual(23514624000)
