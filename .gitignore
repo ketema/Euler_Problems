@@ -95,3 +95,20 @@ a.out
 
 # Go compiled
 go.sum
+
+# Agent worktrees (managed by worktree_manager.sh)
+euler-gemini/
+euler-myclaude2/
+
+# Agent-specific environment files (generated from templates)
+*/.envrc
+euler-*/.envrc
+.envrc-backups/
+.worktree-state/
+
+# Agent-specific build artifacts
+target-*/
+.venv-*/
+.stack-work-*/
+node_modules-*/
+.nuget-*/
