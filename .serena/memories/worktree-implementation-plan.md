@@ -119,7 +119,21 @@ readonly REQUIRES_PORTS=false  # No web servers or listening services
 4. `generate_envrc` (line 257-357):
    - Remove lines 306-311 (port generation call)
    - Remove PORT placeholder from template substitution (line 324)
-   - Keep AGENT_NAME and PROJECT_ROOT substitutions
+   - **SECURITY**: Add input validation before substitution
+     ```bash
+     # Validate agent_name (prevent injection)
+     if [[ ! "$agent_name" =~ ^[a-zA-Z0-9_-]+$ ]]; then
+         log_error "Invalid agent name format: $agent_name"
+         return 1
+     fi
+     # Validate PROJECT_ROOT (must be absolute path)
+     if [[ ! "$PROJECT_ROOT" =~ ^/ ]]; then
+         log_error "PROJECT_ROOT must be absolute path: $PROJECT_ROOT"
+         return 1
+     fi
+     ```
+   - Use properly quoted sed substitutions (macOS sed with .bak extension)
+   - Note: ametek_chess already has agent_name validation (line 314-318), keeping pattern
 
 ### Phase 3: Dependencies Setup
 
@@ -128,7 +142,7 @@ readonly REQUIRES_PORTS=false  # No web servers or listening services
 scripts/
 ├── worktree_manager.sh (main script)
 ├── lib/
-│   ├── cross_platform_utils.sh (macOS/Linux compatibility)
+│   ├── cross_platform_utils.sh (macOS utilities - Linux support not needed)
 │   └── validation/
 │       └── agent-names.sh (name validation, colors)
 └── templates/
@@ -142,6 +156,8 @@ mkdir -p scripts/lib/validation scripts/templates/agent-specific
 cp ~/projects/ametek_chess/scripts/lib/cross_platform_utils.sh scripts/lib/
 cp ~/projects/ametek_chess/scripts/lib/validation/agent-names.sh scripts/lib/validation/
 ```
+
+**Note**: macOS-only environment (cross-platform compatibility not required)
 
 ### Phase 4: Template Creation
 
@@ -287,14 +303,18 @@ If 3rd project requires worktree management:
 3. **Copy and adapt worktree_manager.sh**
    ```bash
    cp ~/projects/ametek_chess/scripts/worktree_manager.sh scripts/worktree_manager.sh
-   # Edit: Remove DB functions, change "ametek" → "euler", port range 30000-39999
+   # Edit: Remove DB functions, remove port functions, change "ametek" → "euler"
+   # Add: set -euo pipefail at top (if not present)
+   # Keep: Existing agent_name validation (line 314-318)
+   # Add: PROJECT_ROOT validation in generate_envrc
    ```
 
 4. **Create .envrc template**
    - Copy from ametek_chess template
    - Remove DATABASE_URL and PostgreSQL variables
+   - Remove AGENT_PORT variable
    - Add Haskell-specific paths
-   - Update port range
+   - Template placeholders: {{AGENT_NAME}}, {{PROJECT_ROOT}} only
 
 5. **Initialize template system**
    ```bash
@@ -311,11 +331,22 @@ If 3rd project requires worktree management:
    - Store comparison matrix
    - Document future expansion criteria (3rd project threshold)
 
-8. **Test with myclaude2 agent**
+8. **Comprehensive Testing**
    ```bash
+   # Positive tests
    ./scripts/worktree_manager.sh create myclaude2
    ./scripts/worktree_manager.sh health
-   # Verify: euler-myclaude2/ exists, .envrc correct, no DB errors
+   # Verify: euler-myclaude2/ exists, .envrc correct, no DB errors, no AGENT_PORT
+
+   # Negative tests
+   ./scripts/worktree_manager.sh create "invalid name!"  # Should fail validation
+   cd euler-myclaude2 && touch dirty.txt && git add dirty.txt
+   ./scripts/worktree_manager.sh remove myclaude2  # Should fail (dirty worktree)
+   ./scripts/worktree_manager.sh remove myclaude2 --force  # Should succeed
+
+   # Security tests
+   ./scripts/worktree_manager.sh create 'agent$(whoami)'  # Should fail validation
+   # Verify template substitution uses validated inputs only
    ```
 
 9. **Update main .envrc**
@@ -328,22 +359,140 @@ If 3rd project requires worktree management:
 
 ✅ Script runs without database errors
 ✅ `create myclaude2` generates euler-myclaude2/ directory
-✅ .envrc has port in 30000-39999 range
+✅ No AGENT_PORT in agent .envrc (removed)
 ✅ No DATABASE_URL in agent .envrc
 ✅ Health check passes for created agent
 ✅ agent-coordination skill works with ${AGENT_WORKTREE_PREFIX}
 ✅ Memory documents Euler vs ametek_chess differences
+✅ Positive tests pass (create, health, remove)
+✅ Negative tests properly reject invalid inputs
+✅ Security tests validate input sanitization
+✅ Template substitution uses validated inputs only
+✅ set -euo pipefail present for error handling
 
 ## Rollback Plan
 
-If implementation fails:
-1. Remove scripts/ directory
-2. Remove created worktrees: `git worktree remove euler-*`
-3. Restore from ametek_chess if needed
-4. Document failure reason in memory for next attempt
+**If implementation fails during any phase**:
+
+1. **Code Rollback**
+   ```bash
+   git status  # Check what was modified
+   git reset --hard HEAD  # Discard all uncommitted changes
+   # OR if changes were committed:
+   git revert <commit-hash>  # Revert specific commit
+   ```
+
+2. **Worktree Cleanup**
+   ```bash
+   # List all euler-* worktrees
+   git worktree list | grep euler-
+
+   # Remove each worktree (forced if needed)
+   git worktree remove --force euler-myclaude2
+   git worktree remove --force euler-gemini
+   # etc.
+
+   # Prune orphaned references
+   git worktree prune
+   ```
+
+3. **Directory Cleanup**
+   ```bash
+   # Remove scripts directory if created
+   rm -rf scripts/
+
+   # Remove .worktree-state if created
+   rm -rf .worktree-state/
+
+   # Remove any agent-specific artifacts
+   rm -rf logs/*/
+   rm -rf .tmp-*/
+   rm -rf target-*/
+   ```
+
+4. **Skill Revert** (if agent-coordination skill was updated)
+   ```bash
+   cd ~/.claude/skills/agent-coordination
+   git status
+   git reset --hard HEAD  # Revert skill changes
+   # OR manually restore from backup
+   ```
+
+5. **Environment Cleanup**
+   ```bash
+   # Remove AGENT_WORKTREE_PREFIX from main .envrc if added
+   # Edit .envrc manually to remove the line
+   direnv allow  # Refresh environment
+   ```
+
+6. **Verification**
+   ```bash
+   git worktree list  # Should show no euler-* worktrees
+   ls -la scripts/  # Should not exist (or restored state)
+   git log --oneline -5  # Verify clean state
+   ```
+
+7. **Document Failure**
+   ```bash
+   # Create failure analysis in memory
+   echo "## Worktree Implementation Failure - $(date)" >> .serena/memories/worktree-failures.md
+   echo "Reason: [describe what failed]" >> .serena/memories/worktree-failures.md
+   echo "Next steps: [what to try differently]" >> .serena/memories/worktree-failures.md
+   ```
+
+**Rollback Triggers**:
+- Script errors during adaptation (syntax, missing functions)
+- Template security validation failures
+- Test failures (positive, negative, or security tests)
+- agent-coordination skill integration issues
+- File permission or direnv errors
+
+## AI Panel Feedback Integration
+
+**Review**: Submitted to AI Panel (conversation cf5bce47, 2025-01-18)
+**Score**: 6/10 (Medium Complexity, Medium Feasibility)
+**Model**: gemini-2.5-flash (Google)
+
+**Strengths Identified**:
+- ✅ Rigorous YAGNI compliance
+- ✅ Correct abstraction threshold (copy+adapt for 2 projects)
+- ✅ Excellent documentation strategy
+- ✅ Well-defined cross-project coordination
+
+**Critical Issues Addressed**:
+
+1. **Template Security** (HIGH - Medium Severity)
+   - Issue: sed-based substitution vulnerable to shell injection
+   - Solution: Added input validation in `generate_envrc` (lines 122-136)
+   - Validates agent_name format (alphanumeric + hyphen/underscore)
+   - Validates PROJECT_ROOT is absolute path
+   - Note: ametek_chess already has agent_name validation (line 314-318)
+
+2. **Testing Strategy** (HIGH - Medium Severity)
+   - Issue: Missing negative tests, security tests
+   - Solution: Added comprehensive testing (step 8, lines 334-350)
+   - Positive: create, health, remove
+   - Negative: invalid names, dirty worktree protection
+   - Security: injection attempts validation
+
+3. **Rollback Plan** (MEDIUM - Low Severity)
+   - Issue: No formal rollback beyond git revert
+   - Solution: 7-step rollback procedure (lines 373-448)
+   - Covers: code, worktrees, directories, skill, environment
+   - Includes verification and failure documentation
+
+4. **Error Handling** (MEDIUM - Low Severity)
+   - Issue: No mention of set -euo pipefail
+   - Solution: Added to step 3 (line 307) and success criteria (line 371)
+
+**Cross-Platform Note**:
+- User confirmed macOS-only environment
+- Cross-platform compatibility not required (removed from concerns)
+- cross_platform_utils.sh retained but Linux compatibility not tested
 
 ## Token Efficiency Notes
 
 - Copy + adapt cheaper than abstract + configure (YAGNI validated)
 - Environment variable approach (${AGENT_WORKTREE_PREFIX}) adds 0 complexity
 - Two-project comparison documented for free 3rd-project evaluation
+- AI Panel feedback integrated: +5 success criteria, 7-step rollback, security hardening
