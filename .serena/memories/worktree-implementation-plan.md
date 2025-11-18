@@ -332,21 +332,86 @@ If 3rd project requires worktree management:
    - Document future expansion criteria (3rd project threshold)
 
 8. **Comprehensive Testing**
+
+   **8.1 Positive Tests**
    ```bash
-   # Positive tests
+   # Test: Create agent worktree
    ./scripts/worktree_manager.sh create myclaude2
+   # Expected output: "Success: Agent myclaude2 workspace created at euler-myclaude2"
+   # Expected exit code: 0
+   # Expected filesystem state:
+   #   - euler-myclaude2/ directory exists
+   #   - euler-myclaude2/.envrc exists (no AGENT_PORT, no DATABASE_URL)
+   #   - euler-myclaude2/.vscode/settings.json exists
+   #   - logs/myclaude2/ directory exists
+   #   - .tmp-myclaude2/ directory exists
+
+   # Test: Health check
    ./scripts/worktree_manager.sh health
-   # Verify: euler-myclaude2/ exists, .envrc correct, no DB errors, no AGENT_PORT
+   # Expected output: "All checks passed - environment is healthy"
+   # Expected exit code: 0
+   # Expected checks:
+   #   - "direnv is installed" (success)
+   #   - "Agent myclaude2: .envrc exists" (success)
+   #   - "Agent myclaude2: direnv allowed" (success)
+   #   - Total: "0 issues" reported
+   ```
 
-   # Negative tests
-   ./scripts/worktree_manager.sh create "invalid name!"  # Should fail validation
-   cd euler-myclaude2 && touch dirty.txt && git add dirty.txt
-   ./scripts/worktree_manager.sh remove myclaude2  # Should fail (dirty worktree)
-   ./scripts/worktree_manager.sh remove myclaude2 --force  # Should succeed
+   **8.2 Negative Tests**
+   ```bash
+   # Test: Invalid agent name (special characters)
+   ./scripts/worktree_manager.sh create "invalid name!"
+   # Expected output: "Error: Invalid agent name format: invalid name!"
+   # Expected exit code: 1
+   # Expected filesystem state: No euler-invalid* directory created
 
-   # Security tests
-   ./scripts/worktree_manager.sh create 'agent$(whoami)'  # Should fail validation
-   # Verify template substitution uses validated inputs only
+   # Test: Dirty worktree protection
+   cd euler-myclaude2 && touch dirty.txt && git add dirty.txt && cd ..
+   ./scripts/worktree_manager.sh remove myclaude2
+   # Expected output: "Error: Worktree has uncommitted changes. Use --force to override or commit changes first."
+   # Expected output: "Uncommitted files:" followed by "A  dirty.txt"
+   # Expected exit code: 1
+   # Expected filesystem state: euler-myclaude2/ still exists
+
+   # Test: Force removal succeeds
+   ./scripts/worktree_manager.sh remove myclaude2 --force
+   # Expected output: "Agent myclaude2 workspace removed"
+   # Expected exit code: 0
+   # Expected filesystem state: euler-myclaude2/ directory removed
+   ```
+
+   **8.3 Security Tests**
+   ```bash
+   # Test: Command injection attempt in agent name
+   ./scripts/worktree_manager.sh create 'agent$(whoami)'
+   # Expected output: "Error: Invalid agent name format: agent$(whoami)"
+   # Expected exit code: 1
+   # Expected filesystem state: No euler-agent* directory created
+   # Expected behavior: whoami command NOT executed (validation prevents injection)
+
+   # Test: Path traversal attempt
+   ./scripts/worktree_manager.sh create '../../../etc/passwd'
+   # Expected output: "Error: Invalid agent name format: ../../../etc/passwd"
+   # Expected exit code: 1
+   # Expected filesystem state: No directories created outside project root
+
+   # Test: Template substitution verification
+   # After successful create, inspect .envrc:
+   grep -E '\$\(|`|;|\||&' euler-myclaude2/.envrc
+   # Expected output: Empty (no command substitution characters)
+   # Expected exit code: 1 (grep finds nothing)
+   # Validates: Template uses only validated AGENT_NAME and PROJECT_ROOT
+   ```
+
+   **8.4 Regression Tests** (run after any modifications)
+   ```bash
+   # Full lifecycle test
+   ./scripts/worktree_manager.sh create testbot
+   ./scripts/worktree_manager.sh list | grep euler-testbot
+   ./scripts/worktree_manager.sh health
+   ./scripts/worktree_manager.sh remove testbot --force
+   git worktree list | grep euler-testbot
+   # Expected: Last command exits 1 (worktree no longer listed)
    ```
 
 9. **Update main .envrc**
@@ -398,25 +463,70 @@ If 3rd project requires worktree management:
 
 3. **Directory Cleanup**
    ```bash
-   # Remove scripts directory if created
-   rm -rf scripts/
+   # SAFETY: Validate paths before destructive operations
+   if [[ -d "scripts" ]] && [[ "$(pwd)" == *"Euler_Problems" ]]; then
+       rm -rf scripts/
+       echo "Removed: scripts/"
+   fi
 
-   # Remove .worktree-state if created
-   rm -rf .worktree-state/
+   if [[ -d ".worktree-state" ]]; then
+       rm -rf .worktree-state/
+       echo "Removed: .worktree-state/"
+   fi
 
-   # Remove any agent-specific artifacts
-   rm -rf logs/*/
-   rm -rf .tmp-*/
-   rm -rf target-*/
+   # Remove agent-specific artifacts (validate euler-* pattern)
+   for dir in logs/* .tmp-* target-*; do
+       if [[ -d "$dir" ]] && [[ "$dir" =~ (logs|\.tmp|target)-[a-zA-Z0-9_-]+$ ]]; then
+           rm -rf "$dir"
+           echo "Removed: $dir"
+       fi
+   done
    ```
 
 4. **Skill Revert** (if agent-coordination skill was updated)
    ```bash
+   # EXPLANATION: agent-coordination skill is SHARED across all projects
+   # Location: ~/.claude/skills/agent-coordination/skill.md
+   # Used by: ametek_chess, Euler_Problems, and potentially other projects
+   # Changes made: Hardcoded "ametek-claude" paths → ${AGENT_WORKTREE_PREFIX}-claude
+
+   # SAFETY: Check if skill was actually modified before resetting
    cd ~/.claude/skills/agent-coordination
-   git status
-   git reset --hard HEAD  # Revert skill changes
-   # OR manually restore from backup
+
+   if git diff --quiet; then
+       echo "Skill not modified - no reset needed"
+   else
+       echo "WARNING: Skill is shared across projects. Resetting will affect:"
+       echo "  - ametek_chess agent coordination"
+       echo "  - Euler_Problems agent coordination"
+       echo "  - Any other projects using this skill"
+       echo ""
+       read -p "Proceed with skill reset? (y/N): " -n 1 -r
+       echo
+       if [[ $REPLY =~ ^[Yy]$ ]]; then
+           # Create backup before reset
+           git stash save "Rollback backup - $(date -Iseconds)"
+           echo "Changes stashed. Restore with: git stash pop"
+
+           # Show what will be reverted
+           git diff HEAD
+
+           # Reset skill
+           git reset --hard HEAD
+           echo "Skill reset complete"
+       else
+           echo "Skill reset skipped - manual review required"
+       fi
+   fi
    ```
+
+   **Why This Matters**:
+   - The agent-coordination skill lives in ~/.claude/skills/ (Claude Code's global skill directory)
+   - It's NOT project-specific - ALL projects use the same skill file
+   - Phase 4 of implementation updates skill.md to use ${AGENT_WORKTREE_PREFIX} variable
+   - This makes the skill work for BOTH ametek_chess AND Euler_Problems
+   - Reverting the skill would break agent coordination for ALL projects, not just Euler
+   - **Recommendation**: Only revert skill if BOTH projects need rollback, otherwise leave skill changes in place
 
 5. **Environment Cleanup**
    ```bash
@@ -489,6 +599,27 @@ If 3rd project requires worktree management:
 - User confirmed macOS-only environment
 - Cross-platform compatibility not required (removed from concerns)
 - cross_platform_utils.sh retained but Linux compatibility not tested
+
+**Second Iteration Refinements** (addressing 3 remaining risks):
+
+1. **Rollback rm -rf Safety** (HIGH - Implemented)
+   - Issue: Variables could be empty/malformed, deleting unintended files
+   - Solution: Added path validation before all rm -rf operations (lines 401-419)
+   - Guards: pwd check for Euler_Problems, directory existence, pattern matching for agent artifacts
+   - Example: `if [[ -d "scripts" ]] && [[ "$(pwd)" == *"Euler_Problems" ]]; then`
+
+2. **Test Automation Clarity** (MEDIUM - Implemented)
+   - Issue: Test commands didn't specify expected outputs/exit codes
+   - Solution: Expanded testing section with expected results (lines 336-415)
+   - Coverage: Expected output, exit codes, filesystem state for each test
+   - Categories: Positive (8.1), Negative (8.2), Security (8.3), Regression (8.4)
+
+3. **Skill Directory Reset** (MEDIUM - Documented + Safeguarded)
+   - Issue: ~/.claude/skills/agent-coordination is SHARED across all projects
+   - Explanation: Skill is global, not project-specific (lines 458-464)
+   - Impact: Resetting skill breaks agent coordination for ametek_chess AND Euler_Problems
+   - Solution: Added user confirmation prompt + git stash backup (lines 431-455)
+   - Recommendation: Only revert skill if BOTH projects need rollback
 
 ## Token Efficiency Notes
 
