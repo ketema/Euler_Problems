@@ -36,11 +36,7 @@ source_utility() {
 source_utility "cross_platform_utils.sh"
 source_utility "lib/validation/agent-names.sh"
 
-# Configuration
-readonly MAX_AGENT_NAME_LENGTH=40
-readonly MIN_AGENT_NAME_LENGTH=2
-
-# Colors are already defined in agent-names.sh, so we use those
+# Note: MAX_AGENT_NAME_LENGTH, MIN_AGENT_NAME_LENGTH, and colors are defined in agent-names.sh
 
 # Logging functions
 log_info() {
