@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+# Auto-generated .envrc for agent: {{AGENT_NAME}}
+# Generated from scripts/templates/envrc.template
+# DO NOT EDIT DIRECTLY - Edit template and run: ./scripts/worktree_manager.sh sync-envrc
+
+# Core environment configuration
+export CARGO_TARGET_DIR="target-{{AGENT_NAME}}"
+export POETRY_VIRTUALENVS_IN_PROJECT=true
+export POETRY_VIRTUALENVS_PATH=".venv-{{AGENT_NAME}}"
+export LOG_DIR="logs/{{AGENT_NAME}}"
+# Use PID-scoped TMPDIR to avoid collisions when multiple instances run
+export TMPDIR="/tmp/{{AGENT_NAME}}-${$}"
+
+# Memory MCP Server - Shared persistent storage across all worktrees
+export MEMORY_FILE_PATH="$HOME/.config/claude-code/shared-memory.json"
+
+# Agent identification for Build System Isolation
+export AGENT_NAME="{{AGENT_NAME}}"
+
+# Build system isolation - agent-specific directories
+export RUST_TARGET_DIR="$PWD/target-{{AGENT_NAME}}"
+export PYTHON_VENV_DIR="$PWD/.venv-{{AGENT_NAME}}"
+export HASKELL_STACK_WORK="$PWD/.stack-work-{{AGENT_NAME}}"
+export NODE_MODULES_DIR="$PWD/node_modules-{{AGENT_NAME}}"
+export FSHARP_NUGET_DIR="$PWD/.nuget-{{AGENT_NAME}}"
+
+# Build isolation flag
+export BUILD_ISOLATION=true
+
+# Resource limits for this agent
+export CARGO_BUILD_JOBS=3
+export STACK_THREADS=3
+
+# Stack function for isolated work directory (better direnv compatibility than alias)
+stack() {
+    command stack --work-dir .stack-work-{{AGENT_NAME}} "$@"
+}
+
+# Project root for absolute path references
+export EULER_PROJECT_ROOT="{{PROJECT_ROOT}}"
+
+# Worktree prefix for agent coordination (cross-project skill compatibility)
+export AGENT_WORKTREE_PREFIX="euler"
