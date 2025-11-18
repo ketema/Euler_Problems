@@ -304,8 +304,8 @@ generate_envrc() {
     
     # Update state tracking
     update_state "sync" "$agent_name"
-    
-    log_success "Generated .envrc for $agent_name (port: $port)"
+
+    log_success "Generated .envrc for $agent_name"
     return 0
 }
 
