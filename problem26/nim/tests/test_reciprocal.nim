@@ -30,7 +30,8 @@ suite "Reciprocal Cycle Tests":
     check findCycleLength(1) == 0
 
   test "findCycleLength for 1/997 (large prime)":
-    check findCycleLength(997) == 996
+    # Note: 997 is prime, cycle length is 166 (divides 996 = 997-1)
+    check findCycleLength(997) == 166
 
   # Integration tests
   test "findLongestCycle under 10":

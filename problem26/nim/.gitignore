@@ -1,0 +1,22 @@
+# Nim compiled files
+*.exe
+*.dll
+*.so
+*.dylib
+test_*
+!test_*.nim
+!test_*.nimble
+
+# Nim cache
+nimcache/
+nimblecache/
+
+# Coverage files
+*.lcov
+coverage.info
+htmlcov/
+
+# Temporary files
+*.tmp
+verify_*
+!verify_*.nim
