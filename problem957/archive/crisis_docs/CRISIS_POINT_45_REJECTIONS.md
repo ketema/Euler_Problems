@@ -1,14 +1,15 @@
 # Crisis Point: 45+ Rejections Analysis
 
-## Date: 2025-01-11
+## Date: 2025-01-11 (Updated)
 
 ## Current Status
-**Total Rejections: 45+**
+**Total Rejections: 46+**
 
 ### Recent Session (Today)
 - ✗ **4** - GCD(8,28), fundamental divisor, inverse of LCM
 - ✗ **14** - 112/8, related to rejected product
 - ✗ **20** - 28-8, **CRITICAL**: growth rate between g(1) and g(2)
+- ✗ **16** - Self-referential (g(16) = 16), meta-puzzle answer
 
 ### Historical Rejections (Comprehensive List)
 
@@ -34,11 +35,12 @@
 15. 828 - Concatenation 8||28
 16. 112 - Product P×G = 16×7, exact divisions
 
-**Small Numbers (4)**
+**Small Numbers (5)**
 17. 56 - C(8,3) = LCM(8,28), binomial
 18. 4 - GCD(8,28), inverse of LCM ← TODAY
 19. 14 - 112/8 or 2×7 ← TODAY
 20. 20 - 28-8, growth rate ← TODAY (CRITICAL)
+21. 16 - Self-referential g(16)=16, meta-puzzle ← TODAY
 
 ## Pattern Analysis
 
