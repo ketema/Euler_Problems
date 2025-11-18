@@ -435,6 +435,28 @@ If 3rd project requires worktree management:
 ✅ Template substitution uses validated inputs only
 ✅ set -euo pipefail present for error handling
 
+## Ongoing Maintenance (CRITICAL for Polyglot Project)
+
+**Unlike monorepo projects, Euler_Problems is discovery-based polyglot**:
+- New languages added as learning progresses (Rust, Haskell, F#, Python, Node currently)
+- Build isolation must be extended for each new compiled language
+
+**MANDATORY when using new compiled language**:
+
+1. Research language build cache directories (official docs)
+2. Update `scripts/templates/envrc.template` with isolation variables
+3. Run `./scripts/worktree_manager.sh sync-envrc` to update all agents
+4. Test concurrent builds in multiple worktrees
+5. Document in `.serena/memories/polyglot-build-isolation-pattern.md`
+
+**Reference**: See `.serena/memories/polyglot-build-isolation-pattern.md` for:
+- Current language isolation (Rust, Python, Haskell, Node, F#)
+- Patterns for future languages (Java, Go, Ruby, Scala, OCaml, Elixir, Clojure)
+- Detection pattern (watch for build artifacts in project root)
+- Step-by-step maintenance protocol
+
+**Detection Signal**: If ANY build cache directory appears in project root instead of worktree-specific location → update template immediately
+
 ## Rollback Plan
 
 **If implementation fails during any phase**:
