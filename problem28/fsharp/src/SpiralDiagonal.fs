@@ -1,43 +1,26 @@
 module SpiralDiagonal
 
-open System
+/// Calculate the sum of numbers on both diagonals in an n×n spiral grid
+/// The spiral starts from 1 at the center and moves clockwise outward
+let calculateDiagonalSum (n: int) : int =
+    // Validation: grid size must be positive
+    if n <= 0 then
+        raise (System.ArgumentException("Grid size must be positive"))
 
-/// <summary>
-/// Calculates the sum of numbers on both diagonals in an n×n spiral grid.
-/// The spiral starts at center with value 1 and proceeds clockwise.
-/// </summary>
-/// <param name="gridSize">Size of the grid (must be odd and positive)</param>
-/// <returns>Sum of all diagonal elements</returns>
-/// <exception cref="System.ArgumentException">
-/// Thrown when gridSize is even, negative, or zero
-/// </exception>
-let calculateDiagonalSum (gridSize: int) : int =
-    // Validation
-    if gridSize <= 0 then
-        raise (ArgumentException("Grid size must be positive"))
+    // Validation: grid size must be odd
+    if n % 2 = 0 then
+        raise (System.ArgumentException("Grid size must be odd"))
 
-    if gridSize % 2 = 0 then
-        raise (ArgumentException("Grid size must be odd"))
-
-    // Base case: 1×1 grid
-    if gridSize = 1 then
+    // Base case: 1x1 grid has only the center value 1
+    if n = 1 then
         1
     else
-        // Calculate number of rings (layers) around the center
-        let numRings = (gridSize - 1) / 2
+        // Mathematical formula:
+        // For a spiral starting at center 1, moving right then clockwise
+        // The diagonals can be computed using a closed-form formula
+        // Sum = (4n³ + 3n² + 8n - 9) / 6  where n is grid size
 
-        // Start with center value
-        let mutable sum = 1
-        let mutable currentValue = 1
-
-        // Process each ring
-        for ring in 1 .. numRings do
-            let increment = 2 * ring
-
-            // Each ring has 4 corners
-            // Calculate and add all 4 corners
-            for corner in 1 .. 4 do
-                currentValue <- currentValue + increment
-                sum <- sum + currentValue
-
-        sum
+        // Using integer arithmetic to avoid potential floating point issues
+        let n64 = int64 n
+        let numerator = 4L * n64 * n64 * n64 + 3L * n64 * n64 + 8L * n64 - 9L
+        int (numerator / 6L)

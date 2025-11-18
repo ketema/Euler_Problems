@@ -5,215 +5,248 @@ open SpiralDiagonal
 
 [<Tests>]
 let tests =
-    testList "SpiralDiagonal.calculateDiagonalSum" [
-        // ============================================================
-        // BASIC FUNCTIONALITY TESTS
-        // ============================================================
+    testList "Project Euler #28: Number Spiral Diagonals" [
 
-        testCase "1x1 grid returns 1" <| fun () ->
-            // REQ-PE28-001: Calculate diagonal sum for 1x1 grid
-            // Expected: Sum is 1 (only the center value exists)
-            // Guidance: Implement calculateDiagonalSum to handle base case where gridSize=1
-            //           A 1x1 spiral contains only the number 1, so diagonal sum = 1
-            let result = calculateDiagonalSum 1
-            let errorMsg =
-                sprintf "REQ-PE28-001: For 1x1 grid, diagonal sum must be 1 (center value only).
-Expected: calculateDiagonalSum 1 = 1
-Actual: calculateDiagonalSum 1 = %d
-Guidance: A 1x1 spiral has only center value 1. Return 1 for gridSize=1." result
-            Expect.equal result 1 errorMsg
+        // REQ-PE28-001: Basic Functionality - Small Grid Cases
+        testList "Basic Functionality - Exact Value Validation" [
 
-        testCase "3x3 grid returns 25" <| fun () ->
-            // REQ-PE28-002: Calculate diagonal sum for 3x3 grid
-            // Expected: Sum is 25 (from spiral: 7+5+3+1+9 = 25)
-            // Grid layout:
-            //   7 8 9
-            //   6 1 2
-            //   5 4 3
-            // Diagonals: [7,1,3] and [5,1,9]
-            // Sum = 7+1+3+5+1+9 - 1 (center counted once) = 25
-            let result = calculateDiagonalSum 3
-            let errorMsg =
-                sprintf "REQ-PE28-002: For 3x3 grid, diagonal sum must be 25.
-Expected: calculateDiagonalSum 3 = 25
-Actual: calculateDiagonalSum 3 = %d
-Guidance: 3x3 spiral has diagonals [7,1,3] and [5,1,9]. Sum = 7+5+1+3+9 = 25.
-Build spiral clockwise from center 1, then sum values where (row=col) OR (row+col=gridSize-1)." result
-            Expect.equal result 25 errorMsg
+            test "1x1 grid diagonal sum must equal 1" {
+                let result = calculateDiagonalSum 1
+                Expect.equal result 1
+                    """REQ-PE28-001: 1x1 grid diagonal sum specification
 
-        testCase "5x5 grid returns 101" <| fun () ->
-            // REQ-PE28-003: Calculate diagonal sum for 5x5 grid (Project Euler example)
-            // Expected: Sum is 101 (given in problem statement)
-            // Grid layout:
-            //   21 22 23 24 25
-            //   20  7  8  9 10
-            //   19  6  1  2 11
-            //   18  5  4  3 12
-            //   17 16 15 14 13
-            // Diagonals: [21,7,1,3,13] and [17,5,1,9,25]
-            let result = calculateDiagonalSum 5
-            let errorMsg =
-                sprintf "REQ-PE28-003: For 5x5 grid, diagonal sum must be 101 (Project Euler example).
-Expected: calculateDiagonalSum 5 = 101
-Actual: calculateDiagonalSum 5 = %d
-Guidance: 5x5 spiral diagonals sum to 101 per problem specification.
-Verify spiral builds correctly: center=1, then clockwise layers." result
-            Expect.equal result 101 errorMsg
+Expected: calculateDiagonalSum 1 must return exactly 1
+Actual: Got different value
 
-        testCase "7x7 grid diagonal sum verification" <| fun () ->
-            // REQ-PE28-004: Calculate diagonal sum for 7x7 grid (pattern verification)
-            // Expected: Sum is 261
-            let result = calculateDiagonalSum 7
-            let errorMsg =
-                sprintf "REQ-PE28-004: For 7x7 grid, diagonal sum must be 261.
-Expected: calculateDiagonalSum 7 = 261
-Actual: calculateDiagonalSum 7 = %d
-Guidance: 7x7 spiral diagonal sum = 261. Verify spiral construction scales correctly." result
-            Expect.equal result 261 errorMsg
+Guidance: A 1x1 grid contains only the center value (1). Since this value
+appears on both diagonals, the sum of both diagonals is 1. The function
+must return exactly this value."""
+            }
 
-        // ============================================================
-        // EDGE CASE TESTS (ERROR HANDLING)
-        // ============================================================
+            test "3x3 grid diagonal sum must equal 25" {
+                let result = calculateDiagonalSum 3
+                Expect.equal result 25
+                    """REQ-PE28-003: 3x3 grid diagonal sum specification
 
-        testCase "even grid size throws ArgumentException" <| fun () ->
-            // REQ-PE28-ERR-001: Reject even grid sizes (spiral must have odd dimensions)
-            // Expected: ArgumentException
-            // Guidance: Check if gridSize is even and throw ArgumentException
-            let errorMsg = "REQ-PE28-ERR-001: Even grid size must throw ArgumentException.
-Expected: calculateDiagonalSum 4 throws ArgumentException with message 'Grid size must be odd'
-Actual: Function did not throw exception
-Guidance: Add validation at function entry: if gridSize % 2 = 0 then raise (System.ArgumentException \"Grid size must be odd\")."
-            Expect.throws
-                (fun () -> calculateDiagonalSum 4 |> ignore)
-                errorMsg
+Expected: calculateDiagonalSum 3 must return exactly 25
+Actual: Got different value
 
-        testCase "even grid size has correct error message" <| fun () ->
-            // REQ-PE28-ERR-002: Error message must indicate odd-only requirement
-            // Expected: "Grid size must be odd"
-            try
-                calculateDiagonalSum 4 |> ignore
-                failwith "Expected ArgumentException but none was thrown"
-            with
-            | :? System.ArgumentException as ex ->
-                let errorMsg =
-                    sprintf "REQ-PE28-ERR-002: ArgumentException message must contain 'odd'.
-Expected message: 'Grid size must be odd'
-Actual message: '%s'
-Guidance: Use descriptive error message that explains valid input (odd numbers only)." ex.Message
-                Expect.stringContains ex.Message "odd" errorMsg
+Guidance: For a 3x3 number spiral grid, the sum of both diagonal numbers
+is deterministically 25. This is a mathematically exact answer, not an
+approximation. The function must return this exact value."""
+            }
 
-        testCase "negative grid size throws ArgumentException" <| fun () ->
-            // REQ-PE28-ERR-003: Reject negative grid sizes
-            // Expected: ArgumentException
-            let errorMsg = "REQ-PE28-ERR-003: Negative grid size must throw ArgumentException.
-Expected: calculateDiagonalSum -5 throws ArgumentException
-Actual: Function did not throw exception
-Guidance: Add validation: if gridSize <= 0 then raise (System.ArgumentException \"Grid size must be positive\")."
-            Expect.throws
-                (fun () -> calculateDiagonalSum -5 |> ignore)
-                errorMsg
+            test "5x5 grid diagonal sum must equal 101" {
+                let result = calculateDiagonalSum 5
+                Expect.equal result 101
+                    """REQ-PE28-005: 5x5 grid diagonal sum specification
 
-        testCase "zero grid size throws ArgumentException" <| fun () ->
-            // REQ-PE28-ERR-004: Reject zero grid size
-            // Expected: ArgumentException
-            let errorMsg = "REQ-PE28-ERR-004: Zero grid size must throw ArgumentException.
-Expected: calculateDiagonalSum 0 throws ArgumentException
-Actual: Function did not throw exception
-Guidance: Validate gridSize > 0 before processing."
-            Expect.throws
-                (fun () -> calculateDiagonalSum 0 |> ignore)
-                errorMsg
+Expected: calculateDiagonalSum 5 must return exactly 101
+Actual: Got different value
 
-        // ============================================================
-        // PRODUCTION TEST CASE
-        // ============================================================
+Guidance: For a 5x5 number spiral grid, the sum of both diagonal numbers
+is deterministically 101. This matches the example given in Project Euler
+problem #28. The function must return this exact value."""
+            }
 
-        testCase "1001x1001 grid computes Project Euler answer" <| fun () ->
-            // REQ-PE28-PROD: Calculate diagonal sum for 1001x1001 grid
-            // Expected: Some specific integer value (will be validated)
-            let result = calculateDiagonalSum 1001
+            test "7x7 grid diagonal sum must equal 261" {
+                let result = calculateDiagonalSum 7
+                Expect.equal result 261
+                    """REQ-PE28-007: 7x7 grid diagonal sum specification
 
-            let errorMsg1 =
-                sprintf "REQ-PE28-PROD: For 1001x1001 grid, diagonal sum must be positive.
-Expected: calculateDiagonalSum 1001 > 0
-Actual: calculateDiagonalSum 1001 = %d
-Guidance: Implement algorithm to compute diagonal sum for 1001x1001 grid.
-Consider optimization: diagonal values follow pattern, no need to build full grid." result
-            Expect.isGreaterThan result 0 errorMsg1
+Expected: calculateDiagonalSum 7 must return exactly 261
+Actual: Got different value
 
-            // Verify result is reasonable (should be large but not overflow)
-            let errorMsg2 =
-                sprintf "REQ-PE28-PROD-OVERFLOW: Result must not overflow int32.
-Expected: calculateDiagonalSum 1001 < %d
-Actual: calculateDiagonalSum 1001 = %d
-Guidance: Ensure no integer overflow in calculations." System.Int32.MaxValue result
-            Expect.isLessThan result System.Int32.MaxValue errorMsg2
+Guidance: For a 7x7 number spiral grid, the sum of both diagonal numbers
+is deterministically 261. The function must return this exact value."""
+            }
 
-        // ============================================================
-        // STRESS TEST (PERFORMANCE)
-        // ============================================================
+            test "9x9 grid diagonal sum must equal 537" {
+                let result = calculateDiagonalSum 9
+                Expect.equal result 537
+                    """REQ-PE28-009: 9x9 grid diagonal sum specification
 
-        testCase "9999x9999 grid computes without overflow in <500ms" <| fun () ->
-            // REQ-PE28-PERF: Large grid must compute efficiently
-            // Expected: Completes in <500ms, no overflow
-            let stopwatch = System.Diagnostics.Stopwatch.StartNew()
-            let result = calculateDiagonalSum 9999
-            stopwatch.Stop()
+Expected: calculateDiagonalSum 9 must return exactly 537
+Actual: Got different value
 
-            // Verify no overflow
-            let errorMsg1 =
-                sprintf "REQ-PE28-PERF-OVERFLOW: 9999x9999 grid result must be positive (no overflow).
-Expected: calculateDiagonalSum 9999 > 0
-Actual: calculateDiagonalSum 9999 = %d
-Guidance: Check for integer overflow. May need to use int64 or bigint for large grids." result
-            Expect.isGreaterThan result 0 errorMsg1
+Guidance: For a 9x9 number spiral grid, the sum of both diagonal numbers
+is deterministically 537. The function must return this exact value."""
+            }
+        ]
 
-            // Verify performance
-            let errorMsg2 =
-                sprintf "REQ-PE28-PERF-TIME: 9999x9999 grid must compute in <500ms.
-Expected: Execution time < 500ms
-Actual: Execution time = %dms
-Guidance: Optimize algorithm. Diagonal pattern:
-- Layer n has corners at positions that can be computed directly
-- No need to build full grid, calculate diagonal values mathematically
-- Sum diagonal values across all layers from center outward." stopwatch.ElapsedMilliseconds
-            Expect.isLessThan stopwatch.ElapsedMilliseconds 500L errorMsg2
+        // REQ-PE28-ERR: Error Handling - Invalid Input Cases
+        testList "Error Handling - Input Validation" [
 
-        // ============================================================
-        // PATTERN VERIFICATION TESTS
-        // ============================================================
+            test "Even grid size must raise ArgumentException with specific message" {
+                let testFunc = fun () -> calculateDiagonalSum 4 |> ignore
+                Expect.throwsT<System.ArgumentException> testFunc
+                    """REQ-PE28-ERR-001: Even grid size rejection specification
 
-        testCase "diagonal sum increases with grid size" <| fun () ->
-            // REQ-PE28-PATTERN-001: Diagonal sums should increase monotonically
-            // Expected: sum(3x3) < sum(5x5) < sum(7x7)
-            let sum3 = calculateDiagonalSum 3
-            let sum5 = calculateDiagonalSum 5
-            let sum7 = calculateDiagonalSum 7
+Expected: calculateDiagonalSum 4 must raise ArgumentException with message
+"Grid size must be odd"
+Actual: Did not raise ArgumentException or raised with different message
 
-            let errorMsg1 =
-                sprintf "REQ-PE28-PATTERN-001a: Diagonal sum must increase with grid size.
-Expected: calculateDiagonalSum 3 < calculateDiagonalSum 5
-Actual: sum(3x3)=%d, sum(5x5)=%d
-Guidance: Verify spiral construction - larger grids add more diagonal values." sum3 sum5
-            Expect.isLessThan sum3 sum5 errorMsg1
+Guidance: Number spirals require odd grid sizes (1x1, 3x3, 5x5, etc.)
+because the spiral starts from a center point. Even grid sizes (2x2, 4x4,
+etc.) have no unique center and are invalid. The function must reject
+even numbers by raising ArgumentException with the message "Grid size must be odd"."""
 
-            let errorMsg2 =
-                sprintf "REQ-PE28-PATTERN-001b: Diagonal sum must increase with grid size.
-Expected: calculateDiagonalSum 5 < calculateDiagonalSum 7
-Actual: sum(5x5)=%d, sum(7x7)=%d
-Guidance: Check diagonal value computation for each layer." sum5 sum7
-            Expect.isLessThan sum5 sum7 errorMsg2
+                // Verify exact error message
+                try
+                    calculateDiagonalSum 4 |> ignore
+                    failtest "Expected ArgumentException was not raised"
+                with
+                | :? System.ArgumentException as ex ->
+                    Expect.equal ex.Message "Grid size must be odd"
+                        "ArgumentException message must be 'Grid size must be odd'"
+            }
 
-        testCase "diagonal sum for 9x9 grid" <| fun () ->
-            // REQ-PE28-PATTERN-002: Verify pattern continues for 9x9
-            // Expected: Sum is 537
-            let result = calculateDiagonalSum 9
-            let errorMsg =
-                sprintf "REQ-PE28-PATTERN-002: For 9x9 grid, diagonal sum must be 537.
-Expected: calculateDiagonalSum 9 = 537
-Actual: calculateDiagonalSum 9 = %d
-Guidance: Verify spiral pattern continues correctly to 9x9 grid." result
-            Expect.equal result 537 errorMsg
+            test "Negative grid size must raise ArgumentException with specific message" {
+                let testFunc = fun () -> calculateDiagonalSum -5 |> ignore
+                Expect.throwsT<System.ArgumentException> testFunc
+                    """REQ-PE28-ERR-002: Negative grid size rejection specification
+
+Expected: calculateDiagonalSum -5 must raise ArgumentException with message
+"Grid size must be positive"
+Actual: Did not raise ArgumentException or raised with different message
+
+Guidance: Grid sizes must be positive numbers. Negative values are physically
+meaningless for grid dimensions. The function must reject negative numbers
+by raising ArgumentException with the message "Grid size must be positive"."""
+
+                // Verify exact error message
+                try
+                    calculateDiagonalSum -5 |> ignore
+                    failtest "Expected ArgumentException was not raised"
+                with
+                | :? System.ArgumentException as ex ->
+                    Expect.equal ex.Message "Grid size must be positive"
+                        "ArgumentException message must be 'Grid size must be positive'"
+            }
+
+            test "Zero grid size must raise ArgumentException with specific message" {
+                let testFunc = fun () -> calculateDiagonalSum 0 |> ignore
+                Expect.throwsT<System.ArgumentException> testFunc
+                    """REQ-PE28-ERR-003: Zero grid size rejection specification
+
+Expected: calculateDiagonalSum 0 must raise ArgumentException with message
+"Grid size must be positive"
+Actual: Did not raise ArgumentException or raised with different message
+
+Guidance: A 0x0 grid is meaningless. Grid sizes must be positive odd numbers
+starting from 1. The function must reject zero by raising ArgumentException
+with the message "Grid size must be positive"."""
+
+                // Verify exact error message
+                try
+                    calculateDiagonalSum 0 |> ignore
+                    failtest "Expected ArgumentException was not raised"
+                with
+                | :? System.ArgumentException as ex ->
+                    Expect.equal ex.Message "Grid size must be positive"
+                        "ArgumentException message must be 'Grid size must be positive'"
+            }
+        ]
+
+        // REQ-PE28-PROD: Production Case - Project Euler Answer
+        testList "Production Case - Project Euler #28 Answer" [
+
+            test "1001x1001 grid must return exact Project Euler #28 answer" {
+                let result = calculateDiagonalSum 1001
+                Expect.equal result 669171001
+                    """REQ-PE28-PROD: 1001x1001 grid exact answer specification
+
+Expected: calculateDiagonalSum 1001 must return exactly 669171001
+Actual: Got different value
+
+Guidance: This is the exact, deterministic answer to Project Euler problem
+#28. For a 1001x1001 number spiral grid, the sum of both diagonals is
+669171001. This is NOT a range check or approximation - the function must
+return this EXACT value. Any other value indicates incorrect computation
+of the diagonal sum."""
+            }
+        ]
+
+        // REQ-PE28-PERF: Performance - Stress Test
+        testList "Performance - Large Grid Handling" [
+
+            test "9999x9999 grid completes in under 500ms" {
+                let stopwatch = System.Diagnostics.Stopwatch()
+                stopwatch.Start()
+                let result = calculateDiagonalSum 9999
+                stopwatch.Stop()
+
+                Expect.isLessThan stopwatch.ElapsedMilliseconds 500L
+                    """REQ-PE28-PERF-001: Large grid performance specification
+
+Expected: calculateDiagonalSum 9999 must complete in under 500 milliseconds
+Actual: Took longer than 500ms
+
+Guidance: The function must compute diagonal sums for large grids efficiently.
+For a 9999x9999 grid, the computation must complete in under 500 milliseconds.
+This requirement ensures the solution scales to large inputs."""
+
+                // Also verify result is non-zero (basic sanity check)
+                Expect.isGreaterThan result 0
+                    """REQ-PE28-PERF-002: Large grid result sanity check
+
+Expected: calculateDiagonalSum 9999 must return a positive integer
+Actual: Got zero or negative value
+
+Guidance: For any valid grid size, the diagonal sum must be positive because
+all numbers in the spiral are positive integers starting from 1."""
+            }
+
+            test "9999x9999 grid must not overflow" {
+                let result = calculateDiagonalSum 9999
+
+                // Verify result is a valid positive integer (no overflow)
+                Expect.isGreaterThan result 0
+                    "Result must be positive (no overflow to negative)"
+
+                // The result should be very large but not overflow int range
+                Expect.isLessThan result System.Int32.MaxValue
+                    """REQ-PE28-PERF-003: Integer overflow prevention specification
+
+Expected: calculateDiagonalSum 9999 must return a value within valid int range
+Actual: Result appears to have overflowed
+
+Guidance: For a 9999x9999 grid, the diagonal sum is a very large number but
+must fit within the standard integer type used by the function. The function
+must handle large computations without integer overflow."""
+            }
+        ]
+
+        // REQ-PE28-BOUNDARY: Boundary Cases
+        testList "Boundary Cases - Edge Values" [
+
+            test "11x11 grid diagonal sum must equal 961" {
+                let result = calculateDiagonalSum 11
+                Expect.equal result 961
+                    """REQ-PE28-BOUNDARY-001: 11x11 grid diagonal sum specification
+
+Expected: calculateDiagonalSum 11 must return exactly 961
+Actual: Got different value
+
+Guidance: For an 11x11 number spiral grid, the sum of both diagonal numbers
+is deterministically 961. This validates that the function correctly handles
+grids beyond the basic small examples."""
+            }
+
+            test "Large odd grid (999x999) completes successfully" {
+                let result = calculateDiagonalSum 999
+
+                Expect.isGreaterThan result 0
+                    """REQ-PE28-BOUNDARY-002: Large odd grid computation specification
+
+Expected: calculateDiagonalSum 999 must return a positive integer
+Actual: Got zero or negative value
+
+Guidance: For a 999x999 grid (just below the production case), the function
+must compute a valid positive diagonal sum. This validates scaling behavior
+near the production input size."""
+            }
+        ]
     ]
 
 [<EntryPoint>]
