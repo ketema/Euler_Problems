@@ -47,10 +47,16 @@ proc findCycleLength*(d: int): int =
 proc findLongestCycle*(limit: int): (int, int) =
   ## Find d < limit with longest cycle in 1/d
   ## Returns (d, cycle_length)
+  ## Mathematical optimization: Skip multiples of 2 and 5 (terminating decimals)
   var maxD = 0
   var maxLength = 0
 
   for d in 2..<limit:
+    # Mathematical property: 1/d terminates iff d divides 10^k (i.e., d = 2^a × 5^b)
+    # Skip multiples of 2 and 5 to avoid checking terminating decimals
+    if d mod 2 == 0 or d mod 5 == 0:
+      continue
+
     let length = findCycleLength(d)
     if length > maxLength:
       maxD = d
