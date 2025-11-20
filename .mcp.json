@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "ai-panel": {
+      "type": "http",
+      "url": "http://localhost:30097/mcp",
+      "headers": {
+        "Accept": "application/json, text/event-stream",
+        "MCP-Protocol-Version": "2025-06-18"
+      }
+    }
+  }
+}
