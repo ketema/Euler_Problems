@@ -1,0 +1,23 @@
+# Elm build artifacts
+elm-stuff/
+
+# Node modules (if using elm-test locally)
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Editor files
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# elm-test generated
+tests/elm-stuff/
