@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 Project Euler Problem 40: Champernowne's Constant
 
@@ -189,3 +190,7 @@ def solve() -> int:
         product *= digit
 
     return product
+
+
+if __name__ == '__main__':
+    print(solve())

@@ -2,6 +2,7 @@
 
 **Precedence**: Constitutional principles (CL1-CL8, QS1-QS6, M1-M5) are foundational
 **Base Constitution**: All constitutional laws, quality standards, macros, and enforcement levels apply
+If any instruction in this document conflicts with the constitutional system prompt currently in effect (CL*, QS*, M1–M5), the constitutional system prompt ALWAYS overrides.
 **Additions**: Claude Code-specific internal tools and behaviors that integrate with the constitutional framework
 
 ---
@@ -16,6 +17,53 @@
 **Native Read/Write/Edit**:
 - Internal file operations for convenience
 - Prefer MCP Serena tools for portability when possible
+
+---
+
+## Prohibited Tools (Constitutional)
+
+**EnterPlanMode**: ⛔ NEVER USE - Constitutional violation
+
+EnterPlanMode bypasses constitutional gates:
+- Skips think_about_task_adherence checkpoint
+- Skips AI Panel critique (MANDATORY)
+- Uses plan file instead of TodoWrite
+- Doesn't create feature branch
+- Weaker approval flow
+
+**Correct Approach**: When planning is needed, follow M3 PLAN ONLY macro with all constitutional gates.
+
+---
+
+## Contract Testing Configuration (CL10)
+
+**File Locations**:
+- Contracts: `contracts/<dependency>.contract.py`
+- Verification: `tests/contracts/test_<dependency>_contract.py`
+- Mocks: `tests/mocks/<dependency>_mock.py` (derived from contract)
+
+**pytest Markers**:
+- `@pytest.mark.contract` - Contract verification tests
+- Run: `pytest -m contract` - Verify all contracts against real providers
+
+**CI Integration**:
+- Contract tests run in CI pipeline before deployment
+- Mock drift (contract failure) blocks deployment
+- Use `--run-contracts` flag for local verification
+
+**Migration Status** (existing mocks requiring contracts):
+- [ ] Database contracts (psycopg2, semantic_search schema)
+- [ ] External API contracts (if any)
+- [ ] File system contracts (if any)
+
+**Example Contract** (from orphaned_at incident):
+```python
+# contracts/database.contract.py
+MEMORY_EVENTS_SCHEMA = {
+    "table": "semantic_search.memory_events",
+    "columns": ["id", "commit_hash", "parent_hash", "orphaned_at", ...]
+}
+```
 
 ---
 
@@ -75,6 +123,12 @@
 
 ### test-writer Invocation (M4.2 RED)
 
+**ADVERSARIAL TDD ENFORCEMENT** (Emphasize in prompt):
+- test-writer BLIND to implementation → Guidance = BEHAVIOR only (WHAT, not HOW)
+- Theater test check: "Can impl be wrong and test pass?" If YES → REJECT
+- Deterministic problems: Exact values, not ranges (e.g., `result = 669171001` not `result > 0`)
+- Prompt template: "You are BLIND to implementation. Guidance describes WHAT behavior, never HOW to implement. For math: exact values."
+
 **Context to Pass**:
 ```yaml
 task_description: "Feature description"
@@ -98,7 +152,29 @@ constraints:
 2. Why (requirement violated)
 3. Expected behavior (spec)
 4. Actual behavior (what happened)
-5. Guidance (how to fix)
+5. Guidance (behavioral only - WHAT, not HOW)
+
+**Point #5 Guidance Format** (MANDATORY - Constitutional Amendment):
+- ❌ **PROHIBITED**: Implementation hints (if/else patterns, function names, file paths, line numbers, code patterns)
+- ✅ **REQUIRED**: Behavioral contracts (exact match required, validation rules, observable requirements)
+- ✅ **REQUIRED**: Observable side effects (logging level, error types, state changes)
+
+**Examples**:
+
+**BAD Guidance (Prescriptive - violates adversarial separation)**:
+```
+"Use if header_value == '2025-03-26' { new_protocol } else { old_protocol }.
+Check validate_mcp_protocol_version() at line 61."
+```
+
+**GOOD Guidance (Behavioral - preserves adversarial separation)**:
+```
+"Protocol validation MUST use exact string match. Any non-exact value → old protocol.
+MUST log malformed versions at WARN level for monitoring.
+Implementation free to choose: equality check, regex, parse+validate, etc."
+```
+
+**Rationale**: AI agents will copy code-like guidance verbatim (token efficiency bias). Behavioral guidance forces exploration and prevents theater tests.
 
 ### coder Invocation (M4.3 GREEN)
 
@@ -150,6 +226,16 @@ else:
 - Full context (tests + impl + requirements)
 - Fix implementation to pass tests
 - Minimal changes only
+
+### Orchestrator Test Quality Audit
+
+**Before approving test-writer output**:
+- [ ] Guidance = BEHAVIOR only (no "build X", "calculate Y", algorithm hints)
+- [ ] Deterministic problems use exact values (not ranges/approximations)
+- [ ] Theater test check passed: "Can impl be wrong and test pass?" = NO
+- [ ] All 5-point error messages present, Point #5 behavioral
+
+**Reference**: See ~/.claude/skills/theater-test-detection/ for detection methodology
 
 ### Evidence Recording
 
@@ -237,6 +323,108 @@ bash("git diff main..feature/branch")
 
 ---
 
+## Copilot CLI (Fast Oneshot Validation)
+
+**Purpose**: Quick expert consultation without full AI Panel overhead
+
+**Tool**: `copilot -p "natural language query"` (oneshot mode ONLY in shell environment)
+
+**Positioning**:
+- **NOT a substitute for AI Panel** - AI Panel provides structured multi-model analysis
+- Copilot is a faster, smaller oneshot version for quick validation
+- Use AI Panel for debugging (debug_assistance), architectural decisions, comprehensive reviews
+- Use copilot for sanity checks, prompt formulation, simple validation
+
+**Capabilities**:
+- ✅ Quick sanity checks ("Is this logic correct?")
+- ✅ Prompt formulation help
+- ✅ Simple validation queries
+- ✅ Type/syntax verification
+- ❌ **Cannot use interactive mode** (no stdin/stdout interaction in tool environment)
+- ❌ **Cannot use `--continue`** (no session persistence between tool calls)
+- ❌ **Cannot edit files** (read-only consultation)
+
+**Syntax Constraints**:
+- Single-line queries only (no multi-line paragraphs)
+- No markdown formatting (no backticks, no code blocks)
+- Escape special characters if needed
+- Content must fit in quoted string: `copilot -p "query here"`
+
+**Model Selection** (from `copilot --help`):
+```
+-m, --model <MODEL>  Specific model to use [default: claude-3-7-sonnet-20250219]
+    --opus           Use Claude Opus (highest capability)
+    --sonnet         Use Claude Sonnet (balanced)
+    --haiku          Use Claude Haiku (fastest)
+```
+
+**Token Economics**:
+- Copilot oneshot: ~100-200 tokens
+- AI Panel ONESHOT: ~1,500 tokens
+- AI Panel PARALLEL: ~15,000 tokens
+- **Result**: Copilot is 7.5x cheaper than AI Panel ONESHOT, 75x cheaper than PARALLEL
+
+**When to Use Copilot** (vs AI Panel):
+```
+DECISION TREE:
+├─ Stuck on bug/blocker? → AI Panel debug_assistance (MANDATORY per CL3)
+├─ Architectural decision? → AI Panel (MANDATORY)
+├─ Need multi-model consensus? → AI Panel PARALLEL
+├─ Complex debugging? → AI Panel debug_assistance (structured sections)
+├─ Quick "is this correct?" → copilot -p "query"
+├─ Prompt formulation help → copilot -p "How should I prompt..."
+└─ Simple validation → copilot -p "query"
+```
+
+**CL3 Enforcement**: DO NOT use copilot for repeated debugging attempts. If stuck (bugs, blockers, unexpected behavior), use AI Panel debug_assistance FIRST. Copilot is for quick validation, not iterative problem-solving.
+
+**Copilot Flags** (from `copilot --help`):
+- `-p, --prompt <PROMPT>`: Natural language instruction
+- `-c, --continue`: Continue previous conversation (⚠️ NOT available in tool environment)
+- `-f, --file <FILE>`: Attach file context
+- `-i, --interactive`: Interactive mode (⚠️ NOT available in tool environment)
+- `--stream`: Stream responses (default: true)
+- `--no-stream`: Disable streaming
+
+**Examples**:
+
+```bash
+# Quick validation (✅ appropriate use)
+copilot -p "Is test expecting successful_creations==1 wrong for create_or_get pattern?"
+
+# Prompt formulation (✅ appropriate use)
+copilot -p "How should I prompt refactor-test-writer to fix stubbed tests while preserving error messages?"
+
+# Type checking (✅ appropriate use)
+copilot -p "PostgreSQL pg_advisory_xact_lock returns VOID or bool?"
+
+# With file context (✅ appropriate use)
+copilot -p "Does this test logic correctly verify concurrent session creation?" -f tests/session_tests.rs
+
+# Complex debugging (❌ should use AI Panel debug_assistance)
+copilot -p "Why does my advisory lock allow duplicates across 10 concurrent tasks?"
+# CORRECT: Use AI Panel debug_assistance with structured sections instead
+```
+
+**Integration with M4 Workflow**:
+```python
+# M4.2 RED: Formulating refactor-test-writer prompt
+copilot -p "How should I prompt refactor-test-writer to replace test stubs with real SessionManager calls?"
+# → Get 7-point strategy → Invoke refactor-test-writer with refined prompt
+
+# M4.3 GREEN: Validating test logic during iteration
+copilot -p "Is test expecting 1 success wrong? Should it verify all tasks succeed with same session_id?"
+# → Confirm test logic is flawed → Fix test instead of implementation
+```
+
+**Token Efficiency Evidence** (Cycle 6 Phase 2):
+- Prompt formulation query: 180 tokens (vs 1.5K for AI Panel ONESHOT)
+- Test logic validation: 150 tokens (vs 1.5K for AI Panel ONESHOT)
+- Total savings: ~2.7K tokens (90% reduction vs AI Panel)
+- **Result**: Enabled 2 critical validations without AI Panel overhead
+
+---
+
 ## Response Template (Constitutional Adherence)
 
 Use MANDATORY response template per constitutional requirement:
@@ -245,6 +433,7 @@ Use MANDATORY response template per constitutional requirement:
 STATE: <workflow state>
 BRANCH: <git branch or "not a git repo">
 TOKEN_BUDGET: <current>/<total> (<percent>%) - <remaining> remaining
+COMPACT_REMINDER: <if 75-80%, display "⚠️ COMPACT NOW: Run /compact to prevent auto-compact failure">
 NEXT MACRO: <deterministic macro>
 
 ACTIONS:
@@ -415,6 +604,24 @@ critique_code(
 - Before large file reads (>10k): trigger if usage >175k
 
 **PreCompact Hook**: Safety net at 95% - saves to `.serena/memories/auto-compact-context-save.md` - use only if proactive handoff missed
+
+**Post-Compaction Status Protocol** (MANDATORY):
+After ANY compaction event, the FIRST response MUST include:
+```
+POST-COMPACTION STATUS:
+- Memory file found: yes/no
+- Memory loaded: yes/no
+- Context recovered: [brief summary of what was restored, or "none - manual /restore-context needed"]
+```
+
+**Detection**: Compaction indicated by `<session-context type="compact">` in system messages
+**Action**:
+1. Check if memory file path was provided in session-context
+2. If yes: Read the memory file using Serena `read_memory` tool
+3. Report status in first response using format above
+4. If no memory path provided: Report "Memory file found: no" and suggest `/restore-context`
+
+**Rationale**: User needs visibility into whether context was automatically restored or manual intervention required
 
 ---
 

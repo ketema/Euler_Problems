@@ -112,3 +112,73 @@ target-*/
 .stack-work-*/
 node_modules-*/
 .nuget-*/
+
+# Scala/Metals LSP
+.bsp/
+.metals/
+.scala-build/
+.bloop/
+metals.sbt
+
+# Clojure LSP
+.clj-kondo/
+.lsp/
+.nrepl-port
+.cpcache/
+
+# Elm
+elm-stuff/
+tests/elm-stuff/
+
+# VSCode LSP caches
+.vscode/perl-lang/
+
+# Erlang/OTP
+_build/
+deps/
+ebin/
+*.beam
+*.plt
+.erlang.cookie
+erl_crash.dump
+*.ez
+
+# Elixir
+_build/
+deps/
+.elixir_ls/
+*.ez
+*.beam
+
+# R
+.Rhistory
+.Rdata
+.RData
+.Ruserdata
+*.Rproj.user/
+
+# Julia
+*.jl.cov
+*.jl.mem
+deps/build.log
+Manifest.toml
+
+# Lua
+*.lua.out
+luac.out
+
+# Dart
+.dart_tool/
+.packages
+pubspec.lock
+build/
+
+# Zig
+zig-cache/
+zig-out/
+
+# Node.js (for elm-test, etc.)
+node_modules/
+
+# LSP test files (temporary)
+lsp_test/

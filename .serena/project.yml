@@ -35,8 +35,7 @@ languages:
 - bash
 - erlang
 - fortran
-- elm
-- nix
+- elm  # ENABLED: elm.json exists in problem33/
 - perl
 - php
 - markdown
